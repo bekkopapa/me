@@ -1,0 +1,82 @@
+    body {
+    user-select: none;
+    }
+    #title{
+      margin-left: 30px;
+    }
+    .icon-link img {
+      width: 60px; /* 아이콘 크기 조절 */
+      height: auto;
+    }
+    .play-button-wrapper {
+      display:flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .play-button {
+      width: 110px;
+      height: auto;
+      position: relative;
+    }
+    .play-button img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: all 0.6s ease;
+    }
+    .play-button img:hover {
+      content: url('icons/button_2.png');
+      transform: scale(1.1);
+    }
+    .black-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s; /* 암전 시간을 조절하려면 이 값을 변경하세요. */
+      z-index: 9999;
+    }
+    footer {
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 30px;
+    }
+    footer p {
+      font-size: 0.8rem;  
+    }
+    td {
+      word-break: break-all;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+    th {
+        color: beige;
+    }
+ 
+    /* 링크 스타일 변경 */
+    a {
+      color: rgb(128, 128, 255);
+      text-decoration: none; /* 밑줄 제거 */
+    }
+    /* 링크에 마우스를 올렸을 때의 스타일 변경 */
+    a:hover {
+      color: rgb(255, 255, 255); /* 글자 색상 변경 */
+      text-decoration: double; /* 밑줄 효과 적용 */
+    }
+    @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 13px;
+
+    }
+    h1 {
+       font-size: 17px;
+       margin-top: 10px;
+    }
+    }
+  

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.7/css/pico.min.css">
+</head>
+<style>
+    header{
+        text-align: center;
+        margin-bottom: -30px;
+    }
+	footer p {
+    text-align: center;
+	font-size: 0.8rem;
+	}
+</style>
+<body>
+    <header><h5>테슬라 전비 환산기</h5></header>
+    <main class="container">
+    
+    <form onsubmit="event.preventDefault(); convert();">
+        <label for="wh_per_km" class="col-form-label col-sm-4">에너지 소모량을 입력하세요 (Wh/km)</label>
+        <input type="number" id="wh_per_km" class="form-control" step="1" placeholder="예 : 150" required>
+        <!-- Button -->
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+        <p id="result" class="mt-3 text-center"></p>
+        <p id="result2" class="mt-3 text-center"></p>
+    </div>
+</main>
+</body>
+<footer>
+    <footer><p>&copy; 2023 - SOHYUNSOO</p></footer>
+</footer>
+<script>
+    function convert() {
+        var whPerKm = parseFloat(document.getElementById("wh_per_km").value);
+        var kmPerKwh = (1000 / whPerKm).toFixed(2);
+        var totalRange = (kmPerKwh * 85).toFixed(0);
+        document.getElementById("result").innerHTML = '환산단위는 ' + kmPerKwh + ' km/kWh입니다.';
+        document.getElementById("result2").innerHTML = '총 주행가능거리는 모델3롱레인지 기준 '  + totalRange + " km입니다.";
+    }
+</script>
+</html>
