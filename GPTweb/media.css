@@ -1,0 +1,60 @@
+@media (max-width: 768px) {
+    body {
+      font-size: large;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .title {
+      width: 95%;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+  
+    .result-box img {
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+    }
+  
+    .container {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  
+    .chat-input {
+      height: auto;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    #charCount {
+        margin-left: 410px;
+        font-size: small;
+      }
+  
+    .chat-input textarea {
+      height: 100px;
+      margin-bottom: 10px;
+    }
+  
+    .chat-input input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    textarea::placeholder {
+        font-size: large;
+      }
+  
+    .content {
+      margin-left: 0;
+    }
+  
+    footer {
+      margin-top: 10px;
+    }
+  }
+  
