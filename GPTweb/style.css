@@ -194,13 +194,14 @@ font-size: 0.8rem;
     width: 100%;
   }
   .title {
-    width: 100%; /* 전체 너비로 확장 */
+    width: 120%; /* 전체 너비로 확장 */
   }
   .container {
-    width: 100%; /* 전체 너비로 확장 */
+    width: 120%; /* 전체 너비로 확장 */
+    height: 150%;
   }
   .chat-input {
-    height: 200px; /* 높이 조정 */
+    height: 220px; /* 높이 조정 */
   }
   button {
     height: 70px;
