@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, './')));
 app.use(express.static(path.join(__dirname, './GPTweb')));
 app.use(express.static(path.join(__dirname, './GPTweb/js')));
 
-app.listen(443, function(){
+app.listen(8080, function(){
     console.log("working...");
 });
 
