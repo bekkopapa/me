@@ -246,11 +246,11 @@ font-size: 0.8rem;
     .chat-input textarea {
     height: 100px;
     margin-bottom: 10px;
-    font-size: 11px;
     }
     
     .chat-input input[type="text"] {
     width: 100%;
+    font-size: larger;
     margin-bottom: 10px;
     }
     
