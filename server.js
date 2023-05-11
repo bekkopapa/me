@@ -11,19 +11,25 @@ const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app);
 
-const httpServer = http.createServer((req, res) => {
-  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-  res.end();
+const domain = "sohyunsoo.xyz";
+app.use(function (req, res, next) {
+    if (!req.secure) {
+        res.redirect(`https://${domain}${req.url}`);
+    } else {
+        next();
+    }
 });
+
+httpsServer.listen(443, () => {
+  console.log('HTTPS Server running on port 443');
+});
+
+const httpServer = http.createServer(app);
 
 httpServer.listen(80, () => {
   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
-
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443, () => {
-    console.log('HTTPS Server running on port 443');
 });
 
 app.use(express.json());
