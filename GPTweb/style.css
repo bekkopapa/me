@@ -190,6 +190,9 @@ font-size: 0.8rem;
 
 @media (max-width: 480px) {
   /* 모바일 장치에 대한 스타일 지정 */
+  body {
+    width: 100%;
+  }
   .title {
     width: 100%; /* 전체 너비로 확장 */
   }
