@@ -4,24 +4,36 @@ const path = require('path');
 require('dotenv').config();
 
 const fs = require('fs');
+const http = require('http');
 const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials);
+const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(80, () => {
-    console.log('HTTPS Server running on port 80');
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
 });
+
+// Create an HTTP server that redirects all requests to HTTPS
+const httpServer = http.createServer((req, res) => {
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+});
+
+httpServer.listen(80, () => {
+  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+});
+
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
 app.use(express.static(path.join(__dirname, './GPTweb')));
 app.use(express.static(path.join(__dirname, './GPTweb/js')));
 
-app.listen(8080, function(){
+app.listen(443, function(){
     console.log("working...");
 });
 
