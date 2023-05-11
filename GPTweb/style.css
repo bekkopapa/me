@@ -188,6 +188,26 @@ font-size: 0.8rem;
 
 }
 
+@media (max-width: 480px) {
+  /* 모바일 장치에 대한 스타일 지정 */
+  .title {
+    width: 100%; /* 전체 너비로 확장 */
+  }
+  .container {
+    width: 100%; /* 전체 너비로 확장 */
+  }
+  .chat-input {
+    height: 200px; /* 높이 조정 */
+  }
+  button {
+    height: 70px;
+    margin-top: 60px;
+  }
+  footer {
+    margin-top: 10px;
+  }
+}
+
 
   #loader-4 {
     visibility: hidden;
