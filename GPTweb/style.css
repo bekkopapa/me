@@ -240,14 +240,14 @@ font-size: 0.8rem;
     }
     
     #charCount {
-    margin-left: 410px;
-    font-size: 20px;
+    margin-left: 250px;
+    font-size: 15px;
     }
     
     .chat-input textarea {
     height: 100px;
     margin-bottom: 10px;
-    font-size: 15px;
+    font-size: 11px;
     }
     
     .chat-input input[type="text"] {
@@ -256,13 +256,13 @@ font-size: 0.8rem;
     }
     
     textarea::placeholder {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bolder;
     }
     
     .content {
     margin-left: 0;
-    font-size: 20px;
+    font-size: 15px;
     stroke-width: 2px;
     stroke: white;
     }
