@@ -1,11 +1,11 @@
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+
 const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
-
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
