@@ -2,6 +2,17 @@ document.querySelector("#home-button").addEventListener("click", function home()
   location.href="/index.html";
 });
 
+const maxLength = 300;
+
+function updateCharCount() {
+    const textArea = document.getElementById('input-text');
+    const charCount = document.getElementById('charCount');
+    const remainingChars = maxLength - textArea.value.length;
+    charCount.textContent = remainingChars;
+}
+
+document.getElementById('input-text').addEventListener('input', updateCharCount);
+
 async function chat(question) {
   const response = await fetch("/api/chat", {
     method: "POST",
