@@ -113,7 +113,17 @@ body {
       color: #fff;
     }
   }
-  
+
+  #new-button {
+    display:none;
+  }
+
+  #new-button:hover,
+  #new-button:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+  }
+
   #send-button:hover,
   #send-button:focus {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
@@ -160,10 +170,17 @@ font-size: 0.8rem;
 
 @media (max-width: 768px) {
   .title {
-    width: 400px;
+    width: 460px;
   }
   .container {
-    width: 400px;
+    width: 480px;
+  }
+  .chat-input {
+    height: 200px;
+  }
+  button{
+    height: 70px;
+    margin-top: 60px;
   }
   footer {
     margin-top: 10px;
