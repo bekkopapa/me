@@ -41,7 +41,7 @@ function getRandomText() {
   return recommends[Math.floor(Math.random() * recommends.length)].text;
 }
 
-const clickLimit = 5;
+const clickLimit = 10;
 
 document.querySelector("#send-button").addEventListener("click", async function (event) {
   event.preventDefault();
@@ -56,7 +56,7 @@ document.querySelector("#send-button").addEventListener("click", async function 
 
   if (clickData.count >= clickLimit) {
     document.querySelector("#loader-4").classList.remove("active");
-    alert("하루에 다섯 번만 사용가능합니다....ㅎㅎ");
+    alert("하루에 10회만 사용가능합니다....ㅎㅎ");
     return; // Do not proceed with the chat() function
   }
 
