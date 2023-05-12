@@ -209,16 +209,16 @@ font-size: 0.8rem;
   
   @media (max-width: 768px) {
     body {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
     padding: 0;
     }
     
     .title {
-    width: 95%;
+    width: 90%;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     }
     
     .result-box img {
@@ -234,7 +234,7 @@ font-size: 0.8rem;
     }
     
     .chat-input {
-    height: auto;
+    height: 50%;
     flex-direction: column;
     padding: 10px;
     }
@@ -246,11 +246,11 @@ font-size: 0.8rem;
     .chat-input textarea {
     height: 100px;
     margin-bottom: 10px;
+    font-size: large;
     }
     
     .chat-input input[type="text"] {
     width: 100%;
-    font-size: larger;
     margin-bottom: 10px;
     }
     
