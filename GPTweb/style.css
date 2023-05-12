@@ -115,10 +115,6 @@ body {
     }
   }
 
-  #new-button {
-    display:none;
-  }
-
   #new-button:hover,
   #new-button:focus {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
@@ -244,8 +240,8 @@ font-size: 0.8rem;
     }
     
     .chat-input textarea {
-    height: 100px;
-    margin-bottom: 10px;
+    height: 250px;
+    margin-bottom: -70px;
     font-size: large;
     }
     
