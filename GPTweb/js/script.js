@@ -2,6 +2,17 @@ document.querySelector("#home-button").addEventListener("click", function home()
   location.href = "/index.html";
 });
 
+document.querySelector("#save-button").addEventListener("click", function() {
+  var captureArea = document.querySelector("#capture-area");  // 캡쳐할 영역 선택
+
+  html2canvas(captureArea).then(canvas => {
+    var link = document.createElement("a");
+    link.download = 'capture.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
+
 const maxLength = 300;
 
 function updateCharCount() {
