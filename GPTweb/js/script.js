@@ -2,15 +2,28 @@ document.querySelector("#home-button").addEventListener("click", function home()
   location.href = "/index.html";
 });
 
-document.querySelector("#save-button").addEventListener("click", function() {
-  var captureArea = document.querySelector("#capture-area");  // 캡쳐할 영역 선택
-
-  html2canvas(captureArea).then(canvas => {
-    var link = document.createElement("a");
-    link.download = 'capture.png';
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  });
+document.querySelector('#share-button').addEventListener('click', async () => {
+  if (navigator.share) {
+      try {
+          await navigator.share({
+              title: 'AI critics',
+              text: '나의 글쓰기 수준을 가늠해보자!',
+              url: 'https://sohyunsoo.xyz/GPTweb/gpt.html',
+          })
+          console.log('Sharing successful')
+      } catch (err) {
+          console.log('Sharing failed', err)
+      }
+  } else {
+      // fallback for desktop browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt.html';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('Copy');
+      textArea.remove();
+      alert('Link copied to clipboard');
+  }
 });
 
 const maxLength = 300;
