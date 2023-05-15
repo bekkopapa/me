@@ -105,7 +105,7 @@ body {
     border: 2px solid;
     font: inherit;
     line-height: 1;
-    margin: 0.3em;
+    margin: 1em;
     padding: 1em 1em;
   }
   
@@ -226,14 +226,19 @@ font-size: 0.8rem;
     }
     
     .capture-area {
-    width: 400px;
+    width: 440px;
     margin-right: 117px;
     }
+
     .container {
     width: 100%;
     padding: 10px;
     }
     
+    button {
+      margin: 0.3em;
+    
+    }
     .chat-input {
     height: 50%;
     flex-direction: column;
