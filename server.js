@@ -35,7 +35,8 @@ httpServer.listen(80, () => {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
 app.use(express.static(path.join(__dirname, './GPTweb')));
-app.use(express.static(path.join(__dirname, './GPTweb/js')));
+app.use(express.static(path.join(__dirname, './GPTweb/gpt1')));
+app.use(express.static(path.join(__dirname, './GPTweb/gpt2')));
 
 app.listen(8080, function(){
     console.log("working...");
@@ -45,7 +46,7 @@ app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/GPTweb', function(req, res){
+app.get('/GPTweb/gpt1', function(req, res){
     res.sendFile(path.join(__dirname, 'gpt.html'));
 });
 

@@ -21,7 +21,7 @@ $('.play-button').on('click', function() {
   }, 1500);
 
   // 페이지 이동
-  const nextPageUrl = 'GPTweb/gpt.html';
+  const nextPageUrl = 'GPTweb/door.html';
   setTimeout(function() {
     window.location.href = nextPageUrl;
   }, 1000);
