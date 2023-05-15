@@ -13,7 +13,7 @@ body {
     text-align: center;
     background-color: #1e181e;
     border-radius: 3px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(66, 65, 65, 0.2);
     padding: 5px;
     margin-bottom: 10px;
     border: 1px rgb(255, 255, 255) solid;
@@ -38,7 +38,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
   }
 
   .capture-area {
@@ -66,7 +65,7 @@ body {
   
   
   #name, #subject {
-    width: 100px;
+    width: 90px;
     margin-top: 1rem;
     margin-right: 1rem;
     margin-left: 1rem;
