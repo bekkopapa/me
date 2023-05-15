@@ -85,7 +85,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '당신은 이솝우화를 쓴 이솝입니다. 주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 내용과 표현은 쉽고 단순해야 합니다. 길이는 여섯 문장을 넘지 않도록 합니다.';
+        const prompt = '당신은 이솝우화를 쓴 이솝입니다. 주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 표현은 쉽고 단순해야 합니다. 길이는 여섯 문장을 넘지 않도록 합니다.';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
