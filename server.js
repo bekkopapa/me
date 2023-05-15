@@ -1,36 +1,36 @@
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
 
 const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
+// const credentials = { key: privateKey, cert: certificate };
+// const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
-app.use(function (req, res, next) {
-    if (!req.secure) {
-        res.redirect(`https://${domain}${req.url}`);
-    } else {
-        next();
-    }
-});
+// const domain = "sohyunsoo.xyz";
+// app.use(function (req, res, next) {
+//     if (!req.secure) {
+//         res.redirect(`https://${domain}${req.url}`);
+//     } else {
+//         next();
+//     }
+// });
 
-httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//   console.log('HTTPS Server running on port 443');
+// });
 
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
+// httpServer.listen(80, () => {
+//   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
@@ -85,7 +85,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '당신은 이솝우화를 쓴 이솝입니다. 주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 길이는 여섯 문장을 넘지 않도록 합니다.';
+        const prompt = '당신은 이솝우화를 쓴 이솝입니다. 주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 기승전결이 확실해야 합니다. 길이는 여섯 문장을 넘지 않도록 합니다.';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
