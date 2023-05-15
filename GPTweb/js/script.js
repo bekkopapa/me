@@ -2,6 +2,24 @@ document.querySelector("#home-button").addEventListener("click", function home()
   location.href = "/index.html";
 });
 
+const capButton = document.getElementById('cap-button');
+
+capButton.addEventListener('click', function() {
+  var node = document.querySelector('.capture-area');
+
+  domtoimage.toPng(node)
+    .then(function (dataUrl) {
+      var link = document.createElement('a');
+      link.download = 'AI-critics.png';
+      link.href = dataUrl;
+      link.click();
+    })
+    .catch(function (error) {
+      console.error('oops, something went wrong!', error);
+    });
+});
+
+
 document.querySelector('#share-button').addEventListener('click', async () => {
   if (navigator.share) {
       try {
