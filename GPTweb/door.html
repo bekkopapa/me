@@ -49,7 +49,7 @@
     margin-top: 27vh;
   }
 
-  #t1, #t2 {
+  #t1, #t2, #t3 {
     width: 300px;
     margin-top: 20px;
   }
@@ -74,7 +74,8 @@ font-weight: normal;
 <body>
         <p class="titles">
             <div><button id="t1">AI critics</button></div>  
-            <div><button id="t2">AI aesop</button></div>    
+            <div><button id="t2">AI aesop</button></div>
+            <div><button id="t3">AI jobConsult</button></div>
         </p>
         <footer><p>&copy; 2023 - SOHYUNSOO Powered By chatGPT 3.5 turbo </p></footer>
     <script>
@@ -83,6 +84,9 @@ font-weight: normal;
         })
         document.querySelector('#t2').addEventListener('click', function go() {
             location.href="gpt2/gpt2.html";       
+        })
+        document.querySelector('#t3').addEventListener('click', function go() {
+            location.href="gpt3/gpt3.html";       
         })
     </script>
     </body>

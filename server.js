@@ -1,36 +1,36 @@
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
 
 const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
+// const credentials = { key: privateKey, cert: certificate };
+// const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
-app.use(function (req, res, next) {
-    if (!req.secure) {
-        res.redirect(`https://${domain}${req.url}`);
-    } else {
-        next();
-    }
-});
+// const domain = "sohyunsoo.xyz";
+// app.use(function (req, res, next) {
+//     if (!req.secure) {
+//         res.redirect(`https://${domain}${req.url}`);
+//     } else {
+//         next();
+//     }
+// });
 
-httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//   console.log('HTTPS Server running on port 443');
+// });
 
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
+// httpServer.listen(80, () => {
+//   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
@@ -48,6 +48,10 @@ app.get('/GPTweb/gpt1', function(req, res){
 app.get('/GPTweb/gpt2', function(req, res){
 res.sendFile(path.join(__dirname, 'gpt2.html'));
 });
+
+app.get('/GPTweb/gpt3', function(req, res){
+  res.sendFile(path.join(__dirname, 'gpt3.html'));
+  });
 
 app.post("/api/chat", async (req, res) => {
   try{
@@ -110,4 +114,35 @@ app.post("/api/chat2", async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });
     }
+});
+
+app.post("/api/chat3", async (req, res) => {
+  try{
+      const job = req.body.job;
+      const apiKey = process.env.API_KEY;
+      const prompt = "지금부터 너는 직업 상담사다. 제시하는 직업에 대해 평가. 평가기준은 수익성과 장래성, 중요 변수는 인공지능 시대. 대답은 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다.결론은 둘 중 하나를 택한다. ‘계속 이거 하세요.’ 혹은 ‘다른 직업을 알아보시는 게 좋겠네요.’ 결론에 대한 이유 간략하게 설명. 답변은 두 문장을 넘기지 않는다.";
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "user",
+                content: `${prompt} 직업: ${job}`,
+              },
+            ],
+            temperature: 0.6,
+            max_tokens: 300,
+          }),
+      });
+      const data = await response.json();
+      res.json({ answer: data.choices[0].message.content });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Error" });
+  }
 });
