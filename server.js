@@ -89,7 +89,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 길이는 120자를 넘지 않습니다. 말투는 ~했어요, ~했답니다.';
+        const prompt = '3~5세 아이를 위한 교육적인 동화를 창작합니다. 길이는 120자를 넘지 않습니다. 말투는 ~했어요, ~했답니다.';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -99,13 +99,16 @@ app.post("/api/chat2", async (req, res) => {
             body: JSON.stringify({
               model: "gpt-3.5-turbo",
               messages: [
-                {
+                { 
                   role: "user",
-                  content: `${prompt} 아이의 이름과 주제는 다음과 같아요. 이름:${name}, 주제: ${subject}`,
+                  content: `${prompt} 주인공의 이름과 주제는 다음과 같아요. 이름:${name}, 주제: ${subject}`,
                 },
               ],
-              temperature: 0.6,
+              temperature: 0.5,
+              top_p: 1.0,
               max_tokens: 300,
+              frequency_penalty: 0.4,
+              presence_penalty:0.0,
             }),
         });
         const data = await response.json();
