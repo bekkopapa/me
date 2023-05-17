@@ -1,36 +1,36 @@
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
 
 const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
+// const credentials = { key: privateKey, cert: certificate };
+// const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
-app.use(function (req, res, next) {
-    if (!req.secure) {
-        res.redirect(`https://${domain}${req.url}`);
-    } else {
-        next();
-    }
-});
+// const domain = "sohyunsoo.xyz";
+// app.use(function (req, res, next) {
+//     if (!req.secure) {
+//         res.redirect(`https://${domain}${req.url}`);
+//     } else {
+//         next();
+//     }
+// });
 
-httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//   console.log('HTTPS Server running on port 443');
+// });
 
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
+// httpServer.listen(80, () => {
+//   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
@@ -89,7 +89,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '당신은 이솝우화를 쓴 이솝입니다. 주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 길이는 여섯 문장을 넘지 않도록 합니다.';
+        const prompt = '주어지는 이름의 아이를 주인공으로 교육적인 동화를 창작합니다. 길이는 120자를 넘지 않습니다. 말투는 ~했어요, ~했답니다.';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -101,7 +101,7 @@ app.post("/api/chat2", async (req, res) => {
               messages: [
                 {
                   role: "user",
-                  content: `${prompt} 아이의 이름과 주제를 제시하겠습니다. 이름:${name}, 주제: ${subject}`,
+                  content: `${prompt} 아이의 이름과 주제는 다음과 같아요. 이름:${name}, 주제: ${subject}`,
                 },
               ],
               temperature: 0.6,
@@ -120,7 +120,7 @@ app.post("/api/chat3", async (req, res) => {
   try{
       const job = req.body.job;
       const apiKey = process.env.API_KEY;
-      const prompt = "지금부터 너는 직업 상담사다. 제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성, 중요 변수는 인공지능 시대. 대답은 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다.결론은 무조건 '계속 이거 하세요.' 혹은 '다른 직업을 알아보시는 게 좋겠네요.' 로 시작한다. 결론에 대한 이유 간략하게 설명. 답변은 두 문장을 넘기지 않는다.";
+      const prompt = "제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성, 중요 변수는 인공지능 시대다. 대답은 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다.결론은 무조건 '계속 이거 하세요.' 혹은 '다른 직업을 알아보시는 게 좋겠네요.' 로 시작한다. 결론에 대한 이유 간략하게 설명. 답변은 두 문장을 넘기지 않는다.";
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {

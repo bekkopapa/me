@@ -86,8 +86,9 @@ document.querySelector("#home-button").addEventListener("click", function home()
     document.querySelector(".content").textContent = "";
   
     const answer = await chat(name, subject);
+    const formattedAnswer = answer.replace(/\n/g, "<br>");
   
     document.querySelector("#loader-4").classList.remove("active");
-    document.querySelector(".content").textContent = answer;
+    document.querySelector(".content").innerHTML = formattedAnswer;
   });
   
