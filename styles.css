@@ -1,5 +1,20 @@
     body {
     user-select: none;
+
+    #modal {
+      text-align: center;
+    }
+
+    .poster {
+      margin-top: -2rem;
+      margin-left: 7rem;
+      width: 60%;  
+    }
+
+    .modalText {
+      font-size: smaller;
+    }
+
     }
     #title{
       margin-left: 30px;
