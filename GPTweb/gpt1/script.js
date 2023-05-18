@@ -6,9 +6,16 @@ const capButton = document.getElementById('cap-button');
 
 capButton.addEventListener('click', function() {
   var node = document.querySelector('.capture-area');
-
+  
+  // 캡쳐 전에 배경색 설정
+  var originalColor = node.style.backgroundColor;
+  node.style.backgroundColor = '#11191f';
+  
   domtoimage.toPng(node)
     .then(function (dataUrl) {
+      // 캡쳐 후에 배경색을 원래대로 되돌림
+      node.style.backgroundColor = originalColor;
+      
       var link = document.createElement('a');
       link.download = 'AI-critics.png';
       link.href = dataUrl;
@@ -18,7 +25,6 @@ capButton.addEventListener('click', function() {
       console.error('oops, something went wrong!', error);
     });
 });
-
 
 document.querySelector('#share-button').addEventListener('click', async () => {
   if (navigator.share) {
