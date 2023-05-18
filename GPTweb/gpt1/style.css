@@ -207,12 +207,17 @@ font-size: 0.8rem;
   @media (max-width: 768px) {
     body {
     font-size: 20px;
+    margin-top: 0px;
     }
     
     .title {
     width: 95%;
     margin-top: 10px;
     margin-bottom: 10px;
+    }
+
+    .title h2 {
+      font-size: 1.2em;
     }
     
     .result-box img {

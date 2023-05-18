@@ -190,6 +190,10 @@ font-size: 0.8rem;
     margin-bottom: 10px;
     }
 
+    .title h2 {
+      font-size: 1.2em;
+    }
+
     .capture-area {
       width:99%;
     }
