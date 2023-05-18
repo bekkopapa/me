@@ -1,7 +1,7 @@
     body {
     user-select: none;
 
-    #modal {
+    .modal {
       text-align: center;
     }
 
@@ -13,6 +13,7 @@
 
     .modalText {
       font-size: smaller;
+      color: beige;
     }
 
     }
