@@ -1,11 +1,11 @@
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
-
 const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
+
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
@@ -89,7 +89,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '3~5세 아이를 위한 교육적인 동화를 창작합니다. 길이는 120자를 넘지 않습니다. 말투는 ~했어요, ~했답니다.';
+        const prompt = '4세 아이를 위한 교육적인 우화를 생성. 대화를 포함해 길이는 150자를 넘지 않음. 예제:어부들이 무거운 그물을 끌어올리며 물고기가 많이 잡힌 줄 알고 기뻐하며 춤을 추었어요. 그런데 그물을 다 끌어올려 보니 돌멩이가 한가득 들어 있었답니다. 그들이 속상해하자 한 늙은 어부가 말했어요. "기쁨과 괴로움은 서로 형제인듯하오. 우리가 기쁨을 맛보았으니, 이제 괴로움을 맛볼 차례가 아니겠소."';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -104,7 +104,7 @@ app.post("/api/chat2", async (req, res) => {
                   content: `${prompt} 주인공의 이름과 주제는 다음과 같아요. 이름:${name}, 주제: ${subject}`,
                 },
               ],
-              temperature: 0.5,
+              temperature: 0.6,
               top_p: 1.0,
               max_tokens: 300,
               frequency_penalty: 0.4,
@@ -123,7 +123,7 @@ app.post("/api/chat3", async (req, res) => {
   try{
       const job = req.body.job;
       const apiKey = process.env.API_KEY;
-      const prompt = "제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성, 중요 변수는 인공지능 시대다. 대답은 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다.결론은 무조건 '계속 이거 하세요.' 혹은 '다른 직업을 알아보시는 게 좋겠네요.' 로 시작한다. 결론에 대한 이유 간략하게 설명. 답변은 두 문장을 넘기지 않는다.";
+      const prompt = "제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성이며 중요한 변수는 인공지능 시대이다. 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다. *중요* 답변 형식은 수익성 : 00 장래성 : 00 + 계속 이거 하세요. or 다른 직업을 알아보시는 게 좋겠네요. + 이유 2문장 정도로 설명.";
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -135,7 +135,7 @@ app.post("/api/chat3", async (req, res) => {
             messages: [
               {
                 role: "user",
-                content: `${prompt} 말투는 공손하게 할 것. 직업: ${job}`,
+                content: `${prompt} 공손하게 대답합니다. 직업: ${job}`,
               },
             ],
             temperature: 0.6,
