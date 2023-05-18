@@ -5,31 +5,9 @@ body {
   background-color: #11191f;
   font-family:serif;   
   margin-top: 30px;
-}
-
-body {
-  color: #db0e15;
   background: url(https://image.ibb.co/h2hLAJ/bg.png) #000;
   position: relative;
   height: 100vh
-}
-
-@-webkit-keyframes flashText {
-  0% {
-    opacity: .3
-  }
-  100% {
-    opacity: 1
-  }
-}
-
-@keyframes flashText {
-  0% {
-    opacity: .3
-  }
-  100% {
-    opacity: 1
-  }
 }
 
 
