@@ -7,11 +7,186 @@ body {
   margin-top: 30px;
 }
 
+body {
+  color: #db0e15;
+  background: url(https://image.ibb.co/h2hLAJ/bg.png) #000;
+  position: relative;
+  height: 100vh
+}
+
+@-webkit-keyframes flashText {
+  0% {
+    opacity: .3
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes flashText {
+  0% {
+    opacity: .3
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+
+@-webkit-keyframes flicker {
+  0% {
+    opacity: .86139
+  }
+  5% {
+    opacity: .12793
+  }
+  10% {
+    opacity: .36759
+  }
+  15% {
+    opacity: .9766
+  }
+  20% {
+    opacity: .61364
+  }
+  25% {
+    opacity: .94477
+  }
+  30% {
+    opacity: .57811
+  }
+  35% {
+    opacity: .03416
+  }
+  40% {
+    opacity: .21835
+  }
+  45% {
+    opacity: .62054
+  }
+  50% {
+    opacity: .89452
+  }
+  55% {
+    opacity: .89997
+  }
+  60% {
+    opacity: .37872
+  }
+  65% {
+    opacity: .04929
+  }
+  70% {
+    opacity: .14477
+  }
+  75% {
+    opacity: .27512
+  }
+  80% {
+    opacity: .84701
+  }
+  85% {
+    opacity: .85952
+  }
+  90% {
+    opacity: .76553
+  }
+  95% {
+    opacity: .91372
+  }
+  100% {
+    opacity: .05536
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: .86139
+  }
+  5% {
+    opacity: .12793
+  }
+  10% {
+    opacity: .36759
+  }
+  15% {
+    opacity: .9766
+  }
+  20% {
+    opacity: .61364
+  }
+  25% {
+    opacity: .94477
+  }
+  30% {
+    opacity: .57811
+  }
+  35% {
+    opacity: .03416
+  }
+  40% {
+    opacity: .21835
+  }
+  45% {
+    opacity: .62054
+  }
+  50% {
+    opacity: .89452
+  }
+  55% {
+    opacity: .89997
+  }
+  60% {
+    opacity: .37872
+  }
+  65% {
+    opacity: .04929
+  }
+  70% {
+    opacity: .14477
+  }
+  75% {
+    opacity: .27512
+  }
+  80% {
+    opacity: .84701
+  }
+  85% {
+    opacity: .85952
+  }
+  90% {
+    opacity: .76553
+  }
+  95% {
+    opacity: .91372
+  }
+  100% {
+    opacity: .05536
+  }
+}
+
+body::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(49, 45, 45, .1);
+  opacity: 0;
+  pointer-events: none;
+  -webkit-animation: flicker .15s infinite, steady 4s;
+  animation: flicker .15s infinite, steady 4s
+}
+
+
 .title {
     position: flex;
     width: 600px;
     text-align: center;
-    background-color: #1e181e;
     border-radius: 3px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     padding: 5px;
@@ -63,7 +238,6 @@ body {
     border: 1px solid yellow;
     display: flex;
     height: 100px;
-    background-color: #1e181e;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -71,7 +245,7 @@ body {
   }
 
   #input-text {
-    background-color: #1e181e;
+    background-color: transparent;
   }
 
   textarea {
@@ -141,7 +315,6 @@ body {
     border: 1px solid yellow;
     display: flex;
     opacity: 100%;
-    background-color:#1e181e;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
