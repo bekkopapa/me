@@ -97,6 +97,10 @@
     .modal {
       text-align: center;
     }
+    .modalText {
+      font-size: x-small;
+      color: beige;
+    }
     }
 
   
