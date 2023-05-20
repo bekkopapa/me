@@ -200,7 +200,7 @@ label:active:after {
 
 	.et-hero-tabs h1,
 	.et-slide h1 {
-		font-size: 2.4rem;
+		font-size: 2.1rem;
 	}
 
 	.et-hero-tabs h3,
@@ -209,6 +209,6 @@ label:active:after {
 	}
 
 	.et-hero-tab {
-		font-size: 1rem;
+		font-size: 0.8rem;
 	}
 }
