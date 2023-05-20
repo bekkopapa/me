@@ -20,7 +20,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
                 await navigator.share({
                     title: 'AI jobConsult',
                     text: '아이의 장래희망을 점검해보자!',
-                    url: 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html',
+                    url: 'https://sohyunsoo.xyz/GPTweb/gpt3/gpt3.html',
                     files: [file] 
                 })
                 console.log('Sharing successful')

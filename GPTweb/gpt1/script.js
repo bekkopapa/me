@@ -20,7 +20,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
               await navigator.share({
                   title: 'AI critics',
                   text: '나의 글쓰기 수준을 가늠해보자!',
-                  url: 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html',
+                  url: 'https://sohyunsoo.xyz/GPTweb/gpt1/gpt.html',
                   files: [file] 
               })
               console.log('Sharing successful')
