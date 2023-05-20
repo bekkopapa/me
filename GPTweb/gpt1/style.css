@@ -10,7 +10,6 @@ body {
   height: 100vh
 }
 
-
 @-webkit-keyframes flicker {
   0% {
     opacity: .86139
@@ -284,12 +283,6 @@ body::after {
 
   #home-button:hover,
   #home-button:focus {
-    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-    transform: translateY(-0.25em);
-  }
-
-  #cap-button:hover,
-  #cap-button:focus {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.25em);
   }

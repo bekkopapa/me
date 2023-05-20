@@ -2,52 +2,45 @@ document.querySelector("#home-button").addEventListener("click", function home()
   location.href = "/index.html";
 });
 
-const capButton = document.getElementById('cap-button');
-
-capButton.addEventListener('click', function() {
+document.querySelector('#share-button').addEventListener('click', async () => {
   var node = document.querySelector('.capture-area');
-  
-  // 캡쳐 전에 배경색 설정
   var originalColor = node.style.backgroundColor;
   node.style.backgroundColor = '#11191f';
   
   domtoimage.toPng(node)
-    .then(function (dataUrl) {
-      // 캡쳐 후에 배경색을 원래대로 되돌림
+    .then(async function (dataUrl) {
       node.style.backgroundColor = originalColor;
       
-      var link = document.createElement('a');
-      link.download = 'AI-critics.png';
-      link.href = dataUrl;
-      link.click();
+      if (navigator.share) {
+          try {
+              let response = await fetch(dataUrl);
+              let blob = await response.blob();
+              let file = new File([blob], 'AI-aesop.png', {type: blob.type});
+
+              await navigator.share({
+                  title: 'AI critics',
+                  text: '나의 글쓰기 수준을 가늠해보자!',
+                  url: 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html',
+                  files: [file] 
+              })
+              console.log('Sharing successful')
+          } catch (err) {
+              console.log('Sharing failed', err)
+          }
+      } else {
+          // fallback for desktop browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('Copy');
+          textArea.remove();
+          alert('Link copied to clipboard');
+      }
     })
     .catch(function (error) {
       console.error('oops, something went wrong!', error);
     });
-});
-
-document.querySelector('#share-button').addEventListener('click', async () => {
-  if (navigator.share) {
-      try {
-          await navigator.share({
-              title: 'AI critics',
-              text: '나의 글쓰기 수준을 가늠해보자!',
-              url: 'https://sohyunsoo.xyz/GPTweb/gpt1/gpt.html',
-          })
-          console.log('Sharing successful')
-      } catch (err) {
-          console.log('Sharing failed', err)
-      }
-  } else {
-      // fallback for desktop browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt1/gpt.html';
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('Copy');
-      textArea.remove();
-      alert('Link copied to clipboard');
-  }
 });
 
 const maxLength = 300;
