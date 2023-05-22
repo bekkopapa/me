@@ -85,11 +85,18 @@
     <script src="JS/scripts.js"></script>
     <script src="JS/weather.js"></script>
     <script>
-      const modal = document.querySelector('.modal');
-      const closeButton = modal.querySelector('.close');
-    
-      closeButton.addEventListener('click', () => {
-        modal.close();
+      $(document).ready(function() {
+        var now = new Date().getTime();
+        var lastCloseTime = localStorage.getItem('lastCloseTime');
+
+        if (lastCloseTime === null || now - lastCloseTime > 24 * 60 * 60 * 1000) {
+          $('.modal').attr('open', true);
+        }
+
+        $('.close').on('click', function() {
+          localStorage.setItem('lastCloseTime', new Date().getTime());
+          $('.modal').removeAttr('open');
+        });
       });
     </script>
 </body>
