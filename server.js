@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
+const multer  = require('multer');
+const oracledb = require('oracledb');
+const router = express.Router();
+const moment = require('moment');
 
 const fs = require('fs');
 const http = require('http');
@@ -33,9 +37,103 @@ httpServer.listen(80, () => {
 });
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, './board')));
 app.use(express.static(path.join(__dirname, './')));
 app.use(express.static(path.join(__dirname, './GPTweb')));
 app.use(express.static(path.join(__dirname, './GPTweb/js')));
+app.use('/', router);
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // 'uploads/'는 이미지를 저장할 폴더 경로입니다. 실제 상황에 따라 변경해야 합니다.
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const id = path.basename(file.originalname, ext);
+    cb(null, id + '-' + Date.now() + ext)
+  }
+});
+const upload = multer({ storage: storage });
+
+router.post('/api/upload', upload.single('image'), async (req, res) => {
+  let connection;
+  try {
+    connection = await oracledb.getConnection({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+    });
+
+    const comment = req.body.comment; // 클라이언트에서 보낸 댓글을 가져옵니다.
+    const imageId = Date.now(); // 현재 시간을 UNIX 타임스탬프로 생성
+
+    // 이미지 파일의 경로를 데이터베이스에 저장합니다.
+    const result = await connection.execute(
+      `INSERT INTO images_table (id, image_path, comments)
+       VALUES (:id, :image_path, :comments)`,
+      {
+        id: { val: imageId, dir: oracledb.BIND_IN },
+        image_path: { val: req.file.path, dir: oracledb.BIND_IN }, // Use the image file path directly
+        comments: { val: comment, dir: oracledb.BIND_IN }
+      },
+      { autoCommit: true } // 자동 커밋 설정
+    );
+
+    res.json({ message: 'Image and comment uploaded successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to upload image and comment' });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+});
+
+module.exports = router;
+
+router.get('/api/posts', async (req, res) => {
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+    });
+
+    const result = await connection.execute(
+      `SELECT id, image_path, comments
+       FROM images_table`
+    );
+        
+    const posts = result.rows.map(row => ({
+      id: row[0],
+      image: row[1],  // 이미지의 경로를 바로 사용합니다.
+      comments: row[2]
+    }));
+    
+    console.log(posts);  // posts 배열을 출력하여 확인합니다.
+    
+    res.json({ posts });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch posts' });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+});
 
 app.listen(8080, function(){
     console.log("working...");

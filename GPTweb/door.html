@@ -7,13 +7,13 @@
 </head>
 <style>
     body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family:serif;   
-  font-weight: bold;
-  margin-top: 30px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family:serif;   
+    font-weight: bold;
+    margin-top: 30px;
+     }
 
     body{
     background: url('imgs/logo.png') ;
@@ -25,7 +25,7 @@
     }
 
 
-     button {
+    button {
     background: none;
     border: 2px solid;
     font: inherit;
@@ -46,10 +46,10 @@
   }
 
   .titles {
-    margin-top: 18vh;
+    margin-top: 12vh;
   }
 
-  #t1, #t2, #t3 {
+  #t1, #t2, #t3, #t4 {
     width: 300px;
     margin-top: 30px;
   }
@@ -96,6 +96,9 @@ p {
             <div><button id="t3">AI jobConsult</button>
               <p> ::인공지능이 인간 직업의 미래를 컨설팅</p>
             </div>
+            <div><button id="t4">AI answerCollection</button>
+              <p> ::인공지능의 환상적인 or 멍청 답변 콜렉션</p>
+            </div>
           </div>
         <footer><p>&copy; 2023 - SOHYUNSOO Powered By chatGPT 3.5 turbo </p></footer>
     <script>
@@ -107,6 +110,9 @@ p {
         })
         document.querySelector('#t3').addEventListener('click', function go() {
             location.href="gpt3/gpt3.html";       
+        })
+        document.querySelector('#t4').addEventListener('click', function go() {
+            location.href="../board/board.html";       
         })
     </script>
     </body>

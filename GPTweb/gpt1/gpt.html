@@ -9,7 +9,18 @@
 <body>
   <div class="title"> 
     <h2>AI critics</h2>
-</div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>앞으로의 연구와 인류의 미래를 위해 AI의 답변을 수집합니다.</p>
+        <img id="captured-image" src="#" alt="Captured image will appear here" />
+        <p>코멘트도 한마디 부탁드립니다.</p>
+        <input id="comment-input" maxlength="300" required></input>
+        <div id="loading-spinner" class="loading-spinner"></div> <!-- 추가: 로딩 애니메이션을 표시할 요소 -->
+        <button id="submit-button">Submit</button>
+      </div>
+    </div>
+  </div>
     <div class="capture-area">
       <div class="container">
         <form class="chat-input">
@@ -18,18 +29,21 @@ Enter the sentence you want to be rated." required></textarea>
           <span id="charCount">300</span>
           <button id="send-button">critic</button>
       </form>
-      <div class="result-box">
-        <img src="..\imgs\gpt.png">
-        <span class="content" aria-placeholder="">평가받을 준비 됐나? 닝겐?</span>
-        <div class="loader" id="loader-4">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <div class="capture-area2">
+        <div class="result-box">
+          <img src="..\imgs\gpt.png">
+          <span class="content" aria-placeholder="">평가받을 준비 됐나? 닝겐?</span>
+          <div class="loader" id="loader-4">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+      </div>
       </div>
         </div>
     </div>
   <div>
+    <button id="cap-button">post</button>
     <button id="home-button">home</button>
     <button id="share-button">share</button>
   </div>

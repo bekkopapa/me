@@ -7,6 +7,89 @@ body {
   margin-top: 30px;
 }
 
+
+.modal {
+  color: #fff;
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  border: 1px #ffffff ;
+  background-color: #11191f;
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 600px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#captured-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0px;
+}
+
+#comment-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#submit-button {
+  display: block;
+  margin: auto;
+  margin-top: 0.4rem;
+}
+
+.loading-spinner {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .title {
     position: flex;
     width: 600px;
