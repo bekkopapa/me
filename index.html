@@ -85,18 +85,28 @@
     <script src="JS/scripts.js"></script>
     <script src="JS/weather.js"></script>
     <script>
-      $(document).ready(function() {
-        var lastCloseTime = localStorage.getItem('lastCloseTime');
+        document.addEventListener('DOMContentLoaded', function() {
+          var lastCloseTime = localStorage.getItem('lastCloseTime');
 
-        if (lastCloseTime === null || (new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000)) {
-          $('.modal').show();
-        }
+          if (lastCloseTime === null || (new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000)) {
+            var modalElements = document.getElementsByClassName('modal');
+            for (var i = 0; i < modalElements.length; i++) {
+              modalElements[i].style.display = 'block';
+            }
+          }
 
-        $('.close').on('click', function() {
-          localStorage.setItem('lastCloseTime', new Date().getTime().toString());
-          $('.modal').hide();
+          var closeElements = document.getElementsByClassName('close');
+          for (var i = 0; i < closeElements.length; i++) {
+            closeElements[i].addEventListener('click', function() {
+              localStorage.setItem('lastCloseTime', new Date().getTime().toString());
+
+              var modalElements = document.getElementsByClassName('modal');
+              for (var i = 0; i < modalElements.length; i++) {
+                modalElements[i].style.display = 'none';
+              }
+            });
+          }
         });
-      });
     </script>
 </body>
 </html>  
