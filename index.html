@@ -87,15 +87,15 @@
     <script>
       $(document).ready(function() {
         var now = new Date().getTime();
-        var lastCloseTime = parseInt(localStorage.getItem('lastCloseTime')); // 문자열을 숫자로 변환
+        var lastCloseTime = localStorage.getItem('lastCloseTime');
 
-        if (lastCloseTime === null || now - lastCloseTime > 24 * 60 * 60 * 1000) {
-          $('.modal').attr('open', true);
+        if (lastCloseTime === null || now - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000) {
+          $('.modal').show();
         }
 
         $('.close').on('click', function() {
           localStorage.setItem('lastCloseTime', now.toString()); // 숫자를 문자열로 변환하여 저장
-          $('.modal').removeAttr('open');
+          $('.modal').hide();
         });
       });
     </script>
