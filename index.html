@@ -88,13 +88,12 @@
       $(document).ready(function() {
         var lastCloseTime = localStorage.getItem('lastCloseTime');
 
-        if (lastCloseTime === null || new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000) {
+        if (lastCloseTime === null || (new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000)) {
           $('.modal').show();
         }
 
         $('.close').on('click', function() {
-          var now = new Date().getTime();
-          localStorage.setItem('lastCloseTime', now.toString()); 
+          localStorage.setItem('lastCloseTime', new Date().getTime().toString());
           $('.modal').hide();
         });
       });
