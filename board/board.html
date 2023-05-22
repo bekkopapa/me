@@ -18,12 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: -25px;
       margin-bottom: 10px;
-    }
-
-    button {
-      margin: 10px;
     }
 
     .post-timestamp {
@@ -77,7 +72,28 @@
       margin-bottom: 1.6em;
     }
 
+    button {
+    background: none;
+    border: 1px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 1em;
+    padding: 0.5em 1em;
+  }
+  
+  button {  
+    color: #fffefe;
+    transition: 0.25s;
+    
+    &:hover,
+    &:focus { 
+      border-color: var(--hover);
+      color: #c8ff00;
+    }
+  }
+
     @media (max-width: 768px) {
+
     body {
     font-size: 20px;
     margin: 3%;
@@ -86,6 +102,9 @@
     h1 {
       font-size: 30px;
       text-align: center;
+    }
+    .buttons {
+      font-size: small;
     }
     .post {
       font-size: 15px;
@@ -98,9 +117,10 @@
 </head>
 <body>
   <body>
-    <h1>AI answerCollection</h1>
+    <hr>
     <div class="buttons">
       <button id="home">home</button>
+      <h1>AI answerCollection</h1>
       <button id="door">menu</button>
     </div>
     <hr>
