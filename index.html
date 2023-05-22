@@ -86,13 +86,20 @@
     <script src="JS/weather.js"></script>
     <script>
       $(document).ready(function() {
-        var lastCloseTime = localStorage.getItem('lastCloseTime');     
-        if (lastCloseTime === null || new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000) {
+        var lastCloseTime = localStorage.getItem('lastCloseTime');
+        var currentTime = new Date().getTime();
+
+        if (lastCloseTime === null) {
           $('.modal')[0].showModal();
+        } else {
+          var timeDifference = currentTime - parseInt(lastCloseTime);
+          if (timeDifference > 24 * 60 * 60 * 1000) {
+            $('.modal')[0].showModal();
+          }
         }
+
         $('.close').on('click', function() {
-          var now = new Date().getTime();
-          localStorage.setItem('lastCloseTime', now.toString());
+          localStorage.setItem('lastCloseTime', currentTime.toString());
           $('.modal')[0].close();
         });
       });
