@@ -1,5 +1,5 @@
 document.querySelector("#home-button").addEventListener("click", function home() {
-  location.href = "/index.html";
+  location.href = "../door.html";
 });
 
 var formData = new FormData(); // Declare formData at the top of the script

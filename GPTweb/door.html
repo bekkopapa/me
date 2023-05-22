@@ -47,6 +47,10 @@
 
   .titles {
     margin-top: 12vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   #t1, #t2, #t3, #t4 {
@@ -74,10 +78,10 @@ p {
 
 @media (max-width: 768px){
     body {
-        background-size: 70%;
+    background-size: 70%;
     }
     .titles {
-    margin-top: 10vh;
+    margin-top: 6vh;
   }
   p {
     font-size: 15px;
@@ -99,9 +103,13 @@ p {
             <div><button id="t4">AI answerCollection</button>
               <p> ::인공지능의 환상적인 or 멍청 답변 콜렉션</p>
             </div>
+            <div><button id="t5">home</button>
           </div>
         <footer><p>&copy; 2023 - SOHYUNSOO Powered By chatGPT 3.5 turbo </p></footer>
     <script>
+        document.querySelector('#t5').addEventListener('click', function go() {
+        location.href="/index.html";       
+        })
         document.querySelector('#t1').addEventListener('click', function go() {
             location.href="gpt1/gpt.html";       
         })

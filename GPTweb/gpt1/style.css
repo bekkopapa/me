@@ -438,10 +438,14 @@ font-size: 0.8rem;
   
   @media (max-width: 768px) {
     body {
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 0px;
     }
     
+    #comment-input {
+      width: 350px; 
+    }
+
     .title {
     width: 95%;
     margin-top: 10px;
