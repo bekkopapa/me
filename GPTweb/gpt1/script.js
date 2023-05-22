@@ -3,7 +3,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
 });
 
 var formData = new FormData(); // Declare formData at the top of the script
-var node = document.querySelector('.capture-area2'); // The element to capture
+var node = document.querySelector('.content'); // The element to capture
 var modal = document.getElementById('myModal');
 var capButton = document.querySelector("#cap-button");
 var closeButton = document.querySelector(".close");
@@ -11,7 +11,7 @@ var closeButton = document.querySelector(".close");
 capButton.addEventListener('click', function() {
   var originalColor = node.style.backgroundColor;
   node.style.backgroundColor = '#11191f';
-
+  
   domtoimage.toPng(node)
     .then(function(dataUrl) {
       node.style.backgroundColor = originalColor;

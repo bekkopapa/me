@@ -4,7 +4,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
 
   
   var formData = new FormData(); // Declare formData at the top of the script
-  var node = document.querySelector('.capture-area'); // The element to capture
+  var node = document.querySelector('.content'); // The element to capture
   var modal = document.getElementById('myModal');
   var capButton = document.querySelector("#cap-button");
   var closeButton = document.querySelector(".close");
