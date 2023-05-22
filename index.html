@@ -85,28 +85,40 @@
     <script src="JS/scripts.js"></script>
     <script src="JS/weather.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          var lastCloseTime = localStorage.getItem('lastCloseTime');
+$(document).ready(function() {
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
 
-          if (lastCloseTime === null || (new Date().getTime() - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000)) {
-            var modalElements = document.getElementsByClassName('modal');
-            for (var i = 0; i < modalElements.length; i++) {
-              modalElements[i].style.display = 'block';
-            }
-          }
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
 
-          var closeElements = document.getElementsByClassName('close');
-          for (var i = 0; i < closeElements.length; i++) {
-            closeElements[i].addEventListener('click', function() {
-              localStorage.setItem('lastCloseTime', new Date().getTime().toString());
+  var lastCloseTime = getCookie('lastCloseTime');
+  var now = new Date().getTime();
 
-              var modalElements = document.getElementsByClassName('modal');
-              for (var i = 0; i < modalElements.length; i++) {
-                modalElements[i].style.display = 'none';
-              }
-            });
-          }
-        });
+  if (lastCloseTime === null || now - parseInt(lastCloseTime) > 24 * 60 * 60 * 1000) {
+    $('.modal').show();
+  }
+
+  $('.close').on('click', function() {
+    setCookie('lastCloseTime', now.toString(), 1);
+    $('.modal').hide();
+  });
+});
     </script>
 </body>
 </html>  
