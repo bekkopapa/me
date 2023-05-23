@@ -297,7 +297,8 @@ font-size: 0.8rem;
     }
 
     #comment-input {
-      width: 300px; 
+      width: 300px;
+      font-size: 15px;
     }
     
     .title {
