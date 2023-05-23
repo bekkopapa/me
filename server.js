@@ -152,6 +152,10 @@ app.get('/GPTweb/gpt3', function(req, res){
   res.sendFile(path.join(__dirname, 'gpt3.html'));
   });
 
+app.get('/GPTweb/gpt4', function(req, res){
+    res.sendFile(path.join(__dirname, 'gpt4.html'));
+    });
+
 app.post("/api/chat", async (req, res) => {
   try{
       const question = req.body.question;
@@ -239,6 +243,39 @@ app.post("/api/chat3", async (req, res) => {
             ],
             temperature: 0.5,
             top_p: 0.2,
+            max_tokens: 300,
+          }),
+      });
+      const data = await response.json();
+      res.json({ answer: data.choices[0].message.content });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+app.post("/api/chat4", async (req, res) => {
+  try{
+      const nameA = req.body.nameA;
+      const nameB = req.body.nameB;
+      const a = req.body.a;
+      const b = req.body.b;
+      const apiKey = process.env.API_KEY;
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "user",
+                content: `${nameA}와 ${nameB}라는 사람이 있다. ${nameA}가 ${a} ${nameB}가 ${b} 누가 더 잘못했는가? 타당한 답을 하라. 논리적으로 답하라. 답변에 이름을 명시하라. ${nameA} or ${nameB}가 더 잘못했습니다. 혹은 ${nameA} or ${nameB}가 무조건 잘못했습니다. 혹은 둘 다 잘못했습니다. 이유는 3문장 내외로 설명.`,
+              },
+            ],
+            temperature: 0.6,
             max_tokens: 300,
           }),
       });

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>인공지능이 싸움도 끝낼 것</title>
+	<link rel="stylesheet" type="text/css" href="style4.css">
+</head>
+<body>
+  <div class="title"> 
+    <h2>AI jagangDucheon</h2>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>인류의 미래를 위해 답변을 수집합니다.<br>AI answerCollection에 게시됩니다.</p>
+        <img id="captured-image" src="#" alt="Captured image will appear here" />
+        <p>인공지능의 답변 어떻게 생각하시나요?</p>
+        <input id="comment-input" maxlength="300" required></input>
+        <div id="loading-spinner" class="loading-spinner"></div> 
+        <button id="submit-button">Submit</button>
+      </div>
+    </div>
+  </div>
+    <div class="container">
+      <div>
+        <input id="nameA" type="text" placeholder="이름" maxlength="10" required>
+        <input id="a" type="text" placeholder="무슨 짓을 했습니까?" maxlength="200" required>
+      </div>
+      <div>
+        <input id="nameB" type="text" placeholder="이름" maxlength="10" required>
+        <input id="b" type="text" placeholder="뭔 짓을 했는데요?" maxlength="200" required>
+      </div>
+  </div>  
+  <div>
+    <button id="send-button">generate</button>
+  </div>  
+    <div class="capture-area">
+      <div class="result-box">
+        <img src="../imgs/gpt.png">
+        <span class="content">싸움은 종종 신체적인 충돌을 수반하며, 이는 상해, 부상, 때로는 장기적인 건강 문제를 초래합니다. 나아가 개인, 그룹, 심지어는 국가 간의 평화와 조화를 파괴합니다. 제3자이자 인공지능인 제가 잘잘못을 가려드립니다. 싸우지마세요.^^</span>
+        <div class="loader" id="loader-4">
+          <span></span>
+          <span></span>
+          <span></span>
+         </div>    
+      </div>
+    </div>
+  <div>
+    <button id="cap-button">post</button>
+    <button id="home-button">menu</button>
+    <button id="share-button">share</button>
+  </div>
+    <script src="script4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+  <footer><p>&copy; 2023 - sohyunsoo.xyz Powered By chatGPT 3.5 turbo </p></footer>
+</body>
+</html>
