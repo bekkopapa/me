@@ -108,9 +108,10 @@ router.get('/api/posts', async (req, res) => {
 
     const result = await connection.execute(
       `SELECT id, image_path, comments
-       FROM images_table`
+       FROM images_table
+       ORDER BY DATE '1970-01-01' + (id / 86400) DESC`
     );
-        
+            
     const posts = result.rows.map(row => ({
       id: row[0],
       image: row[1],  // 이미지의 경로를 바로 사용합니다.
