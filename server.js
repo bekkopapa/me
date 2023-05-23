@@ -188,7 +188,7 @@ app.post("/api/chat2", async (req, res) => {
         const name = req.body.name;
         const subject = req.body.subject;
         const apiKey = process.env.API_KEY;
-        const prompt = '4세 아이를 위한 교육적인 우화를 생성. 대화를 포함해 길이는 150자를 넘지 않음. 예제:어부들이 무거운 그물을 끌어올리며 물고기가 많이 잡힌 줄 알고 기뻐하며 춤을 추었어요. 그런데 그물을 다 끌어올려 보니 돌멩이가 한가득 들어 있었답니다. 그들이 속상해하자 한 늙은 어부가 말했어요. "기쁨과 괴로움은 서로 형제인듯하오. 우리가 기쁨을 맛보았으니, 이제 괴로움을 맛볼 차례가 아니겠소."';
+        const prompt = '3세 아이를 위한 교육적인 동화의 줄거리 생성. 대화를 포함해 길이는 200자를 넘지 않음. 예제:못생긴 미운 아기 오리가 태어나요. 못났다는 이유로 다른 형제들의 괴롭힘과 많은 고난을 겪어요. 어느날은 호숫가에서 아름다운 백조의 모습을 보고 부러워했습니다. 그리고 추운 겨울을 무사히 견뎌낸 봄날, 미운 오리는 사실 자신이 아름다운 백조였다는것을 알게 됩니다.';
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -203,8 +203,8 @@ app.post("/api/chat2", async (req, res) => {
                   content: `${prompt} 주인공의 이름과 주제는 다음과 같아요. 이름:${name}, 주제: ${subject}`,
                 },
               ],
-              temperature: 0.6,
-              top_p: 1.0,
+              temperature: 0.3,
+              top_p: 0.8,
               max_tokens: 300,
               frequency_penalty: 0.4,
               presence_penalty:0.0,
@@ -222,7 +222,7 @@ app.post("/api/chat3", async (req, res) => {
   try{
       const job = req.body.job;
       const apiKey = process.env.API_KEY;
-      const prompt = "제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성이며 중요한 변수는 인공지능 시대이다. 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다. *중요* 답변 형식은 수익성 : 00 장래성 : 00 + 계속 이거 하세요. or 다른 직업을 알아보시는 게 좋겠네요. + 이유 2문장 정도로 설명.";
+      const prompt = "제시하는 직업에 대해 평가하라. 평가 기준은 수익성과 장래성이며 중요한 변수는 인공지능 시대이다. 각 기준에 대해 아주 좋음, 좋음, 중간, 나쁨, 아주 나쁨으로 평가한 뒤 결론을 내린다. 답변 형식은 수익성 : 00 장래성 : 00 계속 이거 하세요. or 다른 직업을 알아보시는 게 좋겠네요. 이유는 짧게 3문장 정도로 설명.";
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -234,10 +234,11 @@ app.post("/api/chat3", async (req, res) => {
             messages: [
               {
                 role: "user",
-                content: `${prompt} 공손하게 대답합니다. 직업: ${job}`,
+                content: `${prompt} 말투는 최대한 공손하게 합니다. 직업: ${job}`,
               },
             ],
-            temperature: 0.6,
+            temperature: 0.5,
+            top_p: 0.2,
             max_tokens: 300,
           }),
       });
