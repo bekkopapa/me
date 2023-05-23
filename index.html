@@ -21,7 +21,7 @@
     <article>
       <header>
         <a href="#" aria-label="Close" class="close"></a>
-        !!경축!!
+        경축!!!!!!
       </header>
       <div class="poster">
         <img src="icons/poster.jpg" alt="poster">
@@ -85,25 +85,30 @@
     <script src="JS/scripts.js"></script>
     <script src="JS/weather.js"></script>
     <script>
-      const modal = document.querySelector('.modal');
-      const closeButton = modal.querySelector('.close');
-      
-      // 현재 시간을 불러옵니다.
-      const now = new Date().getTime();
-      
-      // localStorage에서 'lastClosed'라는 항목을 불러옵니다.
-      const lastClosed = localStorage.getItem('lastClosed');
-      
-      // 만약 'lastClosed'라는 항목이 없거나 현재 시간이 마지막으로 닫은 시간보다 24시간이 넘었을 경우에만 모달을 열어줍니다.
-      if(!lastClosed || now - lastClosed > 24 * 60 * 60 * 1000){
-        modal.setAttribute('open', '');
+      // Modal
+      var modal = document.querySelector('.modal');
+
+      // Modal Close button
+      var modalCloseBtn = document.querySelector('.close');
+
+      // Check the last time the modal was closed
+      var lastClosed = localStorage.getItem('modalClosed');
+
+      if (lastClosed) {
+          var diff = Date.now() - lastClosed;
+          var hours = diff / (1000 * 60 * 60); // convert milliseconds to hours
+          if (hours < 24) {
+              // Close the modal if it's been less than 24 hours
+              modal.close();
+          }
       }
-      
-      // 닫기 버튼에 이벤트 리스너를 추가하여 닫힐 때 localStorage에 'lastClosed'라는 항목에 현재 시간을 저장합니다.
-      closeButton.addEventListener('click', () => {
-        modal.removeAttribute('open');
-        localStorage.setItem('lastClosed', new Date().getTime());
+
+      // Close modal function
+      modalCloseBtn.addEventListener('click', function(event){
+          event.preventDefault();
+          localStorage.setItem('modalClosed', Date.now());
+          modal.close();
       });
-    </script>
-    </body>
+  </script>    
+  </body>
 </html>  
