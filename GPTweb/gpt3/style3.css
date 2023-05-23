@@ -22,26 +22,33 @@ body {
 }
 
 .modal-content {
-  border: 1px #ffffff ;
+  border: 1px solid #ffffff ;
   background-color: #11191f;
   margin: 50px auto;
   padding: 20px;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  line-height: 25px;
+}
+
+#comment-input input {
+  font-size: 18px;
 }
 
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: -10px;
+  margin-right: -5px;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #c8ff00;
   text-decoration: none;
   cursor: pointer;
 }
@@ -265,8 +272,15 @@ font-size: 0.8rem;
     padding: 0;
     }
 
+    .modal-content {
+      max-width: 100%;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
     #comment-input {
-      width: 350px; 
+      width: 300px; 
     }
     
     .title {

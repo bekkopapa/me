@@ -47,31 +47,33 @@
 
 
     .post-content {
-      align-items: center;
-      font-size: 15px;
-      margin-top: 10px;
-    }
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
 
     .image-container {
-      width: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
       max-width: 100%;
       padding: 5px;
       border: 1px solid yellow;
       border-radius: 3px;
     }
 
-    .post-image {
-      max-width: 100%;
-      margin-right: 20px;
-      margin-top: 10px;
-    }
-
     .common-image {
       width: 20%;
       height: 20%;
+      max-width: 100%;
       border-radius: 3px;
       margin-right: 10px;
-      margin-bottom: 1.6em;
+      margin-left: -9rem;
+    }
+
+    .post-image {
+      margin-right: -9rem;
     }
 
     button {
@@ -108,11 +110,23 @@
       font-size: small;
     }
     .post {
+      max-width: 100%;
       font-size: 15px;
     }
     .common-image {
       display: none;
+      margin-left: 0rem;
     }
+
+    .post-image {
+      margin-right: 0rem;
+      max-width: 100%;
+    }
+    .post-content {
+      text-align: left;
+      align-self: flex-start; /* 추가: 좌측 정렬 */
+    }
+
   }
   </style>
 </head>
