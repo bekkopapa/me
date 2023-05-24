@@ -23,7 +23,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
         // Show the modal
         modal.style.display = "block";
 
-        var file = dataURLtoFile(dataUrl, 'ai-aesop.png');
+        var file = dataURLtoFile(dataUrl, 'ai-jagang.png');
 
         // Add the blob to the formData object
         formData.append('image', file);      })
