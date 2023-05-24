@@ -7,34 +7,34 @@ const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
 
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
+// const credentials = { key: privateKey, cert: certificate };
+// const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
-app.use(function (req, res, next) {
-    if (!req.secure) {
-        res.redirect(`https://${domain}${req.url}`);
-    } else {
-        next();
-    }
-});
+// const domain = "sohyunsoo.xyz";
+// app.use(function (req, res, next) {
+//     if (!req.secure) {
+//         res.redirect(`https://${domain}${req.url}`);
+//     } else {
+//         next();
+//     }
+// });
 
-httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//   console.log('HTTPS Server running on port 443');
+// });
 
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
+// httpServer.listen(80, () => {
+//   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './board')));
@@ -45,7 +45,7 @@ app.use('/', router);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/') // 'uploads/'는 이미지를 저장할 폴더 경로입니다. 실제 상황에 따라 변경해야 합니다.
+    cb(null, 'uploads/') 
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
@@ -272,7 +272,7 @@ app.post("/api/chat4", async (req, res) => {
             messages: [
               {
                 role: "user",
-                content: `${nameA}와 ${nameB}라는 사람이 있다. ${nameA}가 ${a} ${nameB}가 ${b} 누가 더 잘못했는가? 타당한 답을 하라. 논리적으로 답하라. 답변에 이름을 명시하라. ${nameA} or ${nameB}가 더 잘못했습니다. 혹은 ${nameA} or ${nameB}가 무조건 잘못했습니다. 혹은 둘 다 잘못했습니다. 이유는 3문장 내외로 설명.`,
+                content: `${nameA}와 ${nameB}라는 사람이 있다. ${nameA}가 ${a} ${nameB}가 ${b} 누가 더 잘못했는가? 논리적으로 타당한 답을 하라. 답변에 이름과 잘못한 비율을 %로 표시한다. 답변 형식은 "${nameA}의 잘못 32.29%, ${nameB}의 잘못 67.71%, 3문장 내외로 근거 설명." 한쪽이 100% 잘못이라는 답변은 금지.`,
               },
             ],
             temperature: 0.6,
