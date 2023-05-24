@@ -359,8 +359,13 @@ body::after {
     }
   }
 
-  #send-button {
-    margin-top: 2.2rem;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #send-button, #reset-button {
+    margin-top: 0.4rem;
     height: 4rem;
   }
 

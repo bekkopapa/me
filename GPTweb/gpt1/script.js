@@ -162,6 +162,13 @@ async function chat(question) {
   return data.answer;
 }
 
+window.onload = function() {
+  document.getElementById('reset-button').addEventListener('click', function() {
+      document.getElementById('input-text').value = '';
+      charCount.textContent = 300;
+  });
+}
+
 const recommends = [
   { text : ' 문장력을 기르기 위해서는 독서가 필수!! 소현수 작가의 SF소설 <프린테라>를 읽어보시는 건 어떨까요?' },
   { text : ' 문장력을 기르기 위해서는 독서가 필수죠. 소현수 작가의 SF소설 <사건분석관K:미래범죄 수사일지>를 읽어보시는 건 어떨까요? ' },

@@ -2,6 +2,13 @@ document.querySelector("#home-button").addEventListener("click", function home()
     location.href = "../door.html";
   });
 
+  window.onload = function() {
+    document.getElementById('reset-button').addEventListener('click', function() {
+        document.getElementById('name').value = '';
+        document.getElementById('subject').value = '';
+    });
+  }
+
   
   var formData = new FormData(); // Declare formData at the top of the script
   var node = document.querySelector('.content'); // The element to capture

@@ -195,6 +195,10 @@ body {
     }
   }
 
+  .buttons {
+    margin-right: 1.3rem;
+  }
+
   #send-button {
     margin-top: 1rem;
     margin-bottom: 2rem;
