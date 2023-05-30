@@ -149,8 +149,8 @@ const imageUploadStorage = multer.diskStorage({
 
 const uploadImage = multer({ storage: imageUploadStorage });
 
-
-app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
+router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
+  try {
     // Set up the Oracle DB connection
     const connection = await oracledb.getConnection({
       user: process.env.DB_USER,
@@ -161,7 +161,7 @@ app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
     // Insert the title, content, and file path into the GALLERY table
     const result = await connection.execute(
       `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
-      { 
+      {
         title: { val: req.body.title, dir: oracledb.BIND_IN },
         content: { val: req.body.content, dir: oracledb.BIND_IN },
         image_path: { val: req.file.path, dir: oracledb.BIND_IN },
@@ -171,7 +171,13 @@ app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
     await connection.close();
 
     res.send('File uploaded to server and data saved to Oracle DB!');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to upload file and save data to Oracle DB' });
+  }
 });
+
+module.exports = router;
 
 app.listen(8080, function(){
     console.log("working...");
