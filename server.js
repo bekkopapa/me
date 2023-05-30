@@ -138,7 +138,7 @@ router.get('/api/posts', async (req, res) => {
 
 const imageUploadStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/') 
+    cb(null, 'imageDB/') 
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
