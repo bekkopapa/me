@@ -160,7 +160,7 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
 
     // Insert the title, content, and file path into the GALLERY table
     const result = await connection.execute(
-      `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
+      `INSERT INTO GALLERY (title, content, image_URL) VALUES (:title, :content, :image_URL)`,
       {
         title: { val: req.body.title, dir: oracledb.BIND_IN },
         content: { val: req.body.content, dir: oracledb.BIND_IN },
