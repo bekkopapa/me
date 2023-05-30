@@ -136,8 +136,6 @@ router.get('/api/posts', async (req, res) => {
   }
 });
 
-app.use(uploadImage.single('image'));
-
 const imageUploadStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(os.homedir(), 'imageDB/'));
