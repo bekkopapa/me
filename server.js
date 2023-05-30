@@ -136,18 +136,21 @@ router.get('/api/posts', async (req, res) => {
   }
 });
 
-const imageStorage = multer.diskStorage({
+app.use(uploadImage.single('image'));
+
+const imageUploadStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(os.homedir(), 'imageDB/')) 
+    cb(null, path.join(os.homedir(), 'imageDB/'));
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
     const id = path.basename(file.originalname, ext);
-    cb(null, id + '-' + Date.now() + ext)
+    cb(null, id + '-' + Date.now() + ext);
   }
 });
 
-const uploadImage = multer({ storage: imageStorage });
+const uploadImage = multer({ storage: imageUploadStorage });
+
 
 app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
     // Set up the Oracle DB connection
