@@ -136,41 +136,41 @@ router.get('/api/posts', async (req, res) => {
   }
 });
 
-const imageStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(os.homedir(), 'imageDB')) 
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const id = path.basename(file.originalname, ext);
-    cb(null, id + '-' + Date.now() + ext)
-  }
-});
+// const imageStorage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.join(os.homedir(), 'imageDB')) 
+//   },
+//   filename: function (req, file, cb) {
+//     const ext = path.extname(file.originalname);
+//     const id = path.basename(file.originalname, ext);
+//     cb(null, id + '-' + Date.now() + ext)
+//   }
+// });
 
-const uploadImage = multer({ storage: storage });
+// const uploadImage = multer({ storage: storage });
 
-app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
-    // Set up the Oracle DB connection
-    const connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+// app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
+//     // Set up the Oracle DB connection
+//     const connection = await oracledb.getConnection({
+//       user: process.env.DB_USER,
+//       password: process.env.DB_PASSWORD,
+//       connectString: process.env.CONNECT_STRING,
+//     });
 
-    // Insert the title, content, and file path into the GALLERY table
-    const result = await connection.execute(
-      `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
-      { 
-        title: { val: req.body.title, dir: oracledb.BIND_IN },
-        content: { val: req.body.content, dir: oracledb.BIND_IN },
-        image_path: { val: req.file.path, dir: oracledb.BIND_IN },
-      },
-      { autoCommit: true }
-    );
-    await connection.close();
+//     // Insert the title, content, and file path into the GALLERY table
+//     const result = await connection.execute(
+//       `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
+//       { 
+//         title: { val: req.body.title, dir: oracledb.BIND_IN },
+//         content: { val: req.body.content, dir: oracledb.BIND_IN },
+//         image_path: { val: req.file.path, dir: oracledb.BIND_IN },
+//       },
+//       { autoCommit: true }
+//     );
+//     await connection.close();
 
-    res.send('File uploaded to server and data saved to Oracle DB!');
-});
+//     res.send('File uploaded to server and data saved to Oracle DB!');
+// });
 
 app.listen(8080, function(){
     console.log("working...");
