@@ -164,7 +164,7 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
       {
         title: { val: req.body.title, dir: oracledb.BIND_IN },
         content: { val: req.body.content, dir: oracledb.BIND_IN },
-        image_path: { val: req.file.path, dir: oracledb.BIND_IN },
+        image_URL: { val: req.file.path, dir: oracledb.BIND_IN },
       },
       { autoCommit: true }
     );
