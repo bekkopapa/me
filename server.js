@@ -169,10 +169,8 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
       { autoCommit: true }
     );
     await connection.close();
-
-    res.send('File uploaded to server and data saved to Oracle DB!');
     res.redirect('/admin.html');
-    
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to upload file and save data to Oracle DB' });
