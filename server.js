@@ -7,34 +7,34 @@ const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
 
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
+// const credentials = { key: privateKey, cert: certificate };
+// const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
-app.use(function (req, res, next) {
-    if (!req.secure) {
-        res.redirect(`https://${domain}${req.url}`);
-    } else {
-        next();
-    }
-});
+// const domain = "sohyunsoo.xyz";
+// app.use(function (req, res, next) {
+//     if (!req.secure) {
+//         res.redirect(`https://${domain}${req.url}`);
+//     } else {
+//         next();
+//     }
+// });
 
-httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//   console.log('HTTPS Server running on port 443');
+// });
 
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
-});
+// httpServer.listen(80, () => {
+//   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './board')));
@@ -136,41 +136,41 @@ router.get('/api/posts', async (req, res) => {
   }
 });
 
-// const imageStorage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(os.homedir(), 'imageDB')) 
-//   },
-//   filename: function (req, file, cb) {
-//     const ext = path.extname(file.originalname);
-//     const id = path.basename(file.originalname, ext);
-//     cb(null, id + '-' + Date.now() + ext)
-//   }
-// });
+const imageStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(os.homedir(), 'imageDB/')) 
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const id = path.basename(file.originalname, ext);
+    cb(null, id + '-' + Date.now() + ext)
+  }
+});
 
-// const uploadImage = multer({ storage: storage });
+const uploadImage = multer({ storage: imageStorage });
 
-// app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
-//     // Set up the Oracle DB connection
-//     const connection = await oracledb.getConnection({
-//       user: process.env.DB_USER,
-//       password: process.env.DB_PASSWORD,
-//       connectString: process.env.CONNECT_STRING,
-//     });
+app.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
+    // Set up the Oracle DB connection
+    const connection = await oracledb.getConnection({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+    });
 
-//     // Insert the title, content, and file path into the GALLERY table
-//     const result = await connection.execute(
-//       `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
-//       { 
-//         title: { val: req.body.title, dir: oracledb.BIND_IN },
-//         content: { val: req.body.content, dir: oracledb.BIND_IN },
-//         image_path: { val: req.file.path, dir: oracledb.BIND_IN },
-//       },
-//       { autoCommit: true }
-//     );
-//     await connection.close();
+    // Insert the title, content, and file path into the GALLERY table
+    const result = await connection.execute(
+      `INSERT INTO GALLERY (title, content, image_path) VALUES (:title, :content, :image_path)`,
+      { 
+        title: { val: req.body.title, dir: oracledb.BIND_IN },
+        content: { val: req.body.content, dir: oracledb.BIND_IN },
+        image_path: { val: req.file.path, dir: oracledb.BIND_IN },
+      },
+      { autoCommit: true }
+    );
+    await connection.close();
 
-//     res.send('File uploaded to server and data saved to Oracle DB!');
-// });
+    res.send('File uploaded to server and data saved to Oracle DB!');
+});
 
 app.listen(8080, function(){
     console.log("working...");
