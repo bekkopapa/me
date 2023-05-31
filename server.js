@@ -179,6 +179,7 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
 
 module.exports = router;
 
+// 갤러리 추가
 router.get('/gallery', async (req, res) => {
   let connection;
 
@@ -195,9 +196,9 @@ router.get('/gallery', async (req, res) => {
     );
             
     const posts = result.rows.map(row => ({
-      title: row[1],
-      content: row[2], 
-      image_URL: row[3]
+      title: row[0],
+      content: row[1], 
+      image_URL: row[2]
     }));
         
     res.json({ posts });
