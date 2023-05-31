@@ -31,6 +31,7 @@
 }
 
 #home-button {
+  font-size: small;
   border: none;
   background-color: transparent;
   color: rgb(56, 56, 56);
@@ -217,13 +218,6 @@ footer p {
   </div>
   <div id="gallery" class="container-fluid"> 
     <img src="" class="" data-title="" data-description="">
-    <img src="imgs/elly_3.jpg" class="img-responsive" data-title="<프린테라>의 엘리" data-description="오시리스 특전사령부의 특전요원 모집공고에 엘리는 자신이 직접 나서서 신청했고, 유전자 적합도 면에서 좋은 점수를 받았다. 더하여 야후에 대한 맹렬한 적대감과 전장에서 보여준 물불 가리지 않는 저돌성에서도 높은 평가를 받았단다.">
-    <img src="imgs/hohi_1.png" class="img-responsive" data-title="<아비>의 호히" data-description="중년의 여인. 새하얀 얼굴, 빨갛게 칠한 입술, 짙은 눈썹, 위로 솟은 눈꼬리, 뒤로 바짝 당겨 쪽진 머리와 긴 비녀에 하얗고 붉은 치마저고리. 무엇보다 그 눈빛이 예사롭지 않다. 크게 치켜뜬 것도 아닌데 불꽃이 튄다. 거기에 뭔지 모를 이질감. 인간 아닌 짐승, 육식동물의 눈을 마주한다면 이럴까?"> 
-    <img src="imgs/jin_2.jpg" class="img-responsive" data-title="<프린테라>의 진" data-description="배틀수트와 MP-33 소총이야 말로 특전대대에 속한 전투보병들의 전투력과 위상을 극한으로 끌어올린 주역이라 할 수 있다. 배틀수트는 그야말로 최첨단 기술이 모두 집약된 전투방호복이며, 플라즈마 커터와 유탄발사기능이 내장된 MP-33 역시 최강의 개인화기다.">
-    <img src="imgs/jin_3.jpg" class="img-responsive" data-title="<프린테라>의 진" data-description="나는 엘리와 새로운 미래를 설계하고 싶다. 이제 새로운 걱정이 고개를 쳐든다. 엘리가 거절을 하면 어쩌지?">
-    <img src="imgs/elly_1.jpg" class="img-responsive" data-title="<프린테라>의 엘리" data-description="엘리는 까무잡잡한 피부, 바짝 자른 숏컷에 마치 아기처럼 볼이 통통하고 귀여운 얼굴이었다.">
-    <img src="imgs/boyoung_1.jpg" class="img-responsive" data-title="<아비>의 보영" data-description="악몽은 병철이 죽은 날로부터 시작됐다. 혹, 보영의 무의식이 남편에 대한 원망으로 그러한 이미지를 만들어내는 것은 아닐지? 하지만 그러기엔 너무 잔인하다. 보영은 상상도 못 할 극악함이다. 만약 그런 것이 진짜 보영의 안에 있다면 그 또한 놀랄 일이다.">
-
     <!-- <video class="vid" controls>
       <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
       </source>
@@ -315,6 +309,17 @@ $(document).ready(function() {
     });
       $("#myModal").modal();
     });
+
+    $(document).keydown(function(event) { 
+  if (event.key === "Escape") { 
+    $('#myModal').modal('hide');
+  }
+});
+
+$(document).on('click', '.modal-img', function(event) {
+  $('#myModal').modal('hide');
+});
+
 
   var titles = $('.titles');
   var originalHeight = titles.height();
