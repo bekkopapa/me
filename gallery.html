@@ -34,9 +34,9 @@
 #home-button {
   padding: 3px;
   line-height: 13px;
-  border-radius: 44%;
+  border-radius: 30%;
   font-size: small;
-  border: 1px solid;
+  border: none;
   background-color: transparent;
   color: rgb(56, 56, 56);
 }
@@ -330,7 +330,7 @@ $(document).on('click', '.modal-img', function(event) {
 
   $(window).scroll(function() {
     var scrollPosition = $(this).scrollTop();
-    var newHeight = Math.max(originalHeight - scrollPosition, 58);
+    var newHeight = Math.max(originalHeight - scrollPosition, 57);
     titles.height(newHeight);
   });
 });
