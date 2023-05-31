@@ -27,19 +27,23 @@
 .buttons{
   position: absolute;
   left: 0;
+  margin-left: 10px;
   top: 26px;
 }
 
 #home-button {
+  padding: 4px;
+  line-height: 13px;
+  border-radius: 44%;
   font-size: small;
-  border: none;
+  border: 1px solid;
   background-color: transparent;
   color: rgb(56, 56, 56);
-  box-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.9);
 }
 
 #home-button:hover {
-  box-shadow: -1px -1px 0px rgba(0, 0, 0, 0.9);
+  color: #fafafc;
+  background-color: rgb(97, 97, 97);
 }
 
  body {
@@ -212,7 +216,7 @@ footer p {
   <div class="titles">
     <h1>AI Artwork gallery</h1>
     <div class="buttons">
-      <button id="home-button">home</button>
+      <button id="home-button">ho<br>me</button>
     </div>
     <p>소현수 작가의 작품 속 캐릭터의 아트워크를 전시합니다.<br>An exhibition of character artwork from the novel by sohyunsoo.</p>
   </div>
