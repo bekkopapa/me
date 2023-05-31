@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>소현수 작가의 아트워크 갤러리</title>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
+
+body {
+  font-family: 'Noto Serif KR', serif;  
+  opacity: 90%;
+  background-image: radial-gradient(circle at center, rgb(164, 194, 183), rgb(28, 43, 33));
+  user-select: none;
+}
+
+h1 {
+  font-size: 45px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding: 1%;
+  font-weight: bold; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
+  text-transform: uppercase;  
+}
+
+p {
+  font-size: 14px;
+  color: azure;
+}
+
+#gallery{
+  -webkit-column-count:4;
+  -moz-column-count:4;
+  column-count:4;
+  
+  -webkit-column-gap:20px;
+  -moz-column-gap:20px;
+  column-gap:20px;
+}
+@media (max-width:1200px){
+  #gallery{
+  -webkit-column-count:3;
+  -moz-column-count:3;
+  column-count:3;
+    
+  -webkit-column-gap:20px;
+  -moz-column-gap:20px;
+  column-gap:20px;
+}
+}
+@media (max-width:800px){
+  #gallery{
+  -webkit-column-count:2;
+  -moz-column-count:2;
+  column-count:2;
+    
+  -webkit-column-gap:20px;
+  -moz-column-gap:20px;
+  column-gap:20px;
+}
+}
+@media (max-width:600px){
+  #gallery{
+  -webkit-column-count:1;
+  -moz-column-count:1;
+  column-count:1;
+}  
+}
+#gallery img,#gallery video {
+  width:100%;
+  height:auto;
+  margin: 4% auto;
+  box-shadow:-3px 5px 15px #000;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.modal-img,.model-vid{
+  width:100%;
+  height:auto;
+}
+.modal-body{
+  background-color: beige;
+  padding:0px;
+  margin-bottom: 0;
+}
+
+.titles {
+  text-align: center;
+}
+
+.modal-content {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.modal-description {
+  text-align:justify;
+  padding: 1rem;
+  background-color: beige;
+  color: rgb(78, 78, 78);  /* 텍스트 색상을 빨강으로 설정 */
+  font-size: 15px;  /* 텍스트 크기를 20px로 설정 */
+  margin-bottom: 0px;
+}
+
+.modal-title {
+  font-size: 20px;
+  padding: 1rem;
+  text-align: center;
+  background-color: #000;
+  color: aliceblue;
+}
+
+.modal-button
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+}
+
+footer p {
+  font-size: 1.2rem;  
+}
+
+button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 3px;
+}
+
+#share-button {
+  margin-top: 50px;
+}
+
+</style>
+<body oncontextmenu="return false">
+  <div class="titles">
+    <h1>AI Artwork gallery</h1>
+    <div class="buttons">
+      <button>home</button>
+      <button id="share-button">share</button>
+    </div>
+    <p>소현수 작가의 작품 속 캐릭터의 아트워크를 전시합니다.<br>An exhibition of character artwork from the novel by sohyunsoo.</p>
+    <hr>
+  </div>
+  <div id="gallery" class="container-fluid">  
+    <img src="" class="img-responsive" data-title="" data-description="">
+    <!-- <video class="vid" controls>
+      <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+      </source>
+    </video> -->
+   </div>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <footer><p>&copy; 2023 - sohyunsoo.xyz </p></footer>
+  <script>
+$(document).ready(function(){
+  // AJAX call to fetch data from the server
+  $.ajax({
+    url: "/gallery",
+    type: "GET",
+    dataType: "json",
+    success: function(data) {
+      handleData(data.posts);
+    },
+    error: function(error) {
+      console.error(`Error: ${error}`);
+    }
+  });
+
+  // Function to handle data from the server
+  function handleData(posts) {
+    posts.forEach(post => {
+      let imageElement = $('<img>', {
+        "src": post.image_URL,
+        "class": "img-responsive",
+        "data-title": post.title,
+        "data-description": post.content
+      });
+
+      $('#gallery').append(imageElement);
+    });
+  }
+
+  // Existing click handler for images
+  $(document).on('click', 'img', function() {
+    var t = $(this).attr("src");
+    var desc = $(this).data('description');
+    var title = $(this).data('title');  // 타이틀 읽기
+    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<button class='modal-button'>"+'share'+"</button>");  // 모달에 이미지, 설명, 타이틀 추가
+    $("#myModal").modal();
+  });
+});
+
+
+
+    // $("video").click(function(){
+    //   var v = $("video > source");
+    //   var t = v.attr("src");
+    //   $(".modal-body").html("<video class='model-vid' controls><source src='"+t+"' type='video/mp4'></source></video>");
+    //   $("#myModal").modal();  
+    // });
+</script>
+</body>
+</html>

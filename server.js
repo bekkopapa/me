@@ -179,6 +179,43 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
 
 module.exports = router;
 
+router.get('/gallery', async (req, res) => {
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+    });
+
+    const result = await connection.execute(
+      `SELECT title, content, image_URL
+       FROM GALLERY`
+    );
+            
+    const posts = result.rows.map(row => ({
+      title: row[1],
+      content: row[2], 
+      image_URL: row[3]
+    }));
+        
+    res.json({ posts });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch posts' });
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+});
+
 app.listen(8080, function(){
     console.log("working...");
 });
