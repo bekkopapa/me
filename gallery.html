@@ -10,29 +10,10 @@
   <title>소현수 작가의 아트워크 갤러리</title>
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
-
-body {
-  font-family: 'Noto Serif KR', serif;  
-  opacity: 90%;
-  background-image: radial-gradient(circle at center, rgb(164, 194, 183), rgb(28, 43, 33));
-  user-select: none;
-}
-
-h1 {
-  font-size: 45px;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  padding: 1%;
-  font-weight: bold; 
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
-  text-transform: uppercase;  
-}
-
-p {
-  font-size: 14px;
-  color: azure;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=VT323&display=swap');
+.buttons2{
+    display: none;
+  }
 
 #gallery{
   -webkit-column-count:4;
@@ -44,6 +25,9 @@ p {
   column-gap:20px;
 }
 @media (max-width:1200px){
+  p {
+    margin-bottom: 30px;
+  }
   #gallery{
   -webkit-column-count:3;
   -moz-column-count:3;
@@ -66,12 +50,33 @@ p {
 }
 }
 @media (max-width:600px){
+  #share-button {
+    position: absolute;
+    right: 0px;
+    top: 100%;
+}
+ 
+  .buttons {
+    display: none;
+  }
+
+  .buttons2{
+    display: block;
+    position: fixed;
+    margin-left: 8%;
+    margin-top: -45px;
+  }
+
+  h1 {
+    margin-bottom: 30px;
+  }
   #gallery{
   -webkit-column-count:1;
   -moz-column-count:1;
   column-count:1;
 }  
 }
+
 #gallery img,#gallery video {
   width:100%;
   height:auto;
@@ -89,10 +94,7 @@ p {
   background-color: beige;
   padding:0px;
   margin-bottom: 0;
-}
-
-.titles {
-  text-align: center;
+  position: relative;
 }
 
 .modal-content {
@@ -118,7 +120,20 @@ p {
   color: aliceblue;
 }
 
-.modal-button
+#share-button {
+  position: absolute; /* 새로운 속성 추가 */
+  margin-left: 100%;
+  bottom: 0;
+}
+
+.modal-button {
+  background-color: beige;
+  border: none;
+}
+
+.modal-button:hover {
+  font-weight: bold;
+}
 
 footer {
   text-align: center;
@@ -130,30 +145,81 @@ footer p {
   font-size: 1.2rem;  
 }
 
-button {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin-top: 3px;
+.buttons{
+  position: fixed;
+  margin-left: 0px;
+  margin-top: -8vh;
 }
 
-#share-button {
-  margin-top: 50px;
+#home-button {
+  border: none;
+  background-color: transparent;
+  color: rgb(56, 56, 56);
+  box-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.9);
 }
+
+#home-button:hover {
+  box-shadow: -1px -1px 0px rgba(0, 0, 0, 0.9);
+}
+
+  .titles {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    margin-top: -20px;
+    background-color: #fafafc;
+    height: 155px;
+    width: 100%;
+    z-index: 999;
+    /* text-shadow: 0.5px 0.5px 0.2px rgba(0, 0, 0, 0.9);  */
+    overflow: hidden;
+    transition: height 0.3s ease;
+    }
+
+ body {
+  font-family: 'Noto Serif KR', serif;  
+  opacity: 95%;
+  background-color: #fafafc;
+  user-select: none;
+}
+
+  .container-fluid {
+    position: relative;
+    margin-top: 170px;
+  }
+
+  h1 {
+  margin-top: 10px;
+  font-family: 'VT323', monospace;
+  font-size: 55px;
+  text-align: center;
+  color: rgb(97, 97, 97);
+  padding: 1%;
+  text-transform: uppercase;  
+}
+
+p {
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+}
+
 
 </style>
 <body oncontextmenu="return false">
   <div class="titles">
     <h1>AI Artwork gallery</h1>
+    <div class="buttons2">
+      <button id="home-button">home</button>
+    </div>
     <div class="buttons">
-      <button>home</button>
-      <button id="share-button">share</button>
+      <button id="home-button">home</button>
     </div>
     <p>소현수 작가의 작품 속 캐릭터의 아트워크를 전시합니다.<br>An exhibition of character artwork from the novel by sohyunsoo.</p>
-    <hr>
   </div>
-  <div id="gallery" class="container-fluid">  
-    <img src="" class="img-responsive" data-title="" data-description="">
+  <div id="gallery" class="container-fluid"> 
     <!-- <video class="vid" controls>
       <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
       </source>
@@ -171,23 +237,31 @@ button {
     </div>
   </div>
   <footer><p>&copy; 2023 - sohyunsoo.xyz </p></footer>
-  <script>
-$(document).ready(function(){
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('h1').click(function() {
+    $('html, body').animate({scrollTop:0}, '300'); 
+  });
+
+  $('#home-button').click(function() {
+    location.href = "index.html";
+  });
+
   // AJAX call to fetch data from the server
   $.ajax({
     url: "/gallery",
     type: "GET",
-    dataType: "json",
-    success: function(data) {
-      handleData(data.posts);
-    },
-    error: function(error) {
-      console.error(`Error: ${error}`);
-    }
+    dataType: "json"
+  })
+  .done(handleData)
+  .fail(function(error) {
+    console.error(`Error: ${error}`);
   });
 
   // Function to handle data from the server
   function handleData(posts) {
+    let imageElements = [];
     posts.forEach(post => {
       let imageElement = $('<img>', {
         "src": post.image_URL,
@@ -195,23 +269,58 @@ $(document).ready(function(){
         "data-title": post.title,
         "data-description": post.content
       });
-
-      $('#gallery').append(imageElement);
+      imageElements.push(imageElement);
     });
+    $('#gallery').append(imageElements);
   }
 
   // Existing click handler for images
   $(document).on('click', 'img', function() {
     var t = $(this).attr("src");
     var desc = $(this).data('description');
-    var title = $(this).data('title');  // 타이틀 읽기
-    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<button class='modal-button'>"+'share'+"</button>");  // 모달에 이미지, 설명, 타이틀 추가
-    $("#myModal").modal();
+    var title = $(this).data('title');
+    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+  
+    // Share button event listener
+    $('.modal-button').on('click', async function() {
+      var node = $('.modal-body')[0];
+      domtoimage.toPng(node, {
+      filter: function(el) {
+          return el.id !== 'share-button';
+      }
+    })      
+    .then(async function (dataUrl) {
+          if (navigator.share) {
+            try {
+              let response = await fetch(dataUrl);
+              let blob = await response.blob();
+              let file = new File([blob], 'AI-artwork.png', {type: blob.type});
+  
+              await navigator.share({
+                title: 'AI artwork gallery',
+                text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
+                url: 'https://sohyunsoo.xyz/gallery.html',
+                files: [file] 
+              })
+              console.log('Sharing successful')
+            } catch (err) {
+              console.log('Sharing failed', err)
+            }
+          }
+        });
+    });
+      $("#myModal").modal();
+    });
+
+  var titles = $('.titles');
+  var originalHeight = titles.height();
+
+  $(window).scroll(function() {
+    var scrollPosition = $(this).scrollTop();
+    var newHeight = Math.max(originalHeight - scrollPosition, 90);
+    titles.height(newHeight);
   });
 });
-
-
-
     // $("video").click(function(){
     //   var v = $("video > source");
     //   var t = v.attr("src");
