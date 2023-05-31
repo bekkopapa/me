@@ -253,16 +253,17 @@ $(document).ready(function() {
   $.ajax({
     url: "/gallery",
     type: "GET",
-    dataType: "json"
-  })
-  .done(handleData)
-  .fail(function(error) {
-    console.error(`Error: ${error}`);
+    dataType: "json",
+    success: function(data) {
+      handleData(data.posts);
+    },
+    error: function(error) {
+      console.error(`Error: ${error}`);
+    }
   });
 
   // Function to handle data from the server
   function handleData(posts) {
-    let imageElements = [];
     posts.forEach(post => {
       let imageElement = $('<img>', {
         "src": post.image_URL,
@@ -270,9 +271,8 @@ $(document).ready(function() {
         "data-title": post.title,
         "data-description": post.content
       });
-      imageElements.push(imageElement);
+      $('#gallery').append(imageElement);
     });
-    $('#gallery').append(imageElements);
   }
 
   // Existing click handler for images
