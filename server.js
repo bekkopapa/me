@@ -16,6 +16,7 @@ app.use('/admin.html', basicAuth({
 app.get('/admin.html', (req, res) => {
   if (req.auth) {
     res.send('access OK');
+    res.redirect('/admin.html');
   } else {
     res.status(401).send('Unauthorized');
   }
