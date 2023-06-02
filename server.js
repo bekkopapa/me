@@ -13,15 +13,6 @@ app.use('/admin.html', basicAuth({
   challenge: true,
 }));
 
-app.get('/admin.html', (req, res) => {
-  if (req.auth) {
-    res.send('access OK');
-    res.redirect('/admin.html');
-  } else {
-    res.status(401).send('Unauthorized');
-  }
-});
-
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
