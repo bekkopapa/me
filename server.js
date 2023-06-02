@@ -8,12 +8,12 @@ const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
 
-app.use('/admin', basicAuth({
+app.use('/admin.html', basicAuth({
   users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
   challenge: true,
 }));
 
-app.get('/admin', (req, res) => {
+app.get('/admin.html', (req, res) => {
   res.send('Welcome to the admin page!');
 });
 
