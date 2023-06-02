@@ -276,63 +276,43 @@ $(document).ready(function() {
     });
   }
 
+  // Existing click handler for images
   $(document).on('click', 'img', function() {
-  var t = $(this).attr("src");
-  var desc = $(this).data('description');
-  var title = $(this).data('title');
-
-  // Create a new Image object
-  var img = new Image();
-
-  // Create a Promise that resolves when the image has loaded
-  var imageLoaded = new Promise(function(resolve, reject) {
-    img.onload = resolve;
-    img.onerror = reject;
-  });
-
-  // When the image has loaded, update the modal
-  img.onload = function() {
+    var t = $(this).attr("src");
+    var desc = $(this).data('description');
+    var title = $(this).data('title');
     $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
-
-    // Show modal
-    $("#myModal").modal();
-  };
-
-  // Finally, set the src (this will trigger the onload event when the image has finished loading)
-  img.src = t;
-
-  // Now, we can capture the image once both the click event and the image loading are completed
-  $('.modal-button').off('click').on('click', function() {
-    // We make sure to wait for the image to load before capturing it
-    imageLoaded.then(function() {
+  
+    // Share button event listener
+    $('.modal-button').on('click', async function() {
       var node = $('.modal-body')[0];
       domtoimage.toPng(node, {
-          filter: function(el) {
-              return el.id !== 'share-button';
-          }
-      })
-      .then(async function (dataUrl) {
+      filter: function(el) {
+          return el.id !== 'share-button';
+      }
+    })      
+    .then(async function (dataUrl) {
           if (navigator.share) {
-              try {
-                  let response = await fetch(dataUrl);
-                  let blob = await response.blob();
-                  let file = new File([blob], 'AI-artwork.png', {type: blob.type});
-
-                  await navigator.share({
-                      title: 'AI artwork gallery',
-                      text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
-                      url: 'https://sohyunsoo.xyz/gallery.html',
-                      files: [file]
-                  })
-                  console.log('Sharing successful')
-              } catch (err) {
-                  console.log('Sharing failed', err)
-              }
+            try {
+              let response = await fetch(dataUrl);
+              let blob = await response.blob();
+              let file = new File([blob], 'AI-artwork.png', {type: blob.type});
+  
+              await navigator.share({
+                title: 'AI artwork gallery',
+                text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
+                url: 'https://sohyunsoo.xyz/gallery.html',
+                files: [file] 
+              })
+              console.log('Sharing successful')
+            } catch (err) {
+              console.log('Sharing failed', err)
+            }
           }
-      });
+        });
     });
-  });
-});
+      $("#myModal").modal();
+    });
 
     $(document).keydown(function(event) { 
   if (event.key === "Escape") { 
