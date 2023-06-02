@@ -286,7 +286,7 @@ $(document).ready(function() {
     // Share button event listener
     $('.modal-button').on('click', async function() {
       var node = $('.modal-body')[0];
-      domtoimage.toPng(node, {
+      domtoimage.toJpeg(node, {
       filter: function(el) {
           return el.id !== 'share-button';
       }
