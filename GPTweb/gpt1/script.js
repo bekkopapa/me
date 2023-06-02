@@ -101,6 +101,8 @@ document.querySelector('#share-button').addEventListener('click', async () => {
   var node = document.querySelector('.capture-area');
   var originalColor = node.style.backgroundColor;
   node.style.backgroundColor = '#11191f';
+
+  await domtoimage.toPng(node);
   
   domtoimage.toPng(node)
     .then(async function (dataUrl) {
