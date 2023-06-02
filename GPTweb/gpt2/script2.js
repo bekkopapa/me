@@ -110,6 +110,10 @@ document.querySelector("#home-button").addEventListener("click", function home()
     var originalColor = node.style.backgroundColor;
     node.style.backgroundColor = '#11191f';
     
+    // First call to domtoimage.toPng
+    await domtoimage.toPng(node);
+
+    // Second call to domtoimage.toPng
     domtoimage.toPng(node)
       .then(async function (dataUrl) {
         node.style.backgroundColor = originalColor;
@@ -144,7 +148,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
       .catch(function (error) {
         console.error('oops, something went wrong!', error);
       });
-  });
+});
   
   async function chat(name, subject) {
     const response = await fetch("/api/chat2", {
