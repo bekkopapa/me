@@ -14,7 +14,11 @@ app.use('/admin.html', basicAuth({
 }));
 
 app.get('/admin.html', (req, res) => {
-  location.href='admin.html';
+  if (req.auth) {
+    res.redirect('/admin.html');
+  } else {
+    res.status(401).send('Unauthorized');
+  }
 });
 
 const fs = require('fs');
