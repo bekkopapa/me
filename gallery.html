@@ -284,35 +284,38 @@ $(document).ready(function() {
     $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
   
     // Share button event listener
-    $('.modal-button').on('click', async function() {
-      var node = $('.modal-body')[0];
-      domtoimage.toPng(node, {
-      filter: function(el) {
-          return el.id !== 'share-button';
-      }
+    $('.modal-button').on('click', function() {
+        $("#myModal").modal();
+    });  // 이 부분에 닫는 괄호와 중괄호를 추가했습니다.
+});
+
+$('#myModal').on('shown.bs.modal', function() {
+    var node = $('.modal-body')[0];
+    domtoimage.toPng(node, {
+        filter: function(el) {
+            return el.id !== 'share-button';
+        }
     })      
     .then(async function (dataUrl) {
-          if (navigator.share) {
+        if (navigator.share) {
             try {
-              let response = await fetch(dataUrl);
-              let blob = await response.blob();
-              let file = new File([blob], 'AI-artwork.png', {type: blob.type});
-  
-              await navigator.share({
-                title: 'AI artwork gallery',
-                text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
-                url: 'https://sohyunsoo.xyz/gallery.html',
-                files: [file] 
-              })
-              console.log('Sharing successful')
+                let response = await fetch(dataUrl);
+                let blob = await response.blob();
+                let file = new File([blob], 'AI-artwork.png', {type: blob.type});
+
+                await navigator.share({
+                    title: 'AI artwork gallery',
+                    text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
+                    url: 'https://sohyunsoo.xyz/gallery.html',
+                    files: [file]
+                })
+                console.log('Sharing successful')
             } catch (err) {
-              console.log('Sharing failed', err)
+                console.log('Sharing failed', err)
             }
-          }
-        });
+        }
     });
-      $("#myModal").modal();
-    });
+});
 
     $(document).keydown(function(event) { 
   if (event.key === "Escape") { 
