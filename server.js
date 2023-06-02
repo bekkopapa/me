@@ -19,7 +19,7 @@ app.get('/admin.html', (req, res, next) => {
     next();
   } else {
     // 인증이 실패한 경우에는 'Unauthorized' 상태 코드를 반환하고 요청 처리를 종료합니다.
-    res.sendStatus(401);
+    res.redirect('/index.html')
   }
   });
 
