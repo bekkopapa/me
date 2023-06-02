@@ -2,14 +2,11 @@
 <html>
 <body>
 
-<h2>Image File Upload</h2>
+<h2>ArtWorkGallery Upload</h2>
 <form action="/uploadImage" method="post" enctype="multipart/form-data">
-  Select image to upload:
   <input type="file" name="image" id="image"><br>
-  Enter title:
-  <input type="text" name="title" id="title"><br>
-  Enter content:
-  <textarea name="content" id="content"></textarea><br>
+  <input type="text" name="title" id="title" style="margin-top: 10px;" placeholder="title" required><br>
+  <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;" placeholder="enter content" required></textarea><br>
   <input type="submit" value="Upload Image" name="submit">
 </form>
 
