@@ -1,4 +1,5 @@
 const express = require('express');
+const basicAuth = require('express-basic-auth');
 const app = express();
 const path = require('path');
 require('dotenv').config();
@@ -6,6 +7,15 @@ const multer  = require('multer');
 const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
+
+app.use('/admin', basicAuth({
+  users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
+  challenge: true,
+}));
+
+app.get('/admin', (req, res) => {
+  res.send('Welcome to the admin page!');
+});
 
 const fs = require('fs');
 const http = require('http');
