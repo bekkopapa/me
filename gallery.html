@@ -278,18 +278,27 @@ $(document).ready(function() {
 
   // Existing click handler for images
   $(document).on('click', 'img', function() {
-    var t = $(this).attr("src");
-    var desc = $(this).data('description');
-    var title = $(this).data('title');
-    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+  var t = $(this).attr("src");
+  var desc = $(this).data('description');
+  var title = $(this).data('title');
 
-    // Show modal
-    $("#myModal").modal();
+  // Wait until the modal image has loaded to render the modal
+  var img = $("<img>")
+    .attr("src", t)
+    .attr("class", "modal-img")
+    .on('load', function() {
+      $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3>")
+                      .append(img)
+                      .append("<p class='modal-description'>"+desc+"</p>")
+                      .append("<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+
+      // Show modal
+      $("#myModal").modal();
+    });
 });
 
+// Delegate event handling to the document, and filter the target to .modal-button
 $(document).on('click', '.modal-button', function() {
-  // Wait for the modal image to load completely before capturing
-  $('.modal-img').on('load', function() {
     var node = $('.modal-body')[0];
     domtoimage.toPng(node, {
         filter: function(el) {
@@ -315,11 +324,7 @@ $(document).on('click', '.modal-button', function() {
             }
         }
     });
-  }).each(function() {
-    if(this.complete) $(this).trigger('load');
-  });
 });
-
 
     $(document).keydown(function(event) { 
   if (event.key === "Escape") { 
