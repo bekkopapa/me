@@ -9,6 +9,18 @@
   <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;" placeholder="enter content" required></textarea><br>
   <input type="submit" value="Upload Image" name="submit">
 </form>
-
+<script>
+  fetch('/admin.html')
+  .then(response => {
+    if (response.ok) {
+      window.location.href = '/admin.html'; // 'admin.html' 페이지로 리디렉션
+    } else {
+      // 서버에서 오류 응답을 받은 경우에 대한 처리
+    }
+  })
+  .catch(error => {
+    // 네트워크 오류 등에 대한 처리
+  });
+</script>
 </body>
 </html>
