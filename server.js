@@ -14,7 +14,7 @@ app.use('/admin.html', basicAuth({
 }));
 
 app.get('/admin.html', (req, res) => {
-  res.send('Welcome to the admin page!');
+  location.href='admin.html';
 });
 
 const fs = require('fs');
