@@ -315,8 +315,11 @@ $(document).on('click', '.modal-button', function() {
             }
         }
     });
+  }).each(function() {
+    if(this.complete) $(this).trigger('load');
   });
 });
+
 
     $(document).keydown(function(event) { 
   if (event.key === "Escape") { 
