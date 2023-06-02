@@ -283,6 +283,8 @@ $(document).ready(function() {
     var title = $(this).data('title');
     $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
   
+    $("#myModal").modal();
+    
     // Share button event listener
     $('.modal-button').on('click', async function() {
       var node = $('.modal-body')[0];
@@ -311,7 +313,6 @@ $(document).ready(function() {
           }
         });
     });
-      $("#myModal").modal();
     });
 
     $(document).keydown(function(event) { 
