@@ -276,54 +276,53 @@ $(document).ready(function() {
     });
   }
 
-  // Existing click handler for images
   $(document).on('click', 'img', function() {
   var t = $(this).attr("src");
   var desc = $(this).data('description');
   var title = $(this).data('title');
 
-  // Wait until the modal image has loaded to render the modal
-  var img = $("<img>")
-    .attr("src", t)
-    .attr("class", "modal-img")
-    .on('load', function() {
-      $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3>")
-                      .append(img)
-                      .append("<p class='modal-description'>"+desc+"</p>")
-                      .append("<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+  // Create a new Image object
+  var img = new Image();
 
-      // Show modal
-      $("#myModal").modal();
+  // When the image has loaded, update the modal
+  img.onload = function() {
+    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+
+    // Show modal
+    $("#myModal").modal();
+
+    // Now we can capture the image, as we know it's definitely loaded
+    $('.modal-button').off('click').on('click', function() {
+      var node = $('.modal-body')[0];
+      domtoimage.toPng(node, {
+          filter: function(el) {
+              return el.id !== 'share-button';
+          }
+      })
+      .then(async function (dataUrl) {
+          if (navigator.share) {
+              try {
+                  let response = await fetch(dataUrl);
+                  let blob = await response.blob();
+                  let file = new File([blob], 'AI-artwork.png', {type: blob.type});
+
+                  await navigator.share({
+                      title: 'AI artwork gallery',
+                      text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
+                      url: 'https://sohyunsoo.xyz/gallery.html',
+                      files: [file]
+                  })
+                  console.log('Sharing successful')
+              } catch (err) {
+                  console.log('Sharing failed', err)
+              }
+          }
+      });
     });
-});
+  };
 
-// Delegate event handling to the document, and filter the target to .modal-button
-$(document).on('click', '.modal-button', function() {
-    var node = $('.modal-body')[0];
-    domtoimage.toPng(node, {
-        filter: function(el) {
-            return el.id !== 'share-button';
-        }
-    })
-    .then(async function (dataUrl) {
-        if (navigator.share) {
-            try {
-                let response = await fetch(dataUrl);
-                let blob = await response.blob();
-                let file = new File([blob], 'AI-artwork.png', {type: blob.type});
-
-                await navigator.share({
-                    title: 'AI artwork gallery',
-                    text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
-                    url: 'https://sohyunsoo.xyz/gallery.html',
-                    files: [file]
-                })
-                console.log('Sharing successful')
-            } catch (err) {
-                console.log('Sharing failed', err)
-            }
-        }
-    });
+  // Finally, set the src (this will trigger the onload event when the image has finished loading)
+  img.src = t;
 });
 
     $(document).keydown(function(event) { 
