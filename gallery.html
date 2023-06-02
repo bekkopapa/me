@@ -287,33 +287,32 @@ $(document).ready(function() {
     $("#myModal").modal();
 });
 
-$("#myModal").on('shown.bs.modal', function() {
-    $(document).one('click', '.modal-button', function() {
-        var node = $('.modal-body')[0];
-        domtoimage.toPng(node, {
-            filter: function(el) {
-                return el.id !== 'share-button';
-            }
-        })
-        .then(async function (dataUrl) {
-            if (navigator.share) {
-                try {
-                    let response = await fetch(dataUrl);
-                    let blob = await response.blob();
-                    let file = new File([blob], 'AI-artwork.png', {type: blob.type});
+// Delegate event handling to the document, and filter the target to .modal-button
+$(document).on('click', '.modal-button', function() {
+    var node = $('.modal-body')[0];
+    domtoimage.toPng(node, {
+        filter: function(el) {
+            return el.id !== 'share-button';
+        }
+    })
+    .then(async function (dataUrl) {
+        if (navigator.share) {
+            try {
+                let response = await fetch(dataUrl);
+                let blob = await response.blob();
+                let file = new File([blob], 'AI-artwork.png', {type: blob.type});
 
-                    await navigator.share({
-                        title: 'AI artwork gallery',
-                        text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
-                        url: 'https://sohyunsoo.xyz/gallery.html',
-                        files: [file]
-                    })
-                    console.log('Sharing successful')
-                } catch (err) {
-                    console.log('Sharing failed', err)
-                }
+                await navigator.share({
+                    title: 'AI artwork gallery',
+                    text: '소현수 작가의 소설 속 캐릭터 아트워크 갤러리',
+                    url: 'https://sohyunsoo.xyz/gallery.html',
+                    files: [file]
+                })
+                console.log('Sharing successful')
+            } catch (err) {
+                console.log('Sharing failed', err)
             }
-        });
+        }
     });
 });
 
