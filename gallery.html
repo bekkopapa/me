@@ -287,8 +287,9 @@ $(document).ready(function() {
     $("#myModal").modal();
 });
 
-// Delegate event handling to the document, and filter the target to .modal-button
 $(document).on('click', '.modal-button', function() {
+  // Wait for the modal image to load completely before capturing
+  $('.modal-img').on('load', function() {
     var node = $('.modal-body')[0];
     domtoimage.toPng(node, {
         filter: function(el) {
@@ -314,6 +315,7 @@ $(document).on('click', '.modal-button', function() {
             }
         }
     });
+  });
 });
 
     $(document).keydown(function(event) { 
