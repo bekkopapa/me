@@ -284,15 +284,27 @@ $(document).ready(function() {
   // Create a new Image object
   var img = new Image();
 
+  // Create a Promise that resolves when the image has loaded
+  var imageLoaded = new Promise(function(resolve, reject) {
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+
   // When the image has loaded, update the modal
   img.onload = function() {
     $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
 
     // Show modal
     $("#myModal").modal();
+  };
 
-    // Now we can capture the image, as we know it's definitely loaded
-    $('.modal-button').off('click').on('click', function() {
+  // Finally, set the src (this will trigger the onload event when the image has finished loading)
+  img.src = t;
+
+  // Now, we can capture the image once both the click event and the image loading are completed
+  $('.modal-button').off('click').on('click', function() {
+    // We make sure to wait for the image to load before capturing it
+    imageLoaded.then(function() {
       var node = $('.modal-body')[0];
       domtoimage.toPng(node, {
           filter: function(el) {
@@ -319,10 +331,7 @@ $(document).ready(function() {
           }
       });
     });
-  };
-
-  // Finally, set the src (this will trigger the onload event when the image has finished loading)
-  img.src = t;
+  });
 });
 
     $(document).keydown(function(event) { 
