@@ -110,6 +110,8 @@ document.querySelector("#home-button").addEventListener("click", function home()
     var node = document.querySelector('.capture-area');
     var originalColor = node.style.backgroundColor;
     node.style.backgroundColor = '#11191f';
+
+    await domtoimage.toPng(node);
     
     domtoimage.toPng(node)
       .then(async function (dataUrl) {
