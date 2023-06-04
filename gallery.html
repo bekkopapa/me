@@ -281,7 +281,7 @@ $(document).ready(function() {
     var t = $(this).attr("src");
     var desc = $(this).data('description');
     var title = $(this).data('title');
-    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
+    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img' loading='lazy'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
   
     $("#myModal").modal();
     
