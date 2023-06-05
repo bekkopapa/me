@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.get('/aigallery', (req, res) => {
+app.get('./aigallery', (req, res) => {
   res.sendFile('aigallery.html');
 });
 
