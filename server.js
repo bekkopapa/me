@@ -60,8 +60,12 @@ app.get('/', (req, res) => {
 
 app.get('/aigallery', (req, res) => {
   res.sendFile(__dirname + '/aigallery.html');
-
 });
+
+app.get('/novel', (req, res) => {
+  res.sendFile(__dirname + '/novel/novel.html');
+});
+
 
 
 const storage = multer.diskStorage({
