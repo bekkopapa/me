@@ -53,7 +53,7 @@ httpServer.listen(80, () => {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
 app.use('/', router);
-app.use(express.static('/', {extensions: ['html']}));
+app.use(express.static('./', {extensions: ['html']}));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
