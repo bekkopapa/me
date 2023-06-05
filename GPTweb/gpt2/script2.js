@@ -137,7 +137,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
         } else {
             // fallback for desktop browsers
             const textArea = document.createElement('textarea');
-            textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html';
+            textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt2';
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('Copy');

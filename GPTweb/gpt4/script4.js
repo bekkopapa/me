@@ -126,7 +126,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
                 await navigator.share({
                     title: 'AI jagangDucheon',
                     text: '누구 잘못인지 제대로 가려보자!',
-                    url: 'https://sohyunsoo.xyz/GPTweb/gpt4/gpt4.html',
+                    url: 'https://sohyunsoo.xyz/GPTweb/gpt4',
                     files: [file] 
                 })
                 console.log('Sharing successful')
@@ -136,7 +136,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
         } else {
             // fallback for desktop browsers
             const textArea = document.createElement('textarea');
-            textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt4/gpt4.html';
+            textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt4';
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('Copy');
