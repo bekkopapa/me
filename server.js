@@ -58,8 +58,8 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.get('/gallery', (req, res) => {
-  res.sendFile('gallery.html');
+app.get('/aigallery', (req, res) => {
+  res.sendFile('aigallery.html');
 });
 
 

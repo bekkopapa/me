@@ -79,7 +79,7 @@ $('#button_3').on('click', function() {
   }, 1500);
 
   // 페이지 이동
-  const nextPageUrl = 'gallery.html';
+  const nextPageUrl = 'aigallery';
   setTimeout(function() {
     window.location.href = nextPageUrl;
   }, 1000);
