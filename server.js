@@ -52,6 +52,7 @@ httpServer.listen(80, () => {
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
+app.use('/', router);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -230,6 +231,7 @@ router.get('/gallery', async (req, res) => {
 app.listen(8080, function(){
     console.log("working...");
 });
+
 
 app.post("/api/chat", async (req, res) => {
   try{
