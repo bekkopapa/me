@@ -1,5 +1,5 @@
 document.querySelector("#home-button").addEventListener("click", function home() {
-    location.href = "../GPTweb";
+    location.href = "../";
   });
 
   window.onload = function() {
