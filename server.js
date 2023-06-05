@@ -50,6 +50,10 @@ httpServer.listen(80, () => {
   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
 });
 
+app.use(express.static('./', {
+  extensions: ['html'],
+}));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './board')));
 app.use(express.static(path.join(__dirname, './')));
