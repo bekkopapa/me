@@ -127,7 +127,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
       } else {
           // fallback for desktop browsers
           const textArea = document.createElement('textarea');
-          textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html';
+          textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt1';
           document.body.appendChild(textArea);
           textArea.select();
           document.execCommand('Copy');
