@@ -234,22 +234,6 @@ app.listen(8080, function(){
     console.log("working...");
 });
 
-// app.get('/GPTweb/gpt1', function(req, res){
-//   res.sendFile(path.join(__dirname, 'gpt.html'));
-// });
-
-// app.get('/GPTweb/gpt2', function(req, res){
-// res.sendFile(path.join(__dirname, 'gpt2.html'));
-// });
-
-// app.get('/GPTweb/gpt3', function(req, res){
-//   res.sendFile(path.join(__dirname, 'gpt3.html'));
-//   });
-
-// app.get('/GPTweb/gpt4', function(req, res){
-//     res.sendFile(path.join(__dirname, 'gpt4.html'));
-//     });
-
 app.post("/api/chat", async (req, res) => {
   try{
       const question = req.body.question;
