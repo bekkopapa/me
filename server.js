@@ -70,6 +70,26 @@ app.get('/GPTweb', (req, res) => {
   res.sendFile(__dirname + '/GPTweb/door.html');
 });
 
+app.get('/GPTweb/gpt1', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt1/gpt.html');
+});
+
+app.get('/GPTweb/gpt2', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt2/gpt2.html');
+});
+
+app.get('/GPTweb/gpt3', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt3/gpt3.html');
+});
+
+app.get('/GPTweb/gpt4', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt4/gpt4.html');
+});
+
+app.get('/board', (req, res) => {
+  res.sendFile(__dirname + '/board/board.html');
+});
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/') 
