@@ -54,6 +54,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
 app.use('/', router);
 
+app.use(express.static('gallery'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/gallery.html');
+});
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/') 
