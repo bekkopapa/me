@@ -54,15 +54,18 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, './board')));
 app.use(express.static(path.join(__dirname, './')));
 app.use(express.static(path.join(__dirname, './GPTweb')));
-app.use(express.static(path.join(__dirname, './GPTweb/js')));
 app.use('/', router);
 
-app.get('/index', function(req, res) {
-  res.sendFile(path.join(__dirname, './', 'index.html'));
+app.get('/:page', function(req, res) {
+  res.sendFile(path.join(__dirname, './', req.params.page + '.html'));
 });
 
-app.get('/gallery', function(req, res) {
-  res.sendFile(path.join(__dirname, './', 'gallery.html'));
+app.get('/:page', function(req, res) {
+  res.sendFile(path.join(__dirname, './board', req.params.page + '.html'));
+});
+
+app.get('/:page', function(req, res) {
+  res.sendFile(path.join(__dirname, './GPTweb', req.params.page + '.html'));
 });
 
 
