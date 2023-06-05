@@ -57,10 +57,6 @@ app.use(express.static(path.join(__dirname, './GPTweb')));
 app.use(express.static(path.join(__dirname, './GPTweb/js')));
 app.use('/', router);
 
-app.get('/:page', function(req, res) {
-  res.sendFile(path.join(__dirname, './', req.params.page + '.html'));
-});
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/') 
