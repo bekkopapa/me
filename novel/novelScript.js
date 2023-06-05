@@ -109,8 +109,8 @@ class StickyNavigation {
             try {
                 await navigator.share({
                     title: '소현수 작가의 미공개 작품선',
-                    text: '꿀잼 발견!',
-                    url: 'https://sohyunsoo.xyz/novel/novel.html',
+                    text: '',
+                    url: 'https://sohyunsoo.xyz/novel',
                 })
                 console.log('Sharing successful')
             } catch (err) {
