@@ -1,5 +1,5 @@
 document.querySelector("#home-button").addEventListener("click", function home() {
-  location.href = "../door.html";
+  location.href = "../GPTweb";
 });
 
 var formData = new FormData(); // Declare formData at the top of the script
