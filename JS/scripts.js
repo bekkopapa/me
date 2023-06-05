@@ -50,7 +50,7 @@ $('#button_2').on('click', function() {
   }, 1500);
 
   // 페이지 이동
-  const nextPageUrl = 'novel/novel.html';
+  const nextPageUrl = 'novel';
   setTimeout(function() {
     window.location.href = nextPageUrl;
   }, 1000);
