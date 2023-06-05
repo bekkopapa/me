@@ -101,7 +101,7 @@ class StickyNavigation {
     }
 }
     document.querySelector("#home-button").addEventListener('click', function(){
-        location.href="../index.html"
+        location.href="../"
     });
 
     document.querySelector('#share-button').addEventListener('click', async () => {
