@@ -127,7 +127,7 @@ document.querySelector("#home-button").addEventListener("click", function home()
                 await navigator.share({
                     title: 'AI aesop',
                     text: '끝내주는 동화를 창작해보자!',
-                    url: 'https://sohyunsoo.xyz/GPTweb/gpt2/gpt2.html',
+                    url: 'https://sohyunsoo.xyz/GPTweb/gpt2',
                     files: [file] 
                 })
                 console.log('Sharing successful')
