@@ -66,7 +66,9 @@ app.get('/novel', (req, res) => {
   res.sendFile(__dirname + '/novel/novel.html');
 });
 
-
+app.get('/GPTweb', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/door.html');
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
