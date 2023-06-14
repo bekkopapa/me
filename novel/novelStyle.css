@@ -135,7 +135,7 @@ label:active:after {
 .et-slide h1 {
 	font-size: 2rem;
 	margin: 0;
-	letter-spacing: 1rem;
+	letter-spacing: 0.6rem;
 }
 
 .et-hero-tabs h3,
