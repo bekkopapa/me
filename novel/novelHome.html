@@ -8,6 +8,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;500&display=swap');
 
+.home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+}
+
 body {
     background-color: #f0fff0;
     font-family: 'Noto Serif KR', "serif";
@@ -25,6 +33,7 @@ body {
 }
 
 .cols{
+    margin-top: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -176,10 +185,6 @@ body {
   font-weight: 300;
 }
 
-.home-button {
-    position: relative;
-}
-
 @media screen and (max-width: 64rem){
   .col{
     width: calc(33.333333% - 2rem);
@@ -200,6 +205,9 @@ body {
 }
 </style>
 <body>
+    <div class="home-button">
+        <button>home</button>
+    </div>
     <div class="wrapper">
         <div class="cols">
                   <div class="col" ontouchstart="this.classList.toggle('hover');">
@@ -231,9 +239,6 @@ body {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="home-button">
-                    <button>home</button>
                 </div>
             </body>
         <script>
