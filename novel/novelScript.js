@@ -128,4 +128,8 @@ class StickyNavigation {
         }
       });
 
+      document.querySelector("#aviciLink").addEventListener('click', function(){
+        location.href="https://search.shopping.naver.com/book/catalog/32443564932?query=%EC%96%B4%EC%9C%84%ED%81%AC&NaPm=ct%3Dlivr47w0%7Cci%3D3374cce12f86d2577928a0a1e72c5e3dce0dd8c4%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D56cae760f768b1bb60edf8b8d43300d855c043ee"
+    });
+
 new StickyNavigation();
