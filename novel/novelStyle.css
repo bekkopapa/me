@@ -170,7 +170,7 @@ label:active:after {
 	color: #000;
 	letter-spacing: 0.1rem;
 	transition: all 0.5s ease;
-	font-size: 0.8rem;
+	font-size: 0.7rem;
 }
 
 .et-hero-tab:hover {
@@ -200,7 +200,7 @@ label:active:after {
 
 	.et-hero-tabs h1,
 	.et-slide h1 {
-		font-size: 2.1rem;
+		font-size: 2rem;
 		padding: 0 0.6em;
 	}
 
