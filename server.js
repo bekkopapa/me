@@ -66,11 +66,11 @@ app.get('/novel', (req, res) => {
   res.sendFile(__dirname + '/novel/novelHome.html');
 });
 
-app.get('/novel_1', (req, res) => {
+app.get('/novel/novel_1', (req, res) => {
   res.sendFile(__dirname + '/novel/novel.html');
 });
 
-app.get('/novel_2', (req, res) => {
+app.get('/novel/novel_2', (req, res) => {
   res.sendFile(__dirname + '/novel/novel_2.html');
 });
 
