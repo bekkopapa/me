@@ -10,11 +10,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: -32px;
     }
 
     .poster {
       width: 60%;
-      margin-top: -28px;
     }
 
     .modalText {
