@@ -6,7 +6,7 @@ require('dotenv').config();
 const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
-const uploadData = require('./api/uploadData');
+const uploadData = require('uploadData');
 
 app.use('/admin.html', basicAuth({
   users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
