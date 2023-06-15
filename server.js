@@ -7,7 +7,7 @@ const multer  = require('multer');
 const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
-const routes = require('./route/routes');
+const routes = require('./routes');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
