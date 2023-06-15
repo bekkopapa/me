@@ -4,11 +4,17 @@
     .modal {
       text-align: center;
     }
+
     
+    .posters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .poster {
-      margin-top: -2rem;
-      margin-left: 7rem;
-      width: 60%;  
+      width: 60%;
+      margin-top: -28px;
     }
 
     .modalText {
