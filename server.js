@@ -7,11 +7,6 @@ const multer  = require('multer');
 const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
-const routes = require('./routes');
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, './')));
-app.use('/', routes);
 
 app.use('/admin.html', basicAuth({
   users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
@@ -37,7 +32,6 @@ const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 
 const domain = "sohyunsoo.xyz";
-
 app.use(function (req, res, next) {
     if (!req.secure) {
         res.redirect(`https://${domain}${req.url}`);
@@ -54,6 +48,55 @@ const httpServer = http.createServer(app);
 
 httpServer.listen(80, () => {
   console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+});
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, './')));
+app.use('/', router);
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile('index.html');
+});
+
+app.get('/aigallery', (req, res) => {
+  res.sendFile(__dirname + '/aigallery.html');
+});
+
+app.get('/novel', (req, res) => {
+  res.sendFile(__dirname + '/novel/novelHome.html');
+});
+
+app.get('/novel/novel_1', (req, res) => {
+  res.sendFile(__dirname + '/novel/novel.html');
+});
+
+app.get('/novel/novel_2', (req, res) => {
+  res.sendFile(__dirname + '/novel/novel_2.html');
+});
+
+app.get('/GPTweb', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/door.html');
+});
+
+app.get('/GPTweb/gpt1', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt1/gpt.html');
+});
+
+app.get('/GPTweb/gpt2', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt2/gpt2.html');
+});
+
+app.get('/GPTweb/gpt3', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt3/gpt3.html');
+});
+
+app.get('/GPTweb/gpt4', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/gpt4/gpt4.html');
+});
+
+app.get('/board', (req, res) => {
+  res.sendFile(__dirname + '/board/board.html');
 });
 
 const storage = multer.diskStorage({
@@ -106,8 +149,6 @@ router.post('/api/upload', upload.single('image'), async (req, res) => {
     }
   }
 });
-
-module.exports = router;
 
 router.get('/api/posts', async (req, res) => {
   let connection;
@@ -189,8 +230,6 @@ router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
     res.status(500).json({ error: 'Failed to upload file and save data to Oracle DB' });
   }
 });
-
-module.exports = router;
 
 // 갤러리 추가
 router.get('/gallery', async (req, res) => {
