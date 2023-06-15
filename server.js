@@ -13,7 +13,7 @@ app.use('/admin.html', basicAuth({
   challenge: true,
 }));
 
-app.use('/api', uploadData);
+app.use('/', uploadData);
 
 app.get('/admin.html', (req, res, next) => {
   if (req.auth) {
