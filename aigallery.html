@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +11,9 @@
   <title>소현수 작가의 작품 속 캐릭터 아트워크</title>
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=VT323&display=swap');
-.titles {
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=VT323&display=swap');
+
+  .titles {
     text-align: center;
     position: fixed;
     top: 0;
@@ -22,59 +24,59 @@
     z-index: 999;
     overflow: hidden;
     transition: height 0.3s ease;
-    }
+  }
 
-.buttons{
-  position: absolute;
-  left: 0;
-  margin-left: 10px;
-  top: 20px;
-}
+  .buttons {
+    position: absolute;
+    left: 0;
+    margin-left: 10px;
+    top: 20px;
+  }
 
-.buttons-2{
-  position: absolute;
-  right: 0;
-  margin-right: 10px;
-  top: 20px;
-}
+  .buttons-2 {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    top: 20px;
+  }
 
-#home-button {
-  padding: 3px;
-  line-height: 13px;
-  border-radius: 30%;
-  font-size: small;
-  border: none;
-  background-color: transparent;
-  color: rgb(56, 56, 56);
-}
+  #home-button {
+    padding: 3px;
+    line-height: 13px;
+    border-radius: 30%;
+    font-size: small;
+    border: none;
+    background-color: transparent;
+    color: rgb(56, 56, 56);
+  }
 
-#home-button:hover {
-  color: #fafafc;
-  background-color: rgb(97, 97, 97);
-}
+  #home-button:hover {
+    color: #fafafc;
+    background-color: rgb(97, 97, 97);
+  }
 
-#cafe-button {
-  padding: 3px;
-  line-height: 14px;
-  border-radius: 30%;
-  font-size: 14px;
-  border: none;
-  background-color: transparent;
-  color: rgb(56, 56, 56);
-}
+  #cafe-button {
+    padding: 3px;
+    line-height: 14px;
+    border-radius: 30%;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    color: rgb(56, 56, 56);
+  }
 
-#cafe-button:hover {
-  color: #fafafc;
-  background-color: rgb(97, 97, 97);
-}
+  #cafe-button:hover {
+    color: #fafafc;
+    background-color: rgb(97, 97, 97);
+  }
 
 
- body {
-  font-family: 'Noto Serif KR', serif;  
-  opacity: 95%;
-  background-color: #fafafc;
-  user-select: none;
-}
+  body {
+    font-family: 'Noto Serif KR', serif;
+    opacity: 95%;
+    background-color: #fafafc;
+    user-select: none;
+  }
 
   .container-fluid {
     position: relative;
@@ -82,159 +84,173 @@
   }
 
   h1 {
-  margin-top: 6px;
-  font-family: 'VT323', monospace;
-  font-size: 30px;
-  text-align: center;
-  color: rgb(97, 97, 97);
-  padding: 1%;
-  text-transform: uppercase;  
-}
-
-p {
-  margin-top: -19px;
-  margin-bottom: 20px;
-  font-size: 12px;
-  color: rgb(0, 0, 0);
-  font-weight: 600;
-}
-
-
-#gallery{
-  -webkit-column-count:4;
-  -moz-column-count:4;
-  column-count:4;
-  
-  -webkit-column-gap:20px;
-  -moz-column-gap:20px;
-  column-gap:20px;
-}
-@media (max-width:1200px){
-  h1 {
-    margin-top: 15px;
+    margin-top: 6px;
+    font-family: 'VT323', monospace;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(97, 97, 97);
+    padding: 1%;
+    text-transform: uppercase;
   }
 
   p {
-    margin-top: -13px;
+    margin-top: -19px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
   }
 
-  #gallery{
-  -webkit-column-count:3;
-  -moz-column-count:3;
-  column-count:3;
-    
-  -webkit-column-gap:20px;
-  -moz-column-gap:20px;
-  column-gap:20px;
-}
-}
-@media (max-width:800px){
-  h1 {
-    margin-top: 15px;
+
+  #gallery {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
   }
 
-  p {
-    margin-top: -7px;
+  @media (max-width:1200px) {
+    h1 {
+      margin-top: 15px;
+    }
+
+    p {
+      margin-top: -13px;
+    }
+
+    #gallery {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+
+      -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+      column-gap: 20px;
+    }
   }
-  #gallery{
-  -webkit-column-count:2;
-  -moz-column-count:2;
-  column-count:2;
-    
-  -webkit-column-gap:20px;
-  -moz-column-gap:20px;
-  column-gap:20px;
-}
-}
-@media (max-width:600px){
-  h1 {
-    margin-top: 15px;
+
+  @media (max-width:800px) {
+    h1 {
+      margin-top: 15px;
+    }
+
+    p {
+      margin-top: -7px;
+    }
+
+    #gallery {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+
+      -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+      column-gap: 20px;
+    }
   }
-  p {
-    margin-top: 11px;
+
+  @media (max-width:600px) {
+    h1 {
+      margin-top: 15px;
+    }
+
+    p {
+      margin-top: 11px;
+    }
+
+    #share-button {
+      position: absolute;
+      right: 0px;
+      top: 100%;
+    }
+
+    #gallery {
+      -webkit-column-count: 1;
+      -moz-column-count: 1;
+      column-count: 1;
+    }
   }
+
+  #gallery img,
+  #gallery video {
+    width: 100%;
+    height: auto;
+    margin: 4% auto;
+    box-shadow: -3px 5px 15px #000;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+
+  .modal-img,
+  .model-vid {
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-body {
+    background-color: beige;
+    padding: 0px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .modal-content {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+
+  .modal-description {
+    margin-top: 0px;
+    text-align: justify;
+    padding: 1rem;
+    background-color: beige;
+    color: rgb(78, 78, 78);
+    /* 텍스트 색상을 빨강으로 설정 */
+    font-size: 15px;
+    /* 텍스트 크기를 20px로 설정 */
+    margin-bottom: 0px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    padding: 1rem;
+    text-align: center;
+    background-color: #000;
+    color: aliceblue;
+  }
+
   #share-button {
     position: absolute;
-    right: 0px;
-    top: 100%;
-}
-  #gallery{
-  -webkit-column-count:1;
-  -moz-column-count:1;
-  column-count:1;
-}  
-}
+    /* 새로운 속성 추가 */
+    margin-left: 100%;
+    bottom: 0;
+  }
 
-#gallery img,#gallery video {
-  width:100%;
-  height:auto;
-  margin: 4% auto;
-  box-shadow:-3px 5px 15px #000;
-  cursor: pointer;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-}
-.modal-img,.model-vid{
-  width:100%;
-  height:auto;
-}
-.modal-body{
-  background-color: beige;
-  padding:0px;
-  margin-bottom: 0;
-  position: relative;
-}
+  .modal-button {
+    background-color: beige;
+    border: none;
+  }
 
-.modal-content {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
+  .modal-button:hover {
+    font-weight: bold;
+  }
 
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+  }
 
-.modal-description {
-  margin-top: 0px;
-  text-align:justify;
-  padding: 1rem;
-  background-color: beige;
-  color: rgb(78, 78, 78);  /* 텍스트 색상을 빨강으로 설정 */
-  font-size: 15px;  /* 텍스트 크기를 20px로 설정 */
-  margin-bottom: 0px;
-}
-
-.modal-title {
-  font-size: 20px;
-  padding: 1rem;
-  text-align: center;
-  background-color: #000;
-  color: aliceblue;
-}
-
-#share-button {
-  position: absolute; /* 새로운 속성 추가 */
-  margin-left: 100%;
-  bottom: 0;
-}
-
-.modal-button {
-  background-color: beige;
-  border: none;
-}
-
-.modal-button:hover {
-  font-weight: bold;
-}
-
-footer {
-  text-align: center;
-  padding: 20px 0;
-  margin-top: 30px;
-}
-
-footer p {
-  font-size: 1.2rem;  
-}
-
+  footer p {
+    font-size: 1.2rem;
+  }
 </style>
+
 <body oncontextmenu="return false">
   <div class="titles">
     <h1>AI Artwork gallery</h1>
@@ -246,140 +262,143 @@ footer p {
     </div>
     <p>소현수 작가의 작품 속 캐릭터의 아트워크를 전시합니다.<br>An exhibition of character artwork from the novel.</p>
   </div>
-  <div id="gallery" class="container-fluid"> 
+  <div id="gallery" class="container-fluid">
     <img src="" class="" data-title="" data-description="">
     <!-- <video class="vid" controls>
       <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
       </source>
     </video> -->
-   </div>
+  </div>
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
         </div>
       </div>
-  
+
     </div>
   </div>
-  <footer><p>&copy; 2023 - sohyunsoo.xyz Powered By Stable Diffusion</p></footer>
+  <footer>
+    <p>&copy; 2023 - sohyunsoo.xyz Powered By Stable Diffusion</p>
+  </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-<script>
-$(document).ready(function() {
-  $('h1').click(function() {
-    $('html, body').animate({scrollTop:0}, '300'); 
-  });
-
-  $('#home-button').click(function() {
-    location.href = "/";
-  });
-
-  $('#cafe-button').click(function() {
-    location.href = "https://cafe.naver.com/stablediffusionlab";
-  });
-
-  // AJAX call to fetch data from the server
-  $.ajax({
-    url: "/gallery",
-    type: "GET",
-    dataType: "json",
-    success: function(data) {
-      handleData(data.posts);
-    },
-    error: function(error) {
-      console.error(`Error: ${error}`);
-    }
-  });
-
-  // Function to handle data from the server
-  function handleData(posts) {
-    posts.forEach(post => {
-      let imageElement = $('<img>', {
-        "src": post.image_URL,
-        "loading": "lazy",
-        "class": "img-responsive",
-        "data-title": post.title,
-        "data-description": post.content
+  <script>
+    $(document).ready(function () {
+      $('h1').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, '300');
       });
-      $('#gallery').append(imageElement);
+
+      $('#home-button').click(function () {
+        location.href = "/";
+      });
+
+      $('#cafe-button').click(function () {
+        location.href = "https://cafe.naver.com/stablediffusionlab";
+      });
+
+      // AJAX call to fetch data from the server
+      $.ajax({
+        url: "/gallery",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          handleData(data.posts);
+        },
+        error: function (error) {
+          console.error(`Error: ${error}`);
+        }
+      });
+
+      // Function to handle data from the server
+      function handleData(posts) {
+        posts.forEach(post => {
+          let imageElement = $('<img>', {
+            "src": post.image_URL,
+            "loading": "lazy",
+            "class": "img-responsive",
+            "data-title": post.title,
+            "data-description": post.content
+          });
+          $('#gallery').append(imageElement);
+        });
+      }
+
+      // Existing click handler for images
+      $(document).on('click', 'img', function () {
+        var t = $(this).attr("src");
+        var desc = $(this).data('description');
+        var title = $(this).data('title');
+        $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><img src='" + t + "' class='modal-img'><p class='modal-description'>" + desc + "</p>" + "<div id='share-button'><button class='modal-button'>" + 'share' + "</button></div>");
+
+        $("#myModal").modal();
+
+        // Share button event listener
+        $('.modal-button').on('click', async function () {
+          var node = $('.modal-body')[0];
+
+          // Call domtoimage.toPng twice
+          await domtoimage.toPng(node, {
+            filter: function (el) {
+              return el.id !== 'share-button';
+            }
+          });
+
+          domtoimage.toPng(node, {
+            filter: function (el) {
+              return el.id !== 'share-button';
+            }
+          })
+            .then(async function (dataUrl) {
+              if (navigator.share) {
+                try {
+                  let response = await fetch(dataUrl);
+                  let blob = await response.blob();
+                  let file = new File([blob], 'AI-artwork.png', { type: blob.type });
+
+                  await navigator.share({
+                    title: 'AI artwork gallery',
+                    text: '',
+                    url: 'https://sohyunsoo.xyz/aigallery',
+                    files: [file]
+                  })
+                  console.log('Sharing successful')
+                } catch (err) {
+                  console.log('Sharing failed', err)
+                }
+              }
+            });
+        });
+      });
+
+      $(document).keydown(function (event) {
+        if (event.key === "Escape") {
+          $('#myModal').modal('hide');
+        }
+      });
+
+      $(document).on('click', '.modal-img', function (event) {
+        $('#myModal').modal('hide');
+      });
+
+
+      var titles = $('.titles');
+      var originalHeight = titles.height();
+
+      $(window).scroll(function () {
+        var scrollPosition = $(this).scrollTop();
+        var newHeight = Math.max(originalHeight - scrollPosition, 57);
+        titles.height(newHeight);
+      });
     });
-  }
-
-  // Existing click handler for images
-  $(document).on('click', 'img', function() {
-    var t = $(this).attr("src");
-    var desc = $(this).data('description');
-    var title = $(this).data('title');
-    $(".modal-body").html("<h3 class='modal-title'>"+title+"</h3><img src='"+t+"' class='modal-img'><p class='modal-description'>"+desc+"</p>" + "<div id='share-button'><button class='modal-button'>"+'share'+"</button></div>");
-  
-    $("#myModal").modal();
-    
-    // Share button event listener
-    $('.modal-button').on('click', async function() {
-      var node = $('.modal-body')[0];
-      
-      // Call domtoimage.toPng twice
-      await domtoimage.toPng(node, {
-        filter: function(el) {
-          return el.id !== 'share-button';
-        }
-      });
-
-      domtoimage.toPng(node, {
-        filter: function(el) {
-          return el.id !== 'share-button';
-        }
-      })
-      .then(async function (dataUrl) {
-        if (navigator.share) {
-          try {
-            let response = await fetch(dataUrl);
-            let blob = await response.blob();
-            let file = new File([blob], 'AI-artwork.png', {type: blob.type});
-
-            await navigator.share({
-              title: 'AI artwork gallery',
-              text: '',
-              url: 'https://sohyunsoo.xyz/aigallery',
-              files: [file] 
-            })
-            console.log('Sharing successful')
-          } catch (err) {
-            console.log('Sharing failed', err)
-          }
-        }
-      });
-    });
-});
-
-    $(document).keydown(function(event) { 
-  if (event.key === "Escape") { 
-    $('#myModal').modal('hide');
-  }
-});
-
-$(document).on('click', '.modal-img', function(event) {
-  $('#myModal').modal('hide');
-});
-
-
-  var titles = $('.titles');
-  var originalHeight = titles.height();
-
-  $(window).scroll(function() {
-    var scrollPosition = $(this).scrollTop();
-    var newHeight = Math.max(originalHeight - scrollPosition, 57);
-    titles.height(newHeight);
-  });
-});
     // $("video").click(function(){
     //   var v = $("video > source");
     //   var t = v.attr("src");
     //   $(".modal-body").html("<video class='model-vid' controls><source src='"+t+"' type='video/mp4'></source></video>");
-    //   $("#myModal").modal();  
+    //   $("#myModal").modal();
     // });
-</script>
+  </script>
 </body>
+
 </html>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<body>
 
-<h2>ArtWorkGallery Upload</h2>
-<form action="/uploadImage" method="post" enctype="multipart/form-data">
-  <input type="file" name="image" id="image"><br>
-  <input type="text" name="title" id="title" style="margin-top: 10px;" placeholder="title" required><br>
-  <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;" placeholder="enter content" required></textarea><br>
-  <input type="submit" value="Upload Image" name="submit">
-</form>
+<body>
+  <h2>ArtWorkGallery Upload</h2>
+  <form action="/uploadImage" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" id="image"><br>
+    <input type="text" name="title" id="title" style="margin-top: 10px;" placeholder="title" required><br>
+    <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;"
+      placeholder="enter content" required></textarea><br>
+    <input type="submit" value="Upload Image" name="submit">
+  </form>
 </body>
+
 </html>
