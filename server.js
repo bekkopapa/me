@@ -282,7 +282,7 @@ const videoUploadStorage = multer.diskStorage({
 
 const uploadVideo = multer({ storage: videoUploadStorage });
 
-router.post('/uploadVideo', uploadImage.single('video'), async (req, res) => {
+router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
   try {
     // Set up the Oracle DB connection
     const connection = await oracledb.getConnection({
