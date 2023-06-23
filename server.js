@@ -271,7 +271,7 @@ router.get('/gallery', async (req, res) => {
 
 const videoUploadStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'imageDB/')
+    cb(null, 'imageDB/videos')
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
