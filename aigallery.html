@@ -319,7 +319,7 @@
             "class": "vid",
             "data-title": post.title,
             "data-description": post.content,
-            "control": true,
+            "controls": true,
             "loop": true,
             "autoplay": true,
             "muted": false
@@ -332,6 +332,7 @@
 
           videoElement.append(sourceElement);
           $('#gallery').append(videoElement);
+
           $("video").click(function () {
             var originalVideo = this;
 
