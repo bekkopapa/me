@@ -279,46 +279,51 @@ const videoUploadStorage = multer.diskStorage({
     cb(null, id + '-' + Date.now() + ext);
   }
 });
+
 const uploadVideo = multer({ storage: videoUploadStorage });
 
-router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
+// 파일 업로드 처리
+router.post('/uploadVideo', uploadVideo.single('video'), (req, res, next) => {
   try {
-    // 파일 업로드 완료 후에 데이터베이스 삽입 수행
-    uploadVideo.single('video')(req, res, async (err) => {
+    uploadVideo.single('video')(req, res, (err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: 'Failed to upload file' });
       }
-
-      try {
-        // Set up the Oracle DB connection
-        const connection = await oracledb.getConnection({
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          connectString: process.env.CONNECT_STRING,
-        });
-
-        // Insert the title, content, and file path into the GALLERY2 table
-        const result = await connection.execute(
-          `INSERT INTO GALLERY2 (title, content, videoUrl) VALUES (:title, :content, :videoUrl)`,
-          {
-            title: { val: req.body.title, dir: oracledb.BIND_IN },
-            content: { val: req.body.content, dir: oracledb.BIND_IN },
-            videoUrl: { val: req.file.path, dir: oracledb.BIND_IN }, // Changed image_URL to videoUrl
-          },
-          { autoCommit: true }
-        );
-        await connection.close();
-        res.redirect('/admin.html');
-
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to save data to Oracle DB' });
-      }
+      // 파일 업로드가 성공한 경우 다음 미들웨어로 진행
+      next();
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to upload file' });
+  }
+});
+
+// 데이터베이스 삽입 처리
+router.post('/uploadVideo', async (req, res) => {
+  try {
+    // Set up the Oracle DB connection
+    const connection = await oracledb.getConnection({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+    });
+
+    // Insert the title, content, and file path into the GALLERY2 table
+    const result = await connection.execute(
+      `INSERT INTO GALLERY2 (title, content, videoUrl) VALUES (:title, :content, :videoUrl)`,
+      {
+        title: { val: req.body.title, dir: oracledb.BIND_IN },
+        content: { val: req.body.content, dir: oracledb.BIND_IN },
+        videoUrl: { val: req.file.path, dir: oracledb.BIND_IN },
+      },
+      { autoCommit: true }
+    );
+    await connection.close();
+    res.redirect('/admin.html');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to save data to Oracle DB' });
   }
 });
 
