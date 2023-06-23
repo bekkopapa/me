@@ -291,7 +291,7 @@ router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
       connectString: process.env.CONNECT_STRING,
     });
 
-    // Insert the title, content, and file path into the GALLERY table
+    // Insert the title, content, and file path into the GALLERY2 table
     const result = await connection.execute(
       `INSERT INTO GALLERY2 (title, content, videoUrl) VALUES (:title, :content, :videoUrl)`,
       {
