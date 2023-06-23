@@ -282,14 +282,6 @@ const videoUploadStorage = multer.diskStorage({
 const uploadVideo = multer({ storage: videoUploadStorage });
 
 router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
-  try {
-    // 파일 업로드 완료 후에 데이터베이스 삽입 수행
-    uploadVideo.single('video')(req, res, async (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to upload file' });
-      }
-
       try {
         // Set up the Oracle DB connection
         const connection = await oracledb.getConnection({
