@@ -301,41 +301,6 @@
         location.href = "https://cafe.naver.com/stablediffusionlab";
       });
 
-      $("video").click(function () {
-        // 원래의 비디오에 대한 참조를 저장합니다.
-        var originalVideo = this;
-
-        var v = $("video > source");
-        var t = v.attr("src");
-
-        var desc = $(this).data('description');
-        var title = $(this).data('title');
-
-        $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' controls><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>" + "<div id='share-button'><button class='modal-button'>" + 'share' + "</button></div>");
-
-        // Show the modal
-        $("#myModal").modal();
-
-        // Pause the original video
-        originalVideo.pause();
-
-        // Play the modal video when the modal is shown
-        $('#myModal').on('shown.bs.modal', function (e) {
-          var modalVid = document.getElementById("modal-video");
-          modalVid.play();
-        });
-
-        // When the modal is hidden, resume the original video
-        $('#myModal').on('hidden.bs.modal', function (e) {
-          var modalVid = document.getElementById("modal-video");
-          modalVid.pause();
-          modalVid.currentTime = 0;
-
-          // Resume the original video
-          originalVideo.play();
-        });
-      });
-
       $.ajax({
         url: "/gallery2",
         type: "GET",
@@ -439,6 +404,40 @@
                 }
               }
             });
+        });
+      });
+
+      $("video").click(function () {
+        var originalVideo = this;
+
+        var v = $("video > source");
+        var t = v.attr("src");
+
+        var desc = $(this).data('description');
+        var title = $(this).data('title');
+
+        $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' controls><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>" + "<div id='share-button'><button class='modal-button'>" + 'share' + "</button></div>");
+
+        // Show the modal
+        $("#myModal").modal();
+
+        // Pause the original video
+        originalVideo.pause();
+
+        // Play the modal video when the modal is shown
+        $('#myModal').on('shown.bs.modal', function (e) {
+          var modalVid = document.getElementById("modal-video");
+          modalVid.play();
+        });
+
+        // When the modal is hidden, resume the original video
+        $('#myModal').on('hidden.bs.modal', function (e) {
+          var modalVid = document.getElementById("modal-video");
+          modalVid.pause();
+          modalVid.currentTime = 0;
+
+          // Resume the original video
+          originalVideo.play();
         });
       });
 
