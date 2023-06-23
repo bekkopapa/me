@@ -301,39 +301,6 @@
         location.href = "https://cafe.naver.com/stablediffusionlab";
       });
 
-      $.ajax({
-        url: "/gallery2",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-          handleVideoData(data.posts);
-        },
-        error: function (error) {
-          console.error(`Error: ${error}`);
-        }
-      });
-
-      function handleVideoData(posts) {
-        posts.forEach(post => {
-          let videoElement = $('<video>', {
-            "class": "vid",
-            "data-title": post.title,
-            "data-description": post.content,
-            "loop": true,
-            "autoplay": true,
-            "muted": true
-          });
-
-          let sourceElement = $('<source>', {
-            "src": post.videoUrl,
-            "type": "video/mp4"
-          });
-
-          videoElement.append(sourceElement);
-          $('#gallery').append(videoElement);
-        });
-      }
-
       $("video").click(function () {
         // 원래의 비디오에 대한 참조를 저장합니다.
         var originalVideo = this;
@@ -368,6 +335,39 @@
           originalVideo.play();
         });
       });
+
+      $.ajax({
+        url: "/gallery2",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          handleVideoData(data.posts);
+        },
+        error: function (error) {
+          console.error(`Error: ${error}`);
+        }
+      });
+
+      function handleVideoData(posts) {
+        posts.forEach(post => {
+          let videoElement = $('<video>', {
+            "class": "vid",
+            "data-title": post.title,
+            "data-description": post.content,
+            "loop": true,
+            "autoplay": true,
+            "muted": true
+          });
+
+          let sourceElement = $('<source>', {
+            "src": post.videoUrl,
+            "type": "video/mp4"
+          });
+
+          videoElement.append(sourceElement);
+          $('#gallery').append(videoElement);
+        });
+      }
 
       // AJAX call to fetch data from the server
       $.ajax({
