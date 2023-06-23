@@ -186,7 +186,7 @@
   }
 
   .modal-img,
-  .model-vid {
+  .modal-vid {
     width: 100%;
     height: auto;
   }
@@ -264,10 +264,13 @@
   </div>
   <div id="gallery" class="container-fluid">
     <img src="" class="" data-title="" data-description="">
-    <!-- <video class="vid" controls>
+
+    <video class="vid" data-title="Your video title" data-description="Your video description" loop autoplay muted>
       <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
       </source>
-    </video> -->
+    </video>
+
+
   </div>
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -298,6 +301,74 @@
         location.href = "https://cafe.naver.com/stablediffusionlab";
       });
 
+      $.ajax({
+        url: "/gallery2",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          handleVideoData(data.posts);
+        },
+        error: function (error) {
+          console.error(`Error: ${error}`);
+        }
+      });
+
+      function handleVideoData(posts) {
+        posts.forEach(post => {
+          let videoElement = $('<video>', {
+            "class": "vid",
+            "data-title": post.title,
+            "data-description": post.content,
+            "loop": true,
+            "autoplay": true,
+            "muted": true
+          });
+
+          let sourceElement = $('<source>', {
+            "src": post.videoUrl,
+            "type": "video/mp4"
+          });
+
+          videoElement.append(sourceElement);
+          $('#gallery').append(videoElement);
+        });
+      }
+
+      $("video").click(function () {
+        // 원래의 비디오에 대한 참조를 저장합니다.
+        var originalVideo = this;
+
+        var v = $("video > source");
+        var t = v.attr("src");
+
+        var desc = $(this).data('description');
+        var title = $(this).data('title');
+
+        $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' controls><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>" + "<div id='share-button'><button class='modal-button'>" + 'share' + "</button></div>");
+
+        // Show the modal
+        $("#myModal").modal();
+
+        // Pause the original video
+        originalVideo.pause();
+
+        // Play the modal video when the modal is shown
+        $('#myModal').on('shown.bs.modal', function (e) {
+          var modalVid = document.getElementById("modal-video");
+          modalVid.play();
+        });
+
+        // When the modal is hidden, resume the original video
+        $('#myModal').on('hidden.bs.modal', function (e) {
+          var modalVid = document.getElementById("modal-video");
+          modalVid.pause();
+          modalVid.currentTime = 0;
+
+          // Resume the original video
+          originalVideo.play();
+        });
+      });
+
       // AJAX call to fetch data from the server
       $.ajax({
         url: "/gallery",
@@ -324,7 +395,6 @@
           $('#gallery').append(imageElement);
         });
       }
-
       // Existing click handler for images
       $(document).on('click', 'img', function () {
         var t = $(this).attr("src");
@@ -392,12 +462,6 @@
         titles.height(newHeight);
       });
     });
-    // $("video").click(function(){
-    //   var v = $("video > source");
-    //   var t = v.attr("src");
-    //   $(".modal-body").html("<video class='model-vid' controls><source src='"+t+"' type='video/mp4'></source></video>");
-    //   $("#myModal").modal();
-    // });
   </script>
 </body>
 
