@@ -308,11 +308,6 @@ router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
         res.status(500).json({ error: 'Failed to save data to Oracle DB' });
       }
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to upload file' });
-  }
-});
 
 // 갤러리 추가
 router.get('/gallery2', async (req, res) => {
