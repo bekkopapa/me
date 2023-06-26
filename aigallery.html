@@ -319,9 +319,9 @@
             "class": "vid",
             "data-title": post.title,
             "data-description": post.content,
-            "controls": true,
-            "loop": true,
-            "autoplay": true,
+            "controls": false,
+            "loop": false,
+            "autoplay": false,
             "muted": false
           });
 
@@ -343,14 +343,10 @@
             var title = $(this).data('title');
 
             $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' controls><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>" + "<div id='share-button'><button class='modal-button'>" + 'share' + "</button></div>");
-
-            // Show the modal
-            $("#myModal").modal();
-
-            // Pause the original video
+           
             originalVideo.pause();
 
-            // Play the modal video when the modal is shown
+            $("#myModal").modal();
             $('#myModal').on('shown.bs.modal', function (e) {
               var modalVid = document.getElementById("modal-video");
               modalVid.play();
@@ -361,9 +357,6 @@
               var modalVid = document.getElementById("modal-video");
               modalVid.pause();
               modalVid.currentTime = 0;
-
-              // Resume the original video
-              originalVideo.play();
             });
           });
         });
