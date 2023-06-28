@@ -336,7 +336,7 @@
           $("video").click(function () {
             var originalVideo = this;
 
-            var v = $("video > source");
+            var v = $(this).children("source");
             var t = v.attr("src");
 
             var desc = $(this).data('description');
