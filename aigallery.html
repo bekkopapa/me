@@ -342,7 +342,7 @@
             var desc = $(this).data('description');
             var title = $(this).data('title');
 
-            $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' controls><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>");
+            $(".modal-body").html("<h3 class='modal-title'>" + title + "</h3><video id='modal-video' class='modal-vid' autoplay loop><source src='" + t + "' type='video/mp4'></source></video><p class='modal-description'>" + desc + "</p>");
 
             originalVideo.pause();
             originalVideo.currentTime = 0;
@@ -443,6 +443,10 @@
       });
 
       $(document).on('click', '.modal-img', function (event) {
+        $('#myModal').modal('hide');
+      });
+
+      $(document).on('click', '.modal-vid', function (event) {
         $('#myModal').modal('hide');
       });
 
