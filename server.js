@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/PPT', (req, res) => {
-  res.sendFile(__dirname + '/ppt.html');
+  res.sendFile(__dirname + '/ppt/ppt.html');
 });
 
 app.get('/aigallery', (req, res) => {
