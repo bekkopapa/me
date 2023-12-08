@@ -99,24 +99,24 @@
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <script src="JS/scripts.js"></script>
   <script src="JS/weather.js"></script>
-  <!--   <script>
+  <script>
     // Modal
     var modal = document.querySelector('.modal');
 
     // Modal Close button
     var modalCloseBtn = document.querySelector('.close');
 
-    // Check the last time the modal was closed
-    var lastClosed = localStorage.getItem('modalClosed');
-
-    if (lastClosed) {
-      var diff = Date.now() - lastClosed;
-      var hours = diff / (1000 * 60 * 60); // convert milliseconds to hours
-      if (hours < 24) {
-        // Close the modal if it's been less than 24 hours
-        modal.close();
-      }
-    }
+    /*  // Check the last time the modal was closed
+     var lastClosed = localStorage.getItem('modalClosed');
+ 
+     if (lastClosed) {
+       var diff = Date.now() - lastClosed;
+       var hours = diff / (1000 * 60 * 60); // convert milliseconds to hours
+       if (hours < 24) {
+         // Close the modal if it's been less than 24 hours
+         modal.close();
+       }
+     } */
 
     // Close modal function
     modalCloseBtn.addEventListener('click', function (event) {
@@ -124,7 +124,7 @@
       localStorage.setItem('modalClosed', Date.now());
       modal.close();
     });
-  </script> -->
+  </script>
 </body>
 
 </html>
