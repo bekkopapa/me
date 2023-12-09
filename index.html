@@ -20,11 +20,12 @@
 </head>
 
 <body>
-  <dialog class="modal" open>
+  <dialog class="modal" id="modal1" open>
     <article>
       <header>
         <a href="#" aria-label="Close" class="close"></a>
-        기술 낙관주의자 선언_예술
+        <span style="display: inline-block;">기술 낙관주의자 선언_예술</span>
+        <a href="#" role="button" class="outline" id="enButton">Eng</a>
       </header>
       <div class="modalText">
         <p>AI가 예술의 종말을 가져올 거라는 주장은 허구입니다.</p>
@@ -37,7 +38,9 @@
           도구로
           발생시키는 가치의 상실, 즉 사회경제적 가치 창출이 어렵거나 불가능해지는 것뿐입니다. 그뿐입니다.</p>
 
-        <p>되묻습니다. 예술을 도구로 삼아 금전적 가치를 창출하지 못하게 되는 것이 예술의 종말입니까?</p>
+        <p>되묻습니다.</p>
+
+        <p>예술을 도구로 삼아 금전적 가치를 창출하지 못하게 되는 것이 예술의 종말입니까?</p>
 
         <p>예술을 도구로 삼아 사회적 지위나 명성을 얻지 못하개 되는 것이 예술의 종말입니까?</p>
 
@@ -76,6 +79,63 @@
           2023 방통위 방송대상 창의혁신 부문 우수상 수상!
       </p> -->
     </article>
+  </dialog>
+  <dialog class="modal" id="modal2">
+    <article>
+      <header>
+        <a href="#" aria-label="Close" class="close"></a>
+        <span style="display: inline-block;">Techno-Optimist Manifesto_Art</span>
+        <a href="#" role="button" class="outline" id="krButton">Kor</a>
+      </header>
+      <div class="modalText">
+        <p>The claim that AI will bring about the end of art is a myth.&nbsp;</p>
+
+        <p>The prospect of AI being able to generate nearly all of the art we consume today has some calling for the end
+          of art.&nbsp;</p>
+
+        <p>We disagree.</p>
+
+        <p>The only immediate, tangible phenomenon or problem that will arise from the fact that AI will make it easier
+          for anyone to turn inspiration into art, novels, movies, comics, drama, etc., is that it will make it harder
+          or impossible to create socio-economic value. That&#39;s all.</p>
+
+        <p>Question.&nbsp;</p>
+
+        <p>Is the inability to create monetary value with art as a tool the end of art?&nbsp;<br />
+          Is it the end of art when you can&#39;t use it as a tool to gain social status or fame?</p>
+
+        <p>Oscar Wilde said, &quot;Art is the most intense form of individualism known to man.&quot;<br />
+          Friedrich Nietzsche said, &quot;Taste. It is both the scale and the weigher.&quot;</p>
+
+        <p>We believe in the insights of Oscar Wilde and Friedrich Nietzsche: art is not something that exists to create
+          status or value based on comparative advantage; it is something that reflects the individual and his or her
+          taste. It is something that upright individuals own and enjoy to their taste. Art is not something esoteric
+          and difficult that only a select few can create; it is something that resides within us, the individual.&nbsp;
+        </p>
+
+        <p>Our art will blossom to a higher level with the advancement of technology and AI.&nbsp;</p>
+
+        <p>Our art will become a means of affirming and blossoming the inner world and tastes of a particular
+          individual.&nbsp;</p>
+
+        <p>Our art will be enjoyed solely within the individual, without regard to the authority of a particular person
+          or group, or the tastes of the masses.&nbsp;</p>
+
+        <p>We will use AI to write, paint, compose music, and create movies, shows, and games.&nbsp;</p>
+
+        <p>Our art will be enjoyed by individuals, individuals who will love and savor it, and theirs will be the art we
+          enjoy.&nbsp;</p>
+
+        <p>Our art will truly come to an end, not an apocalypse.&nbsp;</p>
+
+        <p>Technology advances, AI emerges. All or many, many more, specific and higher order manifestations of human
+          inspiration will not be the end of art, but the desirable destination that art should have been aiming for and
+          reaching.</p>
+
+        <p>We are techno-optimists.</p>
+      </div>
+    </article>
+
   </dialog>
   <nav class="container">
     <ul>
@@ -140,29 +200,41 @@
   <script src="JS/scripts.js"></script>
   <script src="JS/weather.js"></script>
   <script>
-    // Modal
-    var modal = document.querySelector('.modal');
+    // 모든 모달과 닫기 버튼 찾기
+    var modals = document.querySelectorAll('.modal');
+    var modalCloseBtns = document.querySelectorAll('.close');
 
-    // Modal Close button
-    var modalCloseBtn = document.querySelector('.close');
+    // 닫기 버튼에 대한 이벤트 리스너 설정
+    modalCloseBtns.forEach(function (btn, index) {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        localStorage.setItem('modalClosed', Date.now());
+        modals[index].close(); // 해당 모달 닫기
+      });
+    });
 
     /*  // Check the last time the modal was closed
-     var lastClosed = localStorage.getItem('modalClosed');
+ var lastClosed = localStorage.getItem('modalClosed');
  
-     if (lastClosed) {
-       var diff = Date.now() - lastClosed;
-       var hours = diff / (1000 * 60 * 60); // convert milliseconds to hours
-       if (hours < 24) {
-         // Close the modal if it's been less than 24 hours
-         modal.close();
-       }
-     } */
+ if (lastClosed) {
+   var diff = Date.now() - lastClosed;
+   var hours = diff / (1000 * 60 * 60); // convert milliseconds to hours
+   if (hours < 24) {
+     // Close the modal if it's been less than 24 hours
+     modal.close();
+   }
+ } */
 
-    // Close modal function
-    modalCloseBtn.addEventListener('click', function (event) {
-      event.preventDefault();
-      localStorage.setItem('modalClosed', Date.now());
-      modal.close();
+    // Eng 버튼 이벤트 리스너
+    document.getElementById('enButton').addEventListener('click', function () {
+      document.getElementById('modal1').close(); // 첫 번째 모달 닫기
+      document.getElementById('modal2').showModal(); // 두 번째 모달 열기
+    });
+
+    // Kor 버튼 이벤트 리스너
+    document.getElementById('krButton').addEventListener('click', function () {
+      document.getElementById('modal2').close(); // 두 번째 모달 닫기
+      document.getElementById('modal1').showModal(); // 첫 번째 모달 열기
     });
   </script>
 </body>
