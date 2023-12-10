@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;500&display=swap');
+
 body {
 	font-family: 'Noto Serif KR', "serif";
 }
@@ -8,11 +9,12 @@ a {
 }
 
 .toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  input[type=checkbox] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+input[type=checkbox] {
 	height: 0;
 	width: 0;
 	visibility: hidden;
@@ -21,37 +23,47 @@ a {
 label {
 	cursor: pointer;
 	text-indent: -9999px;
-	width: 100px; /* Half of the original width */
-	height: 50px; /* Half of the original height */
+	width: 100px;
+	/* Half of the original width */
+	height: 50px;
+	/* Half of the original height */
 	background: grey;
 	display: block;
-	border-radius: 50px; /* Half of the original border-radius */
+	border-radius: 50px;
+	/* Half of the original border-radius */
 	position: relative;
 }
 
 label:after {
 	content: '';
 	position: absolute;
-	top: 2.5px; /* Half of the original top value */
-	left: 2.5px; /* Half of the original left value */
-	width: 45px; /* Half of the original width */
-	height: 45px; /* Half of the original height */
+	top: 2.5px;
+	/* Half of the original top value */
+	left: 2.5px;
+	/* Half of the original left value */
+	width: 45px;
+	/* Half of the original width */
+	height: 45px;
+	/* Half of the original height */
 	background: #fff;
-	border-radius: 45px; /* Half of the original border-radius */
+	border-radius: 45px;
+	/* Half of the original border-radius */
 	transition: 0.3s;
 }
 
-input:checked + label {
+input:checked+label {
 	background: #bada55;
 }
 
-input:checked + label:after {
-	left: calc(100% - 2.5px); /* Half of the original left value */
+input:checked+label:after {
+	left: calc(100% - 2.5px);
+	/* Half of the original left value */
 	transform: translateX(-100%);
 }
 
 label:active:after {
-	width: 65px; /* Half of the original width */
+	width: 65px;
+	/* Half of the original width */
 }
 
 #bug {
@@ -63,18 +75,20 @@ label:active:after {
 	margin-bottom: 7rem;
 }
 
-.et-hero-tabs{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* change height to min-height */
-    position: relative;
-    background: #292929;
+.et-hero-tabs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	/* change height to min-height */
+	position: relative;
+	background: #292929;
 	color: #b9b9b9;
-    text-align: center;
-    padding: 0 2em;
-    overflow-y: auto; /* add this line */
+	text-align: center;
+	padding: 0 2em;
+	overflow-y: auto;
+	/* add this line */
 	transition: background-color 0.3s;
 }
 
@@ -84,8 +98,8 @@ label:active:after {
 }
 
 .et-main {
-	background:#292929;
-	color:#b9b9b9;
+	background: #292929;
+	color: #b9b9b9;
 
 }
 
@@ -96,15 +110,17 @@ label:active:after {
 
 
 .et-slide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* change height to min-height */
-    position: relative;
-    text-align: center;
-    padding: 0 2em;
-    overflow-y: auto; /* add this line */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	/* change height to min-height */
+	position: relative;
+	text-align: center;
+	padding: 0 2em;
+	overflow-y: auto;
+	/* add this line */
 	transition: background-color 0.3s;
 }
 
@@ -119,7 +135,8 @@ label:active:after {
 	position: relative;
 }
 
-#home-button, #share-button {
+#home-button,
+#share-button {
 	margin: 5px;
 }
 
@@ -133,7 +150,7 @@ label:active:after {
 
 .et-hero-tabs h1,
 .et-slide h1 {
-	font-size: 2rem;
+	font-size: 1.7rem;
 	margin: 0;
 	letter-spacing: 0.6rem;
 }
@@ -212,6 +229,7 @@ label:active:after {
 	.et-hero-tab {
 		font-size: 0.8rem;
 	}
+
 	.et-main {
 		font-size: 1.1em;
 		line-height: 2.2em;
