@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>뇌안탈어 변환기</title>
+    <!-- 제목 변경 -->
+    <script src="https://unpkg.com/neanthal@0.1.0/dist/neanthal.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #inputText {
+        padding: 10px;
+        font-size: 12px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        width: 300px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #resultText {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        width: 300px;
+        text-align: center;
+        border: 2px solid #007bff;
+      }
+      .notice {
+        margin-top: 30px;
+        padding: 10px;
+        width: 80%;
+        text-align: center;
+      }
+      hr {
+        width: 4%; /* 구분선의 길이를 50%로 설정 */
+        border: 0.5px solid #000000; /* 구분선의 두께와 색상을 설정 */
+        margin-top: 7px; /* 구분선 위의 마진 설정 */
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tt">뇌안탈어 변환기 v1.0</div>
+    <input type="text" id="inputText" placeholder="뇌안탈어로 변환하고 싶은 단어나 문장을 입력하세요." />
+    <button onclick="convertToNeanthal()">변환하기</button>
+    <div id="resultText">변환결과</div>
+    <div class="notice">
+      유의사항
+      <hr />
+      <br />문장 구성 시 조사 등을 제외하고 단어만 나열해야 뇌안탈어가 정상 출력됩니다.
+    </div>
+    <script>
+      function convertToNeanthal() {
+        var inputText = document.getElementById("inputText").value;
+        var result = toNeanthal(inputText);
+        document.getElementById("resultText").innerText = result;
+      }
+    </script>
+  </body>
+</html>
