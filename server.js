@@ -67,6 +67,10 @@ app.get('/aigallery', (req, res) => {
   res.sendFile(__dirname + '/aigallery.html');
 });
 
+app.get('/neanthal', (req, res) => {
+  res.sendFile(__dirname + '/neanthal.html');
+});
+
 app.get('/novel', (req, res) => {
   res.sendFile(__dirname + '/novel/novelHome.html');
 });
