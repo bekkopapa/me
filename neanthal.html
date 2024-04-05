@@ -1,96 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>뇌안탈어 변환기 v1.1</title>
+    <script src="https://unpkg.com/neanthal@0.1.0/dist/neanthal.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 80vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #inputText {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 12px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        width: 300px;
+      }
+      button {
+        padding: 8px 15px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #resultText {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        width: 400px;
+        text-align: center;
+        border: 2px solid #007bff;
+      }
+      #log {
+        margin-top: 20px;
+        text-align: center;
+        overflow-y: auto;
+        width: 300px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        background-color: white;
+        padding: 5px;
+      }
+      .log-entry {
+        cursor: pointer;
+        margin: 5px 0;
+      }
+      .log-entry:hover {
+        background-color: #e0e0e0;
+      }
+      .notice {
+        margin-top: 10px;
+        padding: 10px;
+        width: 80%;
+        text-align: center;
+      }
+      hr {
+        width: 4%; /* 구분선의 길이를 50%로 설정 */
+        border: 0.5px solid #000000; /* 구분선의 두께와 색상을 설정 */
+        margin-bottom: 5px;
+      }
+      #logReset {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tt">뇌안탈어 변환기 v1.1</div>
+    <div>
+      <input type="text" id="inputText" placeholder="뇌안탈어로 변환하고 싶은 단어나 문장을 입력하세요." />
+      <button onclick="convertToNeanthal()">변환하기</button>
+    </div>
+    <div id="resultText">변환결과</div>
+    <div class="notice">
+      유의사항
+      <hr />
+      <br />문장 구성 시 조사 등을 제외하고 단어만 나열해야 뇌안탈어가 정상 출력됩니다.
+    </div>
+    <div id="log">변환 로그</div>
+    <button id="logReset" onclick="resetLogs()">로그 리셋</button>
+    <script>
+      if (!sessionStorage.getItem("visited")) {
+        localStorage.removeItem("neanthalLogs");
+        sessionStorage.setItem("visited", "true");
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <title>뇌안탈어 변환기</title>
-  <!-- 제목 변경 -->
-  <script src="https://unpkg.com/neanthal@0.1.0/dist/neanthal.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 80vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
+      function convertToNeanthal() {
+        var inputText = document.getElementById("inputText").value;
+        var result = toNeanthal(inputText);
+        document.getElementById("resultText").innerText = result;
+        saveLog(inputText, result);
+        showLogs();
+      }
 
-    #inputText {
-      text-align: center;
-      padding: 10px;
-      font-size: 12px;
-      border: 2px solid #007bff;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      width: 300px;
-    }
+      function saveLog(input, result) {
+        let logs = JSON.parse(localStorage.getItem("neanthalLogs")) || [];
+        logs.push({ input: input, result: result });
+        if (logs.length > 10) logs.shift(); // 로그가 10개를 초과하면 가장 오래된 로그를 제거
+        localStorage.setItem("neanthalLogs", JSON.stringify(logs));
+      }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+      function showLogs() {
+        let logs = JSON.parse(localStorage.getItem("neanthalLogs")) || [];
+        let logContainer = document.getElementById("log");
+        logContainer.innerHTML = ""; // 로그 컨테이너 초기화
+        logs.forEach((log, index) => {
+          let logEntry = document.createElement("div");
+          logEntry.innerText = `입력: ${log.input} / 결과: ${log.result}`;
+          logEntry.classList.add("log-entry");
+          logEntry.onclick = function () {
+            replayLog(index);
+          };
+          logContainer.appendChild(logEntry);
+        });
+      }
 
-    #tt {
-      margin-bottom: 20px;
-      padding: 10px;
-      text-align: center;
-    }
+      function replayLog(index) {
+        let logs = JSON.parse(localStorage.getItem("neanthalLogs")) || [];
+        if (index >= 0 && index < logs.length) {
+          let log = logs[index];
+          document.getElementById("inputText").value = log.input;
+          document.getElementById("resultText").innerText = log.result;
+        }
+      }
+      function resetLogs() {
+        localStorage.removeItem("neanthalLogs");
+        showLogs();
+      }
 
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    #resultText {
-      margin-top: 20px;
-      padding: 10px;
-      border-radius: 5px;
-      background-color: white;
-      width: 300px;
-      text-align: center;
-      border: 2px solid #007bff;
-    }
-
-    .notice {
-      margin-top: 10px;
-      padding: 10px;
-      width: 80%;
-      text-align: center;
-    }
-
-    hr {
-      width: 4%;
-      border: 0.5px solid #000000;
-      margin-top: 7px;
-      margin-bottom: 5px;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="tt">뇌안탈어 변환기 v1.0</div>
-  <input type="text" id="inputText" placeholder="뇌안탈어로 변환하고 싶은 단어나 문장을 입력하세요." />
-  <button onclick="convertToNeanthal()">변환하기</button>
-  <div id="resultText">변환결과</div>
-  <div class="notice">
-    유의사항
-    <hr />
-    <br />문장 구성 시 조사 등을 제외하고 단어만 나열해야 뇌안탈어가 정상 출력됩니다.
-  </div>
-  <script>
-    function convertToNeanthal() {
-      var inputText = document.getElementById("inputText").value;
-      var result = toNeanthal(inputText);
-      document.getElementById("resultText").innerText = result;
-    }
-  </script>
-</body>
-
+      window.onload = function () {
+        showLogs();
+      };
+    </script>
+  </body>
 </html>
