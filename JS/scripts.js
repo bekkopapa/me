@@ -1,31 +1,31 @@
-$('#button_1').on('click', function () {
-  const playButton = $(this);
-  const blackOverlay = $('#blackOverlay');
+// $('#button_1').on('click', function () {
+//   const playButton = $(this);
+//   const blackOverlay = $('#blackOverlay');
 
-  // 이미지 변경
-  playButton.attr('src', 'icons/button_2.png');
+//   // 이미지 변경
+//   playButton.attr('src', 'icons/button_2.png');
 
-  // 오버레이 작동
-  blackOverlay.css('display', 'block');
-  setTimeout(function () {
-    blackOverlay.css('visibility', 'visible');
-    blackOverlay.css('opacity', 1);
-  }, 10);
+//   // 오버레이 작동
+//   blackOverlay.css('display', 'block');
+//   setTimeout(function () {
+//     blackOverlay.css('visibility', 'visible');
+//     blackOverlay.css('opacity', 1);
+//   }, 10);
 
-  setTimeout(function () {
-    blackOverlay.css('opacity', 0);
-    setTimeout(function () {
-      blackOverlay.css('visibility', 'hidden');
-      blackOverlay.css('display', 'none');
-    }, 1500);
-  }, 1500);
+//   setTimeout(function () {
+//     blackOverlay.css('opacity', 0);
+//     setTimeout(function () {
+//       blackOverlay.css('visibility', 'hidden');
+//       blackOverlay.css('display', 'none');
+//     }, 1500);
+//   }, 1500);
 
-  // 페이지 이동
-  const nextPageUrl = 'GPTweb';
-  setTimeout(function () {
-    window.location.href = nextPageUrl;
-  }, 1000);
-});
+//   // 페이지 이동
+//   const nextPageUrl = 'GPTweb';
+//   setTimeout(function () {
+//     window.location.href = nextPageUrl;
+//   }, 1000);
+// });
 
 $('#button_2').on('click', function () {
   const playButton = $(this);
@@ -115,6 +115,10 @@ $('#SOHYUNSOO').on('change', function (event) {
     });
   } else if (event.target.value === 'stereographer') {
     loadTable('tables/stereographer_table.html', function (responseText) {
+      tableContainer.html(responseText);
+    });
+  } else if (event.target.value === 'gamemaker') {
+    loadTable('tables/gamemaker_table.html', function (responseText) {
       tableContainer.html(responseText);
     });
   } else {
