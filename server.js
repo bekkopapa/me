@@ -287,6 +287,7 @@ const videoUploadStorage = multer.diskStorage({
     cb(null, id + '-' + Date.now() + ext);
   }
 });
+
 const uploadVideo = multer({ storage: videoUploadStorage });
 
 router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
