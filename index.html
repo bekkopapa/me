@@ -147,8 +147,9 @@
                 src="icons/facebook-icon.png"></a>
             <a href="https://britg.kr/novel-author/2012/" target="_blank" class="icon-link britg"><img
                 src="icons/britg.png" alt="britg"></a>
-            <a href="https://youtu.be/IE_ifxLlicI?t=43" target="_blank" class="icon-link youtube"> <img
-                src="icons/youtube_icon.png" alt="youtube"></a>
+            <a href="#" id="randomYoutube" class="icon-link youtube" target="_blank">
+              <img src="icons/youtube_icon.png" alt="youtube">
+            </a>
             <a href="https://cafe.naver.com/stablediffusionlab" target="_blank" class="cafe"><img
                 src="icons/cafe.png"></a>
             <a href="tesla.html" class="icon-link volt"><img src="icons/volt.png" alt="볼트 아이콘"></a>
@@ -203,6 +204,16 @@
   <script src="JS/scripts.js"></script>
   <script src="JS/weather.js"></script>
   <script>
+    document.getElementById("randomYoutube").addEventListener("click", function (e) {
+      e.preventDefault(); // 기본 동작 막기
+      var links = [
+        "https://youtu.be/IE_ifxLlicI?t=43",
+        "https://youtu.be/J7ztey3AHFQ?si=D9dsD0-4wN73JDUO&t=53"
+      ];
+      // 두 링크 중 랜덤으로 선택
+      var randomLink = links[Math.floor(Math.random() * links.length)];
+      window.open(randomLink, "_blank");
+    });
     // 모든 모달과 닫기 버튼 찾기
     var modals = document.querySelectorAll('.modal');
     var modalCloseBtns = document.querySelectorAll('.close');
