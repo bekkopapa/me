@@ -2,135 +2,26 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>이미 늦었는지도...</title>
+    <meta charset="UTF-8">
+    <title>Coming Soon</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
-<style>
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: serif;
-    font-weight: bold;
-    margin-top: 30px;
-    background: url('imgs/logo.png');
-    background-color: #11191f;
-    background-position: center;
-    background-size: 50%;
-    background-repeat: no-repeat;
-  }
-
-
-  button {
-    background: none;
-    border: 2px solid;
-    font: inherit;
-    line-height: 1;
-    margin: 1em;
-    padding: 1em 1em;
-  }
-
-  button {
-    color: #ffa260;
-    transition: 0.25s;
-
-    &:hover,
-    &:focus {
-      border-color: var(--hover);
-      color: #fff;
-    }
-  }
-
-  .titles {
-    margin-top: 1vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #t1,
-  #t2,
-  #t3,
-  #t4,
-  #t6 {
-    width: 300px;
-    margin-top: 30px;
-  }
-
-  footer {
-    color: #bbbbbb;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
-  }
-
-  footer p {
-    font-size: 0.8rem;
-    font-weight: normal;
-  }
-
-  p {
-    color: bisque;
-    margin-top: -2px;
-    font-size: 16px;
-    margin-left: 15px;
-  }
-
-  @media (max-width: 768px) {
-    .titles {
-      margin-top: 1vh;
-    }
-
-    p {
-      font-size: 15px;
-    }
-  }
-</style>
 
 <body>
-  <div class="titles">
-    <div><button id="t1">AI critics</button>
-      <p> ::인공지능이 신랄하게 인간의 문장력을 평가</p>
-    </div>
-    <div><button id="t2">AI aesop</button>
-      <p> ::인공지능이 인간 아이를 위한 동화를 창작</p>
-    </div>
-    <div><button id="t3">AI jobConsult</button>
-      <p> ::인공지능이 인간 직업의 미래를 컨설팅</p>
-    </div>
-    <div><button id="t6">AI jagangDucheon</button>
-      <p> ::인공지능이 인간의 잘잘못을 가림</p>
-    </div>
-    <div><button id="t4">AI answerCollection</button>
-      <p> ::인공지능의 환상적인 or 멍청 답변 콜렉션</p>
-    </div>
-    <div><button id="t5">home</button>
-    </div>
-    <footer>
-      <p>&copy; 2023 - SOHYUNSOO Powered By chatGPT 3.5 turbo </p>
-    </footer>
-    <script>
-      document.querySelector('#t5').addEventListener('click', function go() {
-        location.href = "/";
-      })
-      document.querySelector('#t1').addEventListener('click', function go() {
-        location.href = "gpt1";
-      })
-      document.querySelector('#t2').addEventListener('click', function go() {
-        location.href = "gpt2";
-      })
-      document.querySelector('#t3').addEventListener('click', function go() {
-        location.href = "gpt3";
-      })
-      document.querySelector('#t4').addEventListener('click', function go() {
-        location.href = "../board";
-      })
-      document.querySelector('#t6').addEventListener('click', function go() {
-        location.href = "gpt4";
-      })
-    </script>
+    <h1>Coming Soon</h1>
 </body>
 
 </html>

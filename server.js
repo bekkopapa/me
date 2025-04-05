@@ -83,9 +83,9 @@ app.get('/novel/novel_2', (req, res) => {
   res.sendFile(__dirname + '/novel/novel_2.html');
 });
 
-// app.get('/GPTweb', (req, res) => {
-//   res.sendFile(__dirname + '/GPTweb/door.html');
-// });
+app.get('/GPTweb', (req, res) => {
+  res.sendFile(__dirname + '/GPTweb/door.html');
+});
 
 // app.get('/GPTweb/gpt1', (req, res) => {
 //   res.sendFile(__dirname + '/GPTweb/gpt1/gpt.html');
