@@ -1,106 +1,109 @@
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소현수 작가의 미발표 작품을 공개합니다.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소현수 작가의 미발표 작품을 공개합니다.</title>
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;500&display=swap');
 
-.home-button {
+  .home-button {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-}
+  }
 
-button {
-  padding: 3px;
-  line-height: 13px;
-  border-radius: 30%;
-  font-size: small;
-  border: none;
-  background-color: transparent;
-  color: rgb(56, 56, 56);
-}
+  button {
+    padding: 3px;
+    line-height: 13px;
+    border-radius: 30%;
+    font-size: small;
+    border: none;
+    background-color: transparent;
+    color: rgb(56, 56, 56);
+  }
 
-button:hover {
-  color: #fafafc;
-  background-color: rgb(97, 97, 97);
-}
+  button:hover {
+    color: #fafafc;
+    background-color: rgb(97, 97, 97);
+  }
 
-body {
+  body {
     background-color: #f0fff0;
     font-family: 'Noto Serif KR', "serif";
-}
-*{
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-.wrapper{
-  width: 90%;
-  margin: 0 auto;
-  max-width: 80rem;
-}
+  }
 
-.cols{
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .wrapper {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 80rem;
+  }
+
+  .cols {
     margin-top: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
 
-.col{
-  width: calc(25% - 2rem);
-  margin: 1rem;
-  cursor: pointer;
-}
+  .col {
+    width: calc(25% - 2rem);
+    margin: 1rem;
+    cursor: pointer;
+  }
 
-.container{
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-	-webkit-perspective: 1000px;
-	        perspective: 1000px;
-}
+  .container {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
 
-.front,
-.back{
-  background-size: cover;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
-  border-radius: 10px;
-	background-position: center;
-	-webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	-o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	-webkit-backface-visibility: hidden;
-	        backface-visibility: hidden;
-	text-align: center;
-	min-height: 280px;
-	height: auto;
-	border-radius: 10px;
-	color: #fff;
-	font-size: 1.2rem;
-}
+  .front,
+  .back {
+    background-size: cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background-position: center;
+    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    text-align: center;
+    min-height: 280px;
+    height: auto;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+  }
 
-.back{
-  background: #cedce7;
-  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-}
+  .back {
+    background: #cedce7;
+    background: -webkit-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+    background: -o-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+    background: linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+  }
 
-.front:after{
-	position: absolute;
+  .front:after {
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
@@ -111,159 +114,162 @@ body {
     opacity: .6;
     background-color: #000;
     -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+    backface-visibility: hidden;
     border-radius: 10px;
-}
-.container:hover .front,
-.container:hover .back{
+  }
+
+  .container:hover .front,
+  .container:hover .back {
     -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
+  }
 
-.back{
+  .back {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-}
+  }
 
-.inner{
+  .inner {
     -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
-            transform: translateY(-50%) translateZ(60px) scale(0.94);
+    transform: translateY(-50%) translateZ(60px) scale(0.94);
     top: 50%;
     position: absolute;
     left: 0;
     width: 100%;
     padding: 2rem;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     outline: 1px solid transparent;
     -webkit-perspective: inherit;
-            perspective: inherit;
+    perspective: inherit;
     z-index: 2;
-}
+  }
 
-.container .back{
+  .container .back {
     -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
+    transform: rotateY(180deg);
     -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
+    transform-style: preserve-3d;
+  }
 
-.container .front{
+  .container .front {
     -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
+    transform: rotateY(0deg);
     -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
-
-.container:hover .back{
-  -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.container:hover .front{
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.front .inner p{
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.front .inner p:after{
-  content: '';
-  width: 4rem;
-  height: 2px;
-  position: absolute;
-  background: #C6D4DF;
-  display: block;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  bottom: -.75rem;
-}
-
-.front .inner span{
-  color: rgba(255,255,255,0.7);
-  font-family: 'Montserrat';
-  font-weight: 300;
-}
-
-@media screen and (max-width: 64rem){
-  .col{
-    width: calc(33.333333% - 2rem);
+    transform-style: preserve-3d;
   }
-}
 
-@media screen and (max-width: 48rem){
-  .col{
-    width: calc(50% - 2rem);
+  .container:hover .back {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   }
-}
 
-@media screen and (max-width: 32rem){
-  .col{
-    width: 100%;
-    margin: 0 0 2rem 0;
+  .container:hover .front {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   }
-}
+
+  .front .inner p {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .front .inner p:after {
+    content: '';
+    width: 4rem;
+    height: 2px;
+    position: absolute;
+    background: #C6D4DF;
+    display: block;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -.75rem;
+  }
+
+  .front .inner span {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Montserrat';
+    font-weight: 300;
+  }
+
+  @media screen and (max-width: 64rem) {
+    .col {
+      width: calc(33.333333% - 2rem);
+    }
+  }
+
+  @media screen and (max-width: 48rem) {
+    .col {
+      width: calc(50% - 2rem);
+    }
+  }
+
+  @media screen and (max-width: 32rem) {
+    .col {
+      width: 100%;
+      margin: 0 0 2rem 0;
+    }
+  }
 </style>
+
 <body>
-    <div class="home-button">
-        <button>ho<br>me</button>
-    </div>
-    <div class="wrapper">
-        <div class="cols">
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                      <div class="container" id="creta">
-                          <div class="front" style="background-image: url(cover/monster.png)">
-                              <div class="inner">
-                                  <p>크레타의 여왕</p>
-                    <span>SF 단편</span>
-                              </div>
-                          </div>
-                          <div class="back">
-                              <div class="inner">
-                                <p>어느 날 지구를 침공한 '벼룩들'<br>그들과 나의 혈통에 얽힌 충격적인 비밀과 반전</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                    <div class="container" id="avici">
-                        <div class="front" style="background-image: url(cover/muryung.png)">
-                            <div class="inner">
-                                <p>아비, 주</p>
-                  <span>호러 단편</span>
-                            </div>
-                        </div>
-                        <div class="back">
-                            <div class="inner">
-                                <p>병철, 태령, 민영 그리고 보영<br> 모두 앞에 지옥도가 펼쳐진 그날의 이야기</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </body>
-        <script>
-        document.querySelector('#creta').addEventListener('click', function go() {
-        location.href="novel_1";       
-        })  
-        document.querySelector('#avici').addEventListener('click', function go() {
-        location.href="novel_2";       
-        })  
-        document.querySelector('.home-button').addEventListener('click', function go() {
-        location.href="../";       
-        })  
-        </script>
+  <div class="home-button">
+    <button>ho<br>me</button>
+  </div>
+  <div class="wrapper">
+    <div class="cols">
+      <div class="col" ontouchstart="this.classList.toggle('hover');">
+        <div class="container" id="creta">
+          <div class="front" style="background-image: url(cover/monster.png)">
+            <div class="inner">
+              <p>크레타의 여왕</p>
+              <span>SF 단편</span>
+            </div>
+          </div>
+          <div class="back">
+            <div class="inner">
+              <p>어느 날 지구를 침공한<br>'벼룩들'<br>그들과 나의 혈통에 얽힌<br>충격적인 비밀과 반전</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" ontouchstart="this.classList.toggle('hover');">
+        <div class="container" id="avici">
+          <div class="front" style="background-image: url(cover/muryung.png)">
+            <div class="inner">
+              <p>아비, 주</p>
+              <span>호러 단편</span>
+            </div>
+          </div>
+          <div class="back">
+            <div class="inner">
+              <p>병철, 태령, 민영<br>그리고 보영<br> 모두 앞에 지옥도가 펼쳐진 그날의 이야기</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+<script>
+  document.querySelector('#creta').addEventListener('click', function go() {
+    location.href = "novel_1";
+  })
+  document.querySelector('#avici').addEventListener('click', function go() {
+    location.href = "novel_2";
+  })
+  document.querySelector('.home-button').addEventListener('click', function go() {
+    location.href = "../";
+  })  
+</script>
+
 </html>
