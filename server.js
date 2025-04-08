@@ -84,7 +84,7 @@ app.get('/novel/novel_2', (req, res) => {
 });
 
 app.get('/GPTweb', (req, res) => {
-  res.sendFile(__dirname + '/GPTweb/door.html');
+  res.redirect('https://cafe.naver.com/stablediffusionlab?iframe_url=/ArticleList.nhn%3Fsearch.clubid=30997614%26search.menuid=14%26search.boardtype=L');
 });
 
 // app.get('/GPTweb/gpt1', (req, res) => {
