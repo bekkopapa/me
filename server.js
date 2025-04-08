@@ -83,7 +83,7 @@ app.get('/novel/novel_2', (req, res) => {
   res.sendFile(__dirname + '/novel/novel_2.html');
 });
 
-app.get('/AIcolumn', (req, res) => {
+app.get('/AIColumn', (req, res) => {
   res.redirect('https://cafe.naver.com/stablediffusionlab?iframe_url=/ArticleList.nhn%3Fsearch.clubid=30997614%26search.menuid=14%26search.boardtype=L');
 });
 
