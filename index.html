@@ -144,17 +144,17 @@
           <summary aria-haspopup="listbox" role="link"></summary>
           <ul role="listbox">
             <a href="https://www.facebook.com/so.hyunsoo" target="_blank" class="icon-link facebook"><img
-                src="icons/facebook-icon.png"></a>
+                src="icons/facebook-icon.png" loading="lazy"></a>
             <a href="https://britg.kr/novel-author/2012/" target="_blank" class="icon-link britg"><img
-                src="icons/britg.png" alt="britg"></a>
+                src="icons/britg.png" alt="britg" loading="lazy"></a>
             <a href="#" id="randomYoutube" class="icon-link youtube" target="_blank">
-              <img src="icons/youtube_icon.png" alt="youtube">
+              <img src="icons/youtube_icon.png" alt="youtube" loading="lazy">
             </a>
             <a href="https://cafe.naver.com/stablediffusionlab" target="_blank" class="cafe"><img
-                src="icons/cafe.png"></a>
-            <a href="tesla.html" class="icon-link volt"><img src="icons/volt.png" alt="볼트 아이콘"></a>
+                src="icons/cafe.png" loading="lazy"></a>
+            <a href="tesla.html" class="icon-link volt"><img src="icons/volt.png" alt="볼트 아이콘" loading="lazy"></a>
             <a href="mailto:kiyokuro@naver.com, kiyokuro1@gmail.com" class="icon-link contact"><img
-                src="icons/contact.png" alt="contact"></a>
+                src="icons/contact.png" alt="contact" loading="lazy"></a>
           </ul>
         </details>
       </li>
@@ -167,13 +167,13 @@
   </nav>
   <div class="play-button-wrapper">
     <div class="play-button">
-      <img id="button_1" src="icons/button_1.png" alt="버튼_1">
+      <img id="button_1" src="icons/button_1.png" alt="버튼_1" loading="lazy">
     </div>
     <div class="play-button">
-      <img id="button_2" src="icons/button_3.png" alt="버튼_2">
+      <img id="button_2" src="icons/button_3.png" alt="버튼_2" loading="lazy">
     </div>
     <div class="play-button">
-      <img id="button_3" src="icons/button_4.png" alt="버튼_3">
+      <img id="button_3" src="icons/button_4.png" alt="버튼_3" loading="lazy">
     </div>
     <div class="black-overlay" id="blackOverlay"></div>
   </div>
@@ -201,8 +201,8 @@
   </footer>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-  <script src="JS/scripts.js"></script>
-  <script src="JS/weather.js"></script>
+  <script src="JS/scripts.js" defer></script>
+  <script src="JS/weather.js" defer></script>
   <script>
     document.getElementById("randomYoutube").addEventListener("click", function (e) {
       e.preventDefault(); // 기본 동작 막기

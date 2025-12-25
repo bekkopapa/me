@@ -7,6 +7,10 @@ const multer = require('multer');
 const oracledb = require('oracledb');
 const router = express.Router();
 const moment = require('moment');
+const compression = require('compression');
+
+// Apply compression middleware
+app.use(compression());
 
 app.use('/admin.html', basicAuth({
   users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
@@ -51,9 +55,36 @@ httpServer.listen(80, () => {
 });
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, './')));
+// Serve static files with caching (1 day)
+app.use(express.static(path.join(__dirname, './'), {
+  maxAge: '1d',
+  setHeaders: (res, path) => {
+    if (path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0'); // Don't cache HTML to ensure updates reflect
+    }
+  }
+}));
 app.use('/', router);
 app.use(express.urlencoded({ extended: true }));
+
+// Oracle DB Connection Pool initialization
+async function initDB() {
+  try {
+    await oracledb.createPool({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectString: process.env.CONNECT_STRING,
+      poolMin: 2,
+      poolMax: 10,
+      poolIncrement: 2
+    });
+    console.log('Oracle Connection Pool initialized');
+  } catch (err) {
+    console.error('Error creating connection pool:', err);
+  }
+}
+
+initDB();
 
 app.get('/', (req, res) => {
   res.sendFile('index.html');
@@ -122,11 +153,7 @@ const upload = multer({ storage: storage });
 router.post('/api/upload', upload.single('image'), async (req, res) => {
   let connection;
   try {
-    connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    connection = await oracledb.getConnection();
 
     const comment = req.body.comment; // 클라이언트에서 보낸 댓글을 가져옵니다.
     const imageId = Date.now(); // 현재 시간을 UNIX 타임스탬프로 생성
@@ -162,11 +189,7 @@ router.get('/api/posts', async (req, res) => {
   let connection;
 
   try {
-    connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    connection = await oracledb.getConnection();
 
     const result = await connection.execute(
       `SELECT id, image_path, comments
@@ -213,12 +236,8 @@ const uploadImage = multer({ storage: imageUploadStorage });
 
 router.post('/uploadImage', uploadImage.single('image'), async (req, res) => {
   try {
-    // Set up the Oracle DB connection
-    const connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    // Get connection from pool
+    const connection = await oracledb.getConnection();
 
     // Insert the title, content, and file path into the GALLERY table
     const result = await connection.execute(
@@ -244,11 +263,7 @@ router.get('/gallery', async (req, res) => {
   let connection;
 
   try {
-    connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    connection = await oracledb.getConnection();
 
     const result = await connection.execute(
       `SELECT title, content, image_URL
@@ -292,12 +307,8 @@ const uploadVideo = multer({ storage: videoUploadStorage });
 
 router.post('/uploadVideo', uploadVideo.single('video'), async (req, res) => {
   try {
-    // Set up the Oracle DB connection
-    const connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    // Get connection from pool
+    const connection = await oracledb.getConnection();
 
     // Insert the title, content, and file path into the GALLERY2 table
     const result = await connection.execute(
@@ -323,11 +334,7 @@ router.get('/gallery2', async (req, res) => {
   let connection;
 
   try {
-    connection = await oracledb.getConnection({
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      connectString: process.env.CONNECT_STRING,
-    });
+    connection = await oracledb.getConnection();
 
     const result = await connection.execute(
       `SELECT title, content, videoUrl
