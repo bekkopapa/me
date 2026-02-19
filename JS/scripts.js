@@ -21,7 +21,7 @@ $('#button_1').on('click', function () {
   }, 1500);
 
   // 페이지 이동
-  const nextPageUrl = 'GPTweb';
+  const nextPageUrl = 'https://cafe.naver.com/f-e/cafes/30997614/menus/14?viewType=L';
   setTimeout(function () {
     window.location.href = nextPageUrl;
   }, 1000);
@@ -119,6 +119,10 @@ $('#SOHYUNSOO').on('change', function (event) {
     });
   } else if (event.target.value === 'gamemaker') {
     loadTable('tables/gamemaker_table.html', function (responseText) {
+      tableContainer.html(responseText);
+    });
+  } else if (event.target.value === 'orcastudio') {
+    loadTable('tables/orcastudio_table.html', function (responseText) {
       tableContainer.html(responseText);
     });
   } else {

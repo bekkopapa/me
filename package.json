@@ -4,8 +4,8 @@
   "description": "Personal portfolio page and Experiments",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon",
-    "start": "node server.js"
+    "dev": "npx http-server . -p 8080",
+    "start": "npx http-server . -p 8080"
   },
   "author": "So.Hyunsoo",
   "license": "MIT",
