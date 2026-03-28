@@ -29,13 +29,13 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.xyz/fullchain.pem', 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/sohyunsoo.com/fullchain.pem', 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 
-const domain = "sohyunsoo.xyz";
+const domain = "sohyunsoo.com";
 app.use(function (req, res, next) {
   if (!req.secure) {
     res.redirect(`https://${domain}${req.url}`);
