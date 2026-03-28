@@ -45,13 +45,11 @@ app.use(function (req, res, next) {
 });
 
 httpsServer.listen(443, () => {
-  console.log('HTTPS Server running on port 443');
+    console.log('HTTPS Server running on port 443');
 });
 
-const httpServer = http.createServer(app);
-
-httpServer.listen(80, () => {
-  console.log('HTTP Server running on port 80 and redirecting to HTTPS');
+http.createServer(app).listen(80, () => {
+    console.log('HTTP Server running on port 80 - All requests will be redirected to HTTPS');
 });
 
 app.use(express.json());
