@@ -1,96 +1,48 @@
-$('#button_1').on('click', function () {
-  const playButton = $(this);
+// 버튼 클릭 공통 로직 함수
+function handleButtonClick(buttonId, nextPageUrl) {
+  const playButton = $(`#${buttonId}`);
   const blackOverlay = $('#blackOverlay');
 
-  // 이미지 변경
+  // 이미지 변경 (클릭 피드백)
   playButton.attr('src', 'icons/button_2.png');
 
-  // 오버레이 작동
-  blackOverlay.css('display', 'block');
-  setTimeout(function () {
-    blackOverlay.css('visibility', 'visible');
-    blackOverlay.css('opacity', 1);
-  }, 10);
+  // 오버레이 작동 (화면 전환 효과)
+  blackOverlay.css({
+    'display': 'block',
+    'visibility': 'visible',
+    'opacity': 1
+  });
 
-  setTimeout(function () {
-    blackOverlay.css('opacity', 0);
-    setTimeout(function () {
-      blackOverlay.css('visibility', 'hidden');
-      blackOverlay.css('display', 'none');
-    }, 1500);
-  }, 1500);
-
-  // 페이지 이동
-  const nextPageUrl = 'GPTweb';
+  // 페이지 이동 및 오버레이 제거
   setTimeout(function () {
     window.location.href = nextPageUrl;
   }, 1000);
-});
-
-$('#button_2').on('click', function () {
-  const playButton = $(this);
-  const blackOverlay = $('#blackOverlay');
-
-  // 이미지 변경
-  playButton.attr('src', 'icons/button_2.png');
-
-  // 오버레이 작동
-  blackOverlay.css('display', 'block');
-  setTimeout(function () {
-    blackOverlay.css('visibility', 'visible');
-    blackOverlay.css('opacity', 1);
-  }, 10);
 
   setTimeout(function () {
-    blackOverlay.css('opacity', 0);
+    blackOverlay.css({
+      'opacity': 0
+    });
     setTimeout(function () {
-      blackOverlay.css('visibility', 'hidden');
-      blackOverlay.css('display', 'none');
+      blackOverlay.css({
+        'visibility': 'hidden',
+        'display': 'none'
+      });
     }, 1500);
   }, 1500);
+}
 
-  // 페이지 이동
-  const nextPageUrl = 'novel';
-  setTimeout(function () {
-    window.location.href = nextPageUrl;
-  }, 1000);
-});
-
-$('#button_3').on('click', function () {
-  const playButton = $(this);
-  const blackOverlay = $('#blackOverlay');
-
-  // 이미지 변경
-  playButton.attr('src', 'icons/button_2.png');
-
-  // 오버레이 작동
-  blackOverlay.css('display', 'block');
-  setTimeout(function () {
-    blackOverlay.css('visibility', 'visible');
-    blackOverlay.css('opacity', 1);
-  }, 10);
-
-  setTimeout(function () {
-    blackOverlay.css('opacity', 0);
-    setTimeout(function () {
-      blackOverlay.css('visibility', 'hidden');
-      blackOverlay.css('display', 'none');
-    }, 1500);
-  }, 1500);
-
-  // 페이지 이동
-  const nextPageUrl = 'aigallery';
-  setTimeout(function () {
-    window.location.href = nextPageUrl;
-  }, 1000);
-});
+// 각 버튼에 이벤트 바인딩
+$('#button_1').on('click', () => handleButtonClick('button_1', 'GPTweb'));
+$('#button_2').on('click', () => handleButtonClick('button_2', 'novel'));
+$('#button_3').on('click', () => handleButtonClick('button_3', 'aigallery'));
 
 $(document).ready(function () {
   $("#title").click(function () {
-    titleClick();
+    titleClick(); // 상위 스크립트나 다른 곳에 정의된 함수로 보임
   });
+  
+  updateQuote();
 });
-
 
 function loadTable(url, callback) {
   $.ajax({
@@ -101,32 +53,26 @@ function loadTable(url, callback) {
   });
 }
 
-$('#SOHYUNSOO').on('change', function (event) {
-  var tableContainer = $('#table-container');
+const tableMap = {
+  'novelist': 'tables/novelist_table.html',
+  'screenwriter': 'tables/screenwriter_table.html',
+  'stereographer': 'tables/stereographer_table.html',
+  'gamemaker': 'tables/gamemaker_table.html'
+};
 
-  if (event.target.value === 'novelist') {
-    loadTable('tables/novelist_table.html', function (responseText) {
-      tableContainer
-        .html(responseText);
-    });
-  } else if (event.target.value === 'screenwriter') {
-    loadTable('tables/screenwriter_table.html', function (responseText) {
-      tableContainer.html(responseText);
-    });
-  } else if (event.target.value === 'stereographer') {
-    loadTable('tables/stereographer_table.html', function (responseText) {
-      tableContainer.html(responseText);
-    });
-  } else if (event.target.value === 'gamemaker') {
-    loadTable('tables/gamemaker_table.html', function (responseText) {
-      tableContainer.html(responseText);
-    });
+$('#SOHYUNSOO').on('change', function (event) {
+  const tableContainer = $('#table-container');
+  const targetTable = tableMap[event.target.value];
+
+  if (targetTable) {
+    loadTable(targetTable, (responseText) => tableContainer.html(responseText));
   } else {
     tableContainer.html('');
   }
+  updateQuote();
 });
 
-// Quotes array
+// Quotes 데이터 (가독성을 위해 상단에서 정의하거나 외부 파일 권장하나 현재는 유지)
 const quotes = [
   { text: '"오시리스들이야말로 개척군의 영웅이야. 탈영병 신세가 돼버린 건 참 안타까운 일일세. 우리가 몹쓸 짓을 한 거야. 몹쓸 짓을........"', author: '-차원우주개척군 사령관 막심 하이예크 / 프린테라' },
   { text: '"내 인생의 1막은 씁쓸한 이혼으로 막을 내렸고, 2막은 전쟁의 참화 속에 있었다. 그리고 이제 내 생의 마지막이 될 3막이 펼쳐지려 하고 있다."', author: '-진 오시리스 / 프린테라' },
@@ -140,7 +86,7 @@ const quotes = [
   { text: '"시간의 역설이 저를 쫓아내고 뭐고 간에 저 같은 노인은 그녀에게 다가갈 수조차 없었죠."', author: '-노인 / 시공간의 이방인' },
   { text: '그때 목에 닿은 서늘한 칼날, 뒤쪽에서 칼을 들고 서 있을 남자의 뿌리 깊은 악의와 처연한 살기가 아직도 생생하게 느껴진다. 나는 피할 수 없는 죽음을 목도하고 있었다.', author: '-괴물 / 괴물' },
   { text: '"아니 들어봐. 놀라지 마. 잠깐 심호흡 좀 하고. 진짜 너 놀라지 마라. 후우...... 그니까 이 다섯 개의 두뇌......... 양자확률패턴이 99% 이상 일치하고 있어!"', author: '-주노 / 사건분석관K:미래범죄 수사일지' },
-  { text: '"몇 번을 말해도 부족하겠지만, 정말 미안해. 진심으로 사죄하고 싶어. 네가 이걸로 원을 풀 수 있다면 좋겠어. 이제 다 잊고 영원히 행복하게 살길 바랄게."', author: '-보영 / 아비' },
+  { text: '"몇 번을 말해도 부족하겠지만, 정말 미안해. 진심으로 사죄하고 싶어. 네가 이걸로 원을 풀 수 있다면 좋겠어. 이제 다 잊고 영원히 행복하게 살길 바릴게."', author: '-보영 / 아비' },
   { text: '그땐 그랬다. 내게 전쟁이란 고작 그런 의미였다. 거지같은 현실로부터의 탈출구였다.', author: '-진 오시리스 / 프린테라' },
   { text: '“제 생각엔 다름 아닌 걔들이 그 사이코패스였어요. 소문이긴 한데 걔들이 길에서 길고양이랑 강아지 죽이는 거 본 애도 있어요. 저는요. 자신 있게 말할 수 있어요. 죽을 애들이 죽었다고요. 천벌받은 거라고요.”', author: '-민지 / 괴물' },
   { text: '마지막 임무가 끝이 났다는 건, 내 품안의 엘리도, 아끼는 동료들도 잃을 필요가 없게 됐다는 의미다. 나는 뒤늦게 감정이 북받쳐 오르는 걸 느꼈다. 엘리가 우는 이유도 알 것 같았다. 눈물을 흘리지는 않았다. 다만 품안의 엘리를 더 꽉 끌어안았을 뿐이다. 이로써 나의 전쟁은 끝났다.', author: '-진 오시리스 / 프린테라' },
@@ -158,9 +104,4 @@ function updateQuote() {
   $('footer small').text(quote.author);
 }
 
-$(document).ready(function () {
-  updateQuote();
-});
-
-$('#SOHYUNSOO').on('change', updateQuote);
-$('blockquote').on('click', updateQuote); 
+$('blockquote').on('click', updateQuote);
