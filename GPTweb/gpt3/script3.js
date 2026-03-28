@@ -125,7 +125,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
           await navigator.share({
             title: 'AI jobConsult',
             text: '아이의 장래희망을 점검해보자!',
-            url: 'https://sohyunsoo.xyz/GPTweb/gpt3',
+            url: 'https://sohyunsoo.com/GPTweb/gpt3',
             files: [file]
           })
           console.log('Sharing successful')
@@ -135,7 +135,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
       } else {
         // fallback for desktop browsers
         const textArea = document.createElement('textarea');
-        textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt3';
+        textArea.value = 'https://sohyunsoo.com/GPTweb/gpt3';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');

@@ -128,7 +128,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
           await navigator.share({
             title: 'AI aesop',
             text: '끝내주는 동화를 창작해보자!',
-            url: 'https://sohyunsoo.xyz/GPTweb/gpt2',
+            url: 'https://sohyunsoo.com/GPTweb/gpt2',
             files: [file]
           })
           console.log('Sharing successful')
@@ -138,7 +138,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
       } else {
         // fallback for desktop browsers
         const textArea = document.createElement('textarea');
-        textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt2';
+        textArea.value = 'https://sohyunsoo.com/GPTweb/gpt2';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');

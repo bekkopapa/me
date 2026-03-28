@@ -118,7 +118,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
           await navigator.share({
             title: 'AI critics',
             text: '나의 글쓰기 수준을 가늠해보자!',
-            url: 'https://sohyunsoo.xyz/GPTweb/gpt1',
+            url: 'https://sohyunsoo.com/GPTweb/gpt1',
             files: [file]
           })
           console.log('Sharing successful')
@@ -128,7 +128,7 @@ document.querySelector('#share-button').addEventListener('click', async () => {
       } else {
         // fallback for desktop browsers
         const textArea = document.createElement('textarea');
-        textArea.value = 'https://sohyunsoo.xyz/GPTweb/gpt1';
+        textArea.value = 'https://sohyunsoo.com/GPTweb/gpt1';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('Copy');
