@@ -1,23 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | sohyunsoo.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-<body>
-  <h2>ArtWorkGallery Upload</h2>
-  <form action="/uploadImage" method="post" enctype="multipart/form-data">
-    <input type="file" name="image" id="image"><br>
-    <input type="text" name="title" id="title" style="margin-top: 10px;" placeholder="title" required><br>
-    <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;"
-      placeholder="enter content" required></textarea><br>
-    <input type="submit" value="Upload Image" name="submit">
-  </form>
-  <hr>
-  <form action="/uploadVideo" method="post" enctype="multipart/form-data">
-    <input type="file" name="video" id="video"><br>
-    <input type="text" name="title" id="title" style="margin-top: 10px;" placeholder="title" required><br>
-    <textarea name="content" id="content" style="margin-top: 10px; height: 200px; width: 300px;"
-      placeholder="enter content" required></textarea><br>
-    <input type="submit" value="Upload video" name="submit">
-  </form>
+    // Firebase 설정
+    const firebaseConfig = {
+      projectId: "sohyunsoo-2026",
+      appId: "1:664222823154:web:835cabbaaddc98a841d66b",
+      storageBucket: "sohyunsoo-2026.firebasestorage.app",
+      authDomain: "sohyunsoo-2026.firebaseapp.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // DOM 요소
+    window.addEventListener('DOMContentLoaded', () => {
+      const loginSection = document.getElementById('login-section');
+      const adminSection = document.getElementById('admin-section');
+      const loginForm = document.getElementById('login-form');
+      const uploadForm = document.getElementById('upload-form');
+      const logoutBtn = document.getElementById('logout-btn');
+      const statusMsg = document.getElementById('status-msg');
+
+      // 인증 상태 감시
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          loginSection.classList.add('hidden');
+          adminSection.classList.remove('hidden');
+          logoutBtn.classList.remove('hidden');
+        } else {
+          loginSection.classList.remove('hidden');
+          adminSection.classList.add('hidden');
+          logoutBtn.classList.add('hidden');
+        }
+      });
+
+      // 로그인 처리
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+        } catch (err) {
+          alert("로그인 실패: " + err.message);
+        }
+      });
+
+      // 로그아웃
+      logoutBtn.addEventListener('click', () => signOut(auth));
+
+      // 업로드 처리 (Signed URL 방식)
+      uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const file = e.target.file.files[0];
+        const title = e.target.title.value;
+        const content = e.target.content.value;
+        const type = e.target.type.value;
+
+        if (!file) return alert("파일을 선택해주세요.");
+
+        try {
+          statusMsg.innerText = "업로드 준비 중...";
+          
+          const response = await fetch('/api/uploadUrl', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filename: file.name, contentType: file.type })
+          });
+          
+          if (!response.ok) throw new Error("Signed URL 발급 실패");
+          const { url, filePath } = await response.json();
+
+          statusMsg.innerText = "파일 업로드 중...";
+          const uploadRes = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': file.type },
+            body: file
+          });
+
+          if (!uploadRes.ok) throw new Error("Storage 업로드 실패");
+
+          statusMsg.innerText = "데이터 저장 중...";
+          const finalUrl = `https://storage.googleapis.com/${firebaseConfig.storageBucket}/${filePath}`;
+
+          await addDoc(collection(db, "ai_gallery"), {
+            title,
+            content,
+            mediaUrl: finalUrl,
+            type,
+            createdAt: serverTimestamp()
+          });
+
+          statusMsg.innerText = "업로드 성공!";
+          uploadForm.reset();
+        } catch (err) {
+          console.error(err);
+          statusMsg.innerText = "실패: " + err.message;
+        }
+      });
+    });
+  </script>
+</head>
+<body class="bg-[#111] text-gray-200 min-h-screen p-4 font-sans">
+
+  <div class="max-w-4xl mx-auto">
+    <header class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-gray-500 hover:text-white transition">&larr; Home</a>
+        <h1 class="text-2xl font-bold tracking-tighter">Admin Dashboard</h1>
+      </div>
+      <button id="logout-btn" class="hidden text-sm bg-red-900/30 hover:bg-red-900/50 text-red-400 px-4 py-2 rounded transition">Logout</button>
+    </header>
+
+    <!-- 로그인 섹션 -->
+    <section id="login-section" class="max-w-md mx-auto mt-20 p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
+      <h2 class="text-xl font-bold mb-6 text-center text-primary">Admin Login</h2>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Email</label>
+          <input type="email" name="email" class="w-full bg-black border border-gray-700 rounded px-4 py-2 focus:border-primary outline-none transition" required>
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Password</label>
+          <input type="password" name="password" class="w-full bg-black border border-gray-700 rounded px-4 py-2 focus:border-primary outline-none transition" required>
+        </div>
+        <button type="submit" class="w-full bg-primary hover:bg-opacity-80 text-white font-bold py-2 rounded transition mt-4">Login</button>
+      </form>
+    </section>
+
+    <!-- 관리자 업로드 섹션 -->
+    <section id="admin-section" class="hidden animate-fade-in">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-900 p-8 rounded-xl border border-gray-800">
+          <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <span class="w-2 h-6 bg-primary rounded-full"></span>
+            Upload New Content
+          </h2>
+          <form id="upload-form" class="space-y-5">
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Content Type</label>
+              <select name="type" class="w-full bg-black border border-gray-700 rounded px-4 py-2 outline-none">
+                <option value="image">Image</option>
+                <option value="video">Video</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">File</label>
+              <input type="file" name="file" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-gray-300 hover:file:bg-gray-700" required>
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Title</label>
+              <input type="text" name="title" class="w-full bg-black border border-gray-700 rounded px-4 py-2 focus:border-primary outline-none transition" placeholder="Enter title" required>
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Description</label>
+              <textarea name="content" rows="5" class="w-full bg-black border border-gray-700 rounded px-4 py-2 focus:border-primary outline-none transition resize-none" placeholder="Enter content description" required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-primary hover:bg-opacity-80 text-white font-bold py-3 rounded transition shadow-lg shadow-primary/20">
+              Process Upload
+            </button>
+            <p id="status-msg" class="text-center text-sm font-mono text-primary mt-4 h-4"></p>
+          </form>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-gray-900/50 p-6 rounded-xl border border-gray-800 border-dashed">
+            <h3 class="font-bold text-primary mb-2">관리자 안내</h3>
+            <ul class="list-disc list-inside text-sm text-gray-400 space-y-2">
+              <li><strong>보안</strong>: Firebase Auth를 통한 인증된 관리자만 접근 가능합니다.</li>
+              <li><strong>업로드</strong>: Signed URL을 사용하여 브라우저에서 Storage로 직접 안전하게 전송합니다.</li>
+              <li><strong>DB</strong>: 모든 메타데이터는 Firestore <code class="bg-black px-1 rounded">ai_gallery</code> 컬렉션에 저장됩니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    .hidden { display: none; }
+    .text-primary { color: #8080ff; }
+    .bg-primary { background-color: #8080ff; }
+  </style>
 </body>
-
 </html>

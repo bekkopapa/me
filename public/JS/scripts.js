@@ -1,48 +1,55 @@
-// 바닐라 JS로 변환된 scripts.js
+// Firebase Firestore 연동 버전 scripts.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// 버튼 클릭 공통 로직 함수
+const firebaseConfig = {
+  projectId: "sohyunsoo-2026",
+  appId: "1:664222823154:web:835cabbaaddc98a841d66b",
+  storageBucket: "sohyunsoo-2026.firebasestorage.app"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let quotes = [];
+
+// 명언 데이터 불러오기
+async function loadQuotes() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "quotes"));
+    quotes = querySnapshot.docs.map(doc => doc.data());
+    updateQuote();
+  } catch (err) {
+    console.error("Quotes 로드 실패:", err);
+    quotes = [{ text: "세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.", author: "- 푸시킨" }];
+    updateQuote();
+  }
+}
+
+function updateQuote() {
+  const quoteText = document.getElementById('quote-text');
+  const quoteAuthor = document.getElementById('quote-author');
+  if (quoteText && quoteAuthor && quotes.length > 0) {
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteText.textContent = quote.text;
+    quoteAuthor.textContent = quote.author;
+  }
+}
+
+// 버튼 클릭 공통 로직
 function handleButtonClick(buttonId, nextPageUrl) {
   const playButtonImg = document.getElementById(buttonId);
   const blackOverlay = document.getElementById('blackOverlay');
-
-  if (playButtonImg) {
-    playButtonImg.src = 'icons/button_2.png';
-  }
-
+  if (playButtonImg) playButtonImg.src = 'icons/button_2.png';
   if (blackOverlay) {
-    // 오버레이 활성화
     blackOverlay.classList.remove('invisible');
     blackOverlay.style.opacity = '1';
-    
-    // 페이지 이동 (1초 후)
-    setTimeout(() => {
-      window.location.href = nextPageUrl;
-    }, 1000);
-
-    // 복원 (만약 뒤로가기 등으로 돌아왔을 경우)
-    setTimeout(() => {
-      blackOverlay.style.opacity = '0';
-      setTimeout(() => {
-        blackOverlay.classList.add('invisible');
-      }, 1500);
-    }, 1500);
+    setTimeout(() => { window.location.href = nextPageUrl; }, 1000);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 랜덤 유튜브 이동
-  const randomYoutube = document.getElementById("randomYoutube");
-  if (randomYoutube) {
-    randomYoutube.addEventListener("click", function (e) {
-      e.preventDefault();
-      const links = [
-        "https://youtu.be/IE_ifxLlicI?t=43",
-        "https://youtu.be/J7ztey3AHFQ?si=D9dsD0-4wN73JDUO&t=53"
-      ];
-      const randomLink = links[Math.floor(Math.random() * links.length)];
-      window.open(randomLink, "_blank");
-    });
-  }
+  loadQuotes();
 
   // 버튼 이벤트 바인딩
   const btn1 = document.getElementById('button_1');
@@ -51,116 +58,70 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if(btn1) btn1.parentElement.addEventListener('click', () => handleButtonClick('button_1', 'GPTweb'));
   if(btn2) btn2.parentElement.addEventListener('click', () => handleButtonClick('button_2', 'novel'));
-  if(btn3) btn3.parentElement.addEventListener('click', () => handleButtonClick('button_3', 'aigallery'));
+  if(btn3) btn3.parentElement.addEventListener('click', () => handleButtonClick('button_3', 'aigallery.html'));
 
-  // 명언 클릭 이벤트
-  const quoteContainer = document.getElementById('quote-container');
-  if (quoteContainer) {
-    quoteContainer.addEventListener('click', updateQuote);
-  }
+  document.getElementById('quote-container')?.addEventListener('click', updateQuote);
 
-  updateQuote();
-
-  // 모달 닫기
-  const closeBtns = document.querySelectorAll('.close-modal');
-  closeBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const modal = this.closest('.modal-overlay');
-      if (modal) {
-        modal.classList.remove('active');
-        localStorage.setItem('modalClosed', Date.now());
-      }
-    });
-  });
-
-  // 언어 변경 버튼
-  const enButton = document.getElementById('enButton');
-  const krButton = document.getElementById('krButton');
+  // 모달 제어 로직 (개선)
   const modal1 = document.getElementById('modal1');
   const modal2 = document.getElementById('modal2');
 
-  if (enButton) {
-    enButton.addEventListener('click', () => {
-      if(modal1) modal1.classList.remove('active');
-      if(modal2) modal2.classList.add('active');
+  // 모든 닫기 버튼에 이벤트 연결
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal1?.classList.remove('active');
+      modal2?.classList.remove('active');
+      localStorage.setItem('modalClosed', Date.now());
     });
-  }
-  
-  if (krButton) {
-    krButton.addEventListener('click', () => {
-      if(modal2) modal2.classList.remove('active');
-      if(modal1) modal1.classList.add('active');
-    });
-  }
+  });
 
-  // 테이블 동적 로딩 (Ajax -> fetch API)
-  const selectBox = document.getElementById('SOHYUNSOO');
-  if (selectBox) {
-    selectBox.addEventListener('change', function(e) {
-      const tableContainer = document.getElementById('table-container');
-      const tableMap = {
-        'novelist': 'tables/novelist_table.html',
-        'screenwriter': 'tables/screenwriter_table.html',
-        'stereographer': 'tables/stereographer_table.html',
-        'gamemaker': 'tables/gamemaker_table.html',
-        'appmaker': 'tables/appmaker_table.html'
-      };
-      
-      const targetTable = tableMap[e.target.value];
-      
-      if (targetTable) {
-        fetch(targetTable)
-          .then(response => response.text())
-          .then(html => {
-            tableContainer.innerHTML = html;
-            // 로드된 테이블에 Tailwind 클래스 적용
-            const table = tableContainer.querySelector('table');
-            if (table) {
-              table.classList.add('w-full', 'text-left', 'border-collapse');
-              const ths = table.querySelectorAll('th');
-              ths.forEach(th => th.classList.add('border-b', 'border-gray-700', 'p-3', 'text-white'));
-              const tds = table.querySelectorAll('td');
-              tds.forEach(td => td.classList.add('border-b', 'border-gray-800', 'p-3', 'break-words'));
-            }
-          })
-          .catch(err => console.error('Failed to load table:', err));
-      } else {
-        tableContainer.innerHTML = '';
-      }
-      updateQuote();
-    });
-  }
+  // 언어 전환 버튼
+  document.getElementById('enButton')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal1?.classList.remove('active');
+    modal2?.classList.add('active');
+  });
+
+  document.getElementById('krButton')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal2?.classList.remove('active');
+    modal1?.classList.add('active');
+  });
+
+  // 유튜브 랜덤 링크
+  document.getElementById("randomYoutube")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const links = ["https://youtu.be/IE_ifxLlicI?t=43", "https://youtu.be/J7ztey3AHFQ?si=D9dsD0-4wN73JDUO&t=53"];
+    window.open(links[Math.floor(Math.random() * links.length)], "_blank");
+  });
+
+  // 테이블 로딩
+  document.getElementById('SOHYUNSOO')?.addEventListener('change', async function(e) {
+    const tableContainer = document.getElementById('table-container');
+    const tableMap = {
+      'novelist': 'tables/novelist_table.html',
+      'screenwriter': 'tables/screenwriter_table.html',
+      'stereographer': 'tables/stereographer_table.html',
+      'gamemaker': 'tables/gamemaker_table.html',
+      'appmaker': 'tables/appmaker_table.html'
+    };
+    const targetTable = tableMap[e.target.value];
+    if (targetTable) {
+      try {
+        const response = await fetch(targetTable);
+        const html = await response.text();
+        tableContainer.innerHTML = html;
+        const table = tableContainer.querySelector('table');
+        if (table) {
+          table.classList.add('w-full', 'text-left', 'border-collapse');
+          table.querySelectorAll('th').forEach(th => th.classList.add('border-b', 'border-gray-700', 'p-3', 'text-white'));
+          table.querySelectorAll('td').forEach(td => td.classList.add('border-b', 'border-gray-800', 'p-3', 'break-words'));
+        }
+      } catch (err) { console.error(err); }
+    } else {
+      tableContainer.innerHTML = '';
+    }
+    updateQuote();
+  });
 });
-
-const quotes = [
-  { text: '"오시리스들이야말로 개척군의 영웅이야. 탈영병 신세가 돼버린 건 참 안타까운 일일세. 우리가 몹쓸 짓을 한 거야. 몹쓸 짓을........"', author: '-차원우주개척군 사령관 막심 하이예크 / 프린테라' },
-  { text: '"내 인생의 1막은 씁쓸한 이혼으로 막을 내렸고, 2막은 전쟁의 참화 속에 있었다. 그리고 이제 내 생의 마지막이 될 3막이 펼쳐지려 하고 있다."', author: '-진 오시리스 / 프린테라' },
-  { text: '발아래 부서지는 모래언덕의 울부짖음이 가슴에 와 닿는구나.... 모로나두, 모로나두, 백색의 종양, 야후들의 공세는 흩날리는 모래폭풍만큼 지독하다오....', author: '-야후 / 프린테라' },
-  { text: '"영원히. 당신 남편은 거기 갇혀서 그렇게 고통받는 거죠. 무간지옥, 아비. 우리는 그곳을 그렇게 불러요."', author: '-호희 / 아비' },
-  { text: '"네가…… 네놈이 무슨 짓을…… 한 건지 똑똑히 봐 둬."', author: '-보영 / 아비' },
-  { text: '"안드로이드와 인간이길 포기한 더미 쓰는 놈들. 둘 사이에 경계를 없애주려는 거죠. 제가 밖에 있었으면 안드로이드에게 자유의지를 주고 진짜 해방을 선사했을 텐데, 아쉽네요."', author: '-소년 / 사건분석관K:미래범죄 수사일지' },
-  { text: '나는 늘 불안하고 목에 가시라도 걸린 듯 답답했다. 몇 번인가 심장이 두근거리며 예의 검은 얼룩이 희미하게 나타나기도 했다. 어쩌면 이것이 그 소년이 말했던 사건분석관의 결함인지도.', author: '-K / 사건분석관K:미래범죄 수사일지' },
-  { text: '"이 소돔의 악인들도 사실 서로 의지하며 살아가고 있는 셈이지. 강자는 더 강한 자에게 또 강자는 약자에게 그리고 약자는 그보다 더 약한 자에게 뺏고 빼앗기면서 말이다."', author: '-마테오 / 에덴' },
-  { text: '"썩어버린 새까맣고 더러운 물의 수면이 잔잔하다고 해서! 그 더러운 물에 파문이 이는 것이 두려워 깨끗한 물을 섞지 않는 게 옳은가요? 그게 헛된 일일까요?"', author: '-제이 / 에덴' },
-  { text: '"시간의 역설이 저를 쫓아내고 뭐고 간에 저 같은 노인은 그녀에게 다가갈 수조차 없었죠."', author: '-노인 / 시공간의 이방인' },
-  { text: '그때 목에 닿은 서늘한 칼날, 뒤쪽에서 칼을 들고 서 있을 남자의 뿌리 깊은 악의와 처연한 살기가 아직도 생생하게 느껴진다. 나는 피할 수 없는 죽음을 목도하고 있었다.', author: '-괴물 / 괴물' },
-  { text: '"아니 들어봐. 놀라지 마. 잠깐 심호흡 좀 하고. 진짜 너 놀라지 마라. 후우...... 그니까 이 다섯 개의 두뇌......... 양자확률패턴이 99% 이상 일치하고 있어!"', author: '-주노 / 사건분석관K:미래범죄 수사일지' },
-  { text: '"몇 번을 말해도 부족하겠지만, 정말 미안해. 진심으로 사죄하고 싶어. 네가 이걸로 원을 풀 수 있다면 좋겠어. 이제 다 잊고 영원히 행복하게 살길 바릴게."', author: '-보영 / 아비' },
-  { text: '그땐 그랬다. 내게 전쟁이란 고작 그런 의미였다. 거지같은 현실로부터의 탈출구였다.', author: '-진 오시리스 / 프린테라' },
-  { text: '“제 생각엔 다름 아닌 걔들이 그 사이코패스였어요. 소문이긴 한데 걔들이 길에서 길고양이랑 강아지 죽이는 거 본 애도 있어요. 저는요. 자신 있게 말할 수 있어요. 죽을 애들이 죽었다고요. 천벌받은 거라고요.”', author: '-민지 / 괴물' },
-  { text: '마지막 임무가 끝이 났다는 건, 내 품안의 엘리도, 아끼는 동료들도 잃을 필요가 없게 됐다는 의미다. 나는 뒤늦게 감정이 북받쳐 오르는 걸 느꼈다. 엘리가 우는 이유도 알 것 같았다. 눈물을 흘리지는 않았다. 다만 품안의 엘리를 더 꽉 끌어안았을 뿐이다. 이로써 나의 전쟁은 끝났다.', author: '-진 오시리스 / 프린테라' },
-  { text: '“완전히 죽지는 않았어. 호흡도 있었고, 손상이 좀 있었지만 두뇌는 분명 살아있었지. 죽은 부분도 있었지만 뭐 살려낼 수 있었어. 심장은 거의 정지했었지만. 그래서 우린 자넬 우리의 ‘자원’으로 삼기로 결정했지.”', author: '-루퍼트 오시리스 / 프린테라' },
-  { text: '생전 처음 보는 기괴한 모습을 한 여자였다. 두 팔을 축 늘어뜨리고 맨발로 섰는데, 머리칼이 새하얀 백발이다. 얼굴은 그보다 더 하얗다. 핏기없이 하얗다 못해 푸르딩딩하다. 초상이라도 치른 듯 여자는 까만 소복을 입고 있다. 팔은 기형적으로 길어 소매 밖으로 한참이나 비어져 나와 하얀 손이 거의 무릎에 닿아 있다. 손가락 끝에 있는 손톱이 송곳처럼 뾰족하다. 그리고 까만 치마 아래로 제 얼굴처럼 새하얀 두 발, 발톱도 손톱처럼 길다.', author: '-아비' },
-];
-
-function updateQuote() {
-  const quoteText = document.getElementById('quote-text');
-  const quoteAuthor = document.getElementById('quote-author');
-  
-  if (quoteText && quoteAuthor) {
-    const quote = quotes[Math.floor(Math.random() * quotes.length)];
-    quoteText.textContent = quote.text;
-    quoteAuthor.textContent = quote.author;
-  }
-}

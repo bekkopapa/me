@@ -18,7 +18,18 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/GPTweb",
+        "destination": "https://cafe.naver.com/stablediffusionlab?iframe_url=/ArticleList.nhn%3Fclubid=30997614%26menuid=14%26boardtype=L",
+        "type": 301
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/novel",
+        "destination": "/novel/novelHome.html"
+      },
       {
         "source": "/api/chat",
         "function": "apiChat"
