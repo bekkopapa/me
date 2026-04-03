@@ -57,7 +57,8 @@ const tableMap = {
   'novelist': 'tables/novelist_table.html',
   'screenwriter': 'tables/screenwriter_table.html',
   'stereographer': 'tables/stereographer_table.html',
-  'gamemaker': 'tables/gamemaker_table.html'
+  'gamemaker': 'tables/gamemaker_table.html',
+  'appmaker': 'tables/appmaker_table.html'
 };
 
 $('#SOHYUNSOO').on('change', function (event) {
