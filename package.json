@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build:css": "tailwindcss -i ./public/tailwind.css -o ./public/styles.css"
   },
   "author": "So.Hyunsoo",
   "license": "MIT",
@@ -21,6 +22,9 @@
     "oracledb": "^5.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "autoprefixer": "^10.4.27",
+    "nodemon": "^2.0.22",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2"
   }
 }
