@@ -30,6 +30,10 @@
       {
         "source": "/api/chat3",
         "function": "apiChat3"
+      },
+      {
+        "source": "/api/uploadUrl",
+        "function": "generateUploadUrl"
       }
     ]
   }
