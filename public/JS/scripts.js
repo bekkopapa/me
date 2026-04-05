@@ -111,12 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await fetch(targetTable);
         const html = await response.text();
-        tableContainer.innerHTML = html;
+        tableContainer.innerHTML = `<div class="overflow-x-auto w-full"><div class="inline-block min-w-full align-middle">${html}</div></div>`;
         const table = tableContainer.querySelector('table');
         if (table) {
-          table.classList.add('w-full', 'text-left', 'border-collapse');
-          table.querySelectorAll('th').forEach(th => th.classList.add('border-b', 'border-gray-700', 'p-3', 'text-white'));
-          table.querySelectorAll('td').forEach(td => td.classList.add('border-b', 'border-gray-800', 'p-3', 'break-words'));
+          table.classList.add('w-full', 'text-left', 'border-collapse', 'text-sm', 'md:text-base');
+          table.querySelectorAll('th').forEach(th => th.classList.add('border-b', 'border-gray-700', 'p-2', 'md:p-3', 'text-white', 'whitespace-nowrap'));
+          table.querySelectorAll('td').forEach(td => td.classList.add('border-b', 'border-gray-800', 'p-2', 'md:p-3', 'break-words'));
         }
       } catch (err) { console.error(err); }
     } else {
