@@ -44,12 +44,42 @@ function handleButtonClick(buttonId, nextPageUrl) {
   if (blackOverlay) {
     blackOverlay.classList.remove('invisible');
     blackOverlay.style.opacity = '1';
+    blackOverlay.style.pointerEvents = 'auto';
     setTimeout(() => { window.location.href = nextPageUrl; }, 1000);
   }
 }
 
+// 오버레이 및 버튼 초기화 함수 (즉시 실행용)
+function resetTransitionState() {
+  const blackOverlay = document.getElementById('blackOverlay');
+  if (blackOverlay) {
+    blackOverlay.style.transition = 'none'; // 트랜지션 일시 중단
+    blackOverlay.classList.add('invisible');
+    blackOverlay.style.opacity = '0';
+    blackOverlay.style.pointerEvents = 'none';
+    
+    // 강제 리플로우 후 트랜지션 복구 (나중에 클릭 시 필요하므로)
+    void blackOverlay.offsetHeight;
+    blackOverlay.style.transition = '';
+  }
+  // 버튼 이미지 초기화
+  ['button_1', 'button_2', 'button_3'].forEach(id => {
+    const img = document.getElementById(id);
+    if (img) {
+      if (id === 'button_1') img.src = 'icons/button_1.png';
+      if (id === 'button_2') img.src = 'icons/button_3.png';
+      if (id === 'button_3') img.src = 'icons/button_4.png';
+    }
+  });
+}
+
+// 페이지가 로드될 때와 뒤로가기로 다시 나타날 때 모두 즉시 초기화
+window.addEventListener('pageshow', resetTransitionState);
+window.addEventListener('load', resetTransitionState);
+
 document.addEventListener('DOMContentLoaded', () => {
   loadQuotes();
+  resetTransitionState();
 
   // 버튼 이벤트 바인딩
   const btn1 = document.getElementById('button_1');
