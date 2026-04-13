@@ -31,6 +31,14 @@
         "destination": "/novel/novelHome.html"
       },
       {
+        "source": "/novel_1",
+        "destination": "/novel/novel.html"
+      },
+      {
+        "source": "/novel_2",
+        "destination": "/novel/novel_2.html"
+      },
+      {
         "source": "/api/chat",
         "function": "apiChat"
       },

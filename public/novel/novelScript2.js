@@ -110,7 +110,7 @@ class StickyNavigation {
                 await navigator.share({
                     title: '소현수 작가의 미공개 작품선',
                     text: '',
-                    url: 'https://sohyunsoo.com/novel',
+                    url: 'https://sohyunsoo.com/novel_1',
                 })
                 console.log('Sharing successful')
             } catch (err) {
@@ -119,7 +119,7 @@ class StickyNavigation {
         } else {
             // fallback for desktop browsers
             const textArea = document.createElement('textarea');
-            textArea.value = 'https://sohyunsoo.com/novel/novel.html';
+            textArea.value = 'https://sohyunsoo.com/novel_1';
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('Copy');
