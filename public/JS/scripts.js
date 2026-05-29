@@ -11,17 +11,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let quotes = [];
+const fallbackQuote = { text: "세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.", author: "- 푸시킨" };
+let quotes = [fallbackQuote];
 
 // 명언 데이터 불러오기
 async function loadQuotes() {
   try {
     const querySnapshot = await getDocs(collection(db, "quotes"));
-    quotes = querySnapshot.docs.map(doc => doc.data());
+    const loadedQuotes = querySnapshot.docs.map(doc => doc.data());
+    quotes = loadedQuotes.length > 0 ? loadedQuotes : [fallbackQuote];
     updateQuote();
   } catch (err) {
     console.error("Quotes 로드 실패:", err);
-    quotes = [{ text: "세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.", author: "- 푸시킨" }];
+    quotes = [fallbackQuote];
     updateQuote();
   }
 }
