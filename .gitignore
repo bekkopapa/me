@@ -7,3 +7,7 @@
 serviceAccountKey.json
 .env
 
+# Firebase
+firebase-debug.log*
+firebase-debug.*.log*
+
