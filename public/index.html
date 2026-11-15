@@ -25,27 +25,34 @@
   <meta name="twitter:image" content="https://sohyunsoo.com/og-image.png?v=202611">
   <title>소현수 (SO HYUNSOO) | Storyteller & Techno-Optimist</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css?v=202611">
 </head>
 
-<body class="bg-background text-gray-200 font-sans min-h-screen flex flex-col">
+<body>
 
-  <!-- 모달 1 -->
-  <div id="modal1" class="modal-overlay active">
+  <!-- 모달 1 (Korean Manifesto) -->
+  <div id="modal1" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal1-title">
     <div class="modal-content">
-      <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
-        <h2 class="text-xl font-bold">기술 낙관주의자 선언_예술</h2>
-        <div>
-          <button id="enButton" class="text-sm bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded transition mr-2">Eng</button>
-          <button class="close-modal text-gray-400 hover:text-white transition text-xl">&times;</button>
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-kicker">MANIFESTO · KR</span>
+          <h2 id="modal1-title" class="modal-title">기술 낙관주의자 선언_예술</h2>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="enButton" class="modal-lang-btn">ENG</button>
+          <button type="button" class="close-modal" aria-label="Close">&times;</button>
         </div>
       </div>
-      <div class="text-sm text-gray-300 space-y-4">
+      <div class="modal-body">
         <p>AI가 예술의 종말을 가져올 거라는 주장은 허구입니다.</p>
         <p>우리가 지금까지 소비하던 예술의 거의 모든 분야를 AI가 생성할 수 있게 될 미래를 두고 혹자는 예술의 종말이 도래하리라고 부르짖습니다.</p>
         <p>우리는 그에 동의하지 않습니다.</p>
         <p>AI를 도구로 누구나 영감을 손쉽게 미술, 소설, 영화, 만화, 드라마 등으로 구현할 수 있게 된다는 것, 창작할 수 있게 된다는 것, 그로써 생기는 당장의 가시적인 현상 혹은 문제는 예술을 도구로 발생시키는 가치의 상실, 즉 사회경제적 가치 창출이 어렵거나 불가능해지는 것뿐입니다. 그뿐입니다.</p>
-        <p>묻습니다.</p>
+        <p class="manifesto-strong">묻습니다.</p>
         <p>예술을 도구로 삼아 금전적 가치를 창출하지 못하게 되는 것이 예술의 종말입니까?</p>
         <p>예술을 도구로 삼아 사회적 지위나 명성을 얻지 못하게 되는 것이 예술의 종말입니까?</p>
         <p>오스카 와일드는 말했습니다. "예술은 세상에서 알려진 가장 강렬한 개인주의의 형태이다."</p>
@@ -58,27 +65,30 @@
         <p>우리의 예술을 사랑하고 만끽해줄 개인, 개인들이 함께 즐길 것이고, 그들의 그것 또한 우리가 즐기는 예술이 될 것입니다.</p>
         <p>우리의 예술은 종말이 아닌 진정한 의미의 종착을 맞이할 것입니다.</p>
         <p>기술의 발전, AI의 등장. 그로써 이루어지는 모든 혹은 더 많은, 다수 인간 영감의 구체적이며 고차원적 발현은 예술의 종말이 아닌 예술이 궁극적으로 지향하고 도달했어야 할 바람직한 목적지가 될 것입니다.</p>
-        <p class="font-bold text-white text-base">우리는 기술 낙관주의자입니다.</p>
+        <p class="manifesto-strong">우리는 기술 낙관주의자입니다.</p>
       </div>
     </div>
   </div>
 
-  <!-- 모달 2 (English) -->
-  <div id="modal2" class="modal-overlay">
+  <!-- 모달 2 (English Manifesto) -->
+  <div id="modal2" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal2-title">
     <div class="modal-content">
-      <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
-        <h2 class="text-xl font-bold">The Techno-Optimist Manifesto_Art</h2>
-        <div>
-          <button id="krButton" class="text-sm bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded transition mr-2">Kor</button>
-          <button class="close-modal text-gray-400 hover:text-white transition text-xl">&times;</button>
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-kicker">MANIFESTO · EN</span>
+          <h2 id="modal2-title" class="modal-title">The Techno-Optimist Manifesto_Art</h2>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="krButton" class="modal-lang-btn">KOR</button>
+          <button type="button" class="close-modal" aria-label="Close">&times;</button>
         </div>
       </div>
-      <div class="text-sm text-gray-300 space-y-4">
+      <div class="modal-body">
         <p>The claim that AI will bring about the end of art is a myth.</p>
         <p>The prospect of AI being able to generate nearly all of the art we consume today has some calling for the end of art.</p>
         <p>We disagree.</p>
         <p>The only immediate, tangible phenomenon or problem that will arise from the fact that AI will make it easier for anyone to turn inspiration into art, novels, movies, comics, drama, etc., is that it will make it harder or impossible to create socio-economic value. That's all.</p>
-        <p>Question.</p>
+        <p class="manifesto-strong">Question.</p>
         <p>Is the inability to create monetary value with art as a tool the end of art?<br>Is it the end of art when you can't use it as a tool to gain social status or fame?</p>
         <p>Oscar Wilde said, "Art is the most intense form of individualism known to man."<br>Friedrich Nietzsche said, "Taste. It is both the scale and the weigher."</p>
         <p>We believe in the insights of Oscar Wilde and Friedrich Nietzsche: art is not something that exists to create status or value based on comparative advantage; it is something that reflects the individual and his or her taste. It is something that upright individuals own and enjoy to their taste. Art is not something esoteric and difficult that only a select few can create; it is something that resides within us, the individual.</p>
@@ -89,75 +99,149 @@
         <p>Our art will be enjoyed by individuals, individuals who will love and savor it, and theirs will be the art we enjoy.</p>
         <p>Our art will truly come to an end, not an apocalypse.</p>
         <p>Technology advances, AI emerges. All or many, many more, specific and higher order manifestations of human inspiration will not be the end of art, but the desirable destination that art should have been aiming for and reaching.</p>
-        <p class="font-bold text-white text-base">We are techno-optimists.</p>
-      </div>
+        <p class="manifesto-strong">We are techno-optimists.</p>
       </div>
     </div>
   </div>
 
-  <nav class="container mx-auto px-4 py-4 md:py-6 flex flex-col md:flex-row justify-between items-center border-b border-gray-800 gap-4">
-    <div class="flex-1 flex flex-wrap justify-center md:justify-start items-center gap-3 md:gap-4 order-2 md:order-1">
-      <a href="https://www.facebook.com/so.hyunsoo" target="_blank" class="hover:opacity-80 transition-opacity"><img src="icons/facebook-icon.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="Facebook"></a>
-      <a href="https://britg.kr/novel-author/2012/" target="_blank" class="hover:opacity-80 transition-opacity"><img src="icons/britg.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="BritG"></a>
-      <a href="#" id="randomYoutube" class="hover:opacity-80 transition-opacity"><img src="icons/youtube_icon.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="YouTube"></a>
-      <a href="https://cafe.naver.com/stablediffusionlab" target="_blank" class="hover:opacity-80 transition-opacity"><img src="icons/cafe.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="Cafe"></a>
-      <a href="tesla.html" class="hover:opacity-80 transition-opacity"><img src="icons/volt.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="Tesla"></a>
-      <a href="mailto:kiyokuro@naver.com,kiyokuro1@gmail.com" class="hover:opacity-80 transition-opacity"><img src="icons/contact.png" class="w-8 h-8 md:w-10 md:h-10 object-contain" alt="Contact"></a>
+  <!-- 상단 네비게이션 -->
+  <nav class="top-nav" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <div class="social-group">
+        <a href="https://www.facebook.com/so.hyunsoo" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a href="https://britg.kr/novel-author/2012/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="BritG (브릿G)" aria-label="BritG">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+          </svg>
+        </a>
+        <a href="#" id="randomYoutube" class="social-icon-btn" title="YouTube (Random Pick)" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://cafe.naver.com/stablediffusionlab" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Stable Diffusion Lab Cafe" aria-label="Cafe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+            <line x1="6" y1="2" x2="6" y2="4"/>
+            <line x1="10" y1="2" x2="10" y2="4"/>
+            <line x1="14" y1="2" x2="14" y2="4"/>
+          </svg>
+        </a>
+        <a href="tesla.html" class="social-icon-btn" title="테슬라 전비 환산기" aria-label="Tesla Calculator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </a>
+        <a href="mailto:kiyokuro@naver.com,kiyokuro1@gmail.com" class="social-icon-btn" title="Contact (Email)" aria-label="Contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="brand-wrap">
+        <span id="title" class="brand-title">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>sohyunsoo.com</span>
+        </span>
+      </div>
+
+      <!-- 우측: 3개 포털 드롭다운 + 선언문 버튼 -->
+      <div class="nav-right-actions">
+        <div class="explore-dropdown" id="exploreDropdown">
+          <button type="button" id="exploreToggle" class="nav-pill-btn" aria-expanded="false" aria-haspopup="true">
+            <span>ARCHIVE</span>
+            <span aria-hidden="true">▾</span>
+          </button>
+          <div class="explore-menu" id="exploreMenu" role="menu">
+            <button type="button" class="explore-item portal-link" data-url="GPTweb" role="menuitem">
+              <div class="explore-item-left">
+                <span class="explore-item-title">AI 칼럼</span>
+                <span class="explore-item-sub">Stable Diffusion Lab 아티클</span>
+              </div>
+              <span class="explore-item-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="explore-item portal-link" data-url="novel" role="menuitem">
+              <div class="explore-item-left">
+                <span class="explore-item-title">미발표 작품 독점 공개</span>
+                <span class="explore-item-sub">소현수 작가 미발표 소설 아카이브</span>
+              </div>
+              <span class="explore-item-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="explore-item portal-link" data-url="aigallery.html" role="menuitem">
+              <div class="explore-item-left">
+                <span class="explore-item-title">AI 아트워크 갤러리</span>
+                <span class="explore-item-sub">작품 속 캐릭터 비주얼 전시</span>
+              </div>
+              <span class="explore-item-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="nav-pill-btn open-manifesto">
+          <span class="nav-pill-dot" aria-hidden="true"></span>
+          <span>MANIFESTO</span>
+        </button>
+      </div>
     </div>
-    
-    <div id="title" class="flex-1 text-center text-xl md:text-2xl font-bold tracking-widest cursor-pointer order-1 md:order-2">
-      sohyunsoo.com
-    </div>
-    
-    <!-- 우측 여백 확보를 위한 더미 요소 (데스크탑) -->
-    <div class="flex-1 hidden md:block order-3"></div>
   </nav>
 
-  <div class="flex justify-center items-center gap-4 md:gap-6 my-6 md:my-10">
-    <div class="play-btn">
-      <img id="button_1" src="icons/button_1.png" alt="버튼_1">
-    </div>
-    <div class="play-btn">
-      <img id="button_2" src="icons/button_3.png" alt="버튼_2">
-    </div>
-    <div class="play-btn">
-      <img id="button_3" src="icons/button_4.png" alt="버튼_3">
-    </div>
-  </div>
-
   <!-- 화면 전환 효과용 오버레이 -->
-  <div id="blackOverlay" class="fixed inset-0 bg-black opacity-0 invisible transition-all duration-[1500ms] z-[9999]"></div>
+  <div id="blackOverlay" class="black-overlay" aria-hidden="true"></div>
 
-  <main class="container mx-auto px-4 flex-grow flex flex-col items-center">
-    <div class="w-full max-w-2xl mb-8 flex flex-col items-center">
-      <label for="SOHYUNSOO" class="block text-gray-400 mb-2 tracking-widest font-semibold">WHO AM I?</label>
-      <select id="SOHYUNSOO" class="w-full max-w-sm bg-gray-900 border border-gray-700 text-white py-2 px-4 rounded focus:outline-none focus:border-primary transition">
-        <option value="" selected>Select Identity…</option>
-        <option value="stereographer">Stereographer</option>
-        <option value="novelist">NOVELIST</option>
-        <option value="screenwriter">ScreenWriter</option>
-        <option value="game_creator">Game Creator</option>
-        <option value="app_creator">App Creator</option>
-      </select>
-    </div>
+  <!-- 메인: 기존 스타일의 WHO AM I? 셀렉트 + 테이블만 배치 -->
+  <main class="page-main" id="pageMain">
+    <section class="who-section" aria-label="Identity Selector">
+      <label for="SOHYUNSOO" class="who-label">WHO AM I?</label>
+      <div class="select-wrap">
+        <select id="SOHYUNSOO" class="who-select">
+          <option value="" selected>Select Identity…</option>
+          <option value="stereographer">Stereographer</option>
+          <option value="novelist">NOVELIST</option>
+          <option value="screenwriter">ScreenWriter</option>
+          <option value="game_creator">Game Creator</option>
+          <option value="app_creator">App Creator</option>
+          <option value="ai_professional">AI Professional</option>
+        </select>
+        <span class="select-caret" aria-hidden="true">▾</span>
+      </div>
+    </section>
 
-    <div id="table-container" class="w-full max-w-4xl overflow-x-auto mb-10">
-      <!-- 동적 테이블 로드 영역 -->
-    </div>
-
-    <div class="w-full max-w-3xl text-center mb-12 cursor-pointer transition hover:text-white" id="quote-container">
-      <blockquote class="italic text-lg text-gray-300 border-l-4 border-primary pl-4 py-2 inline-block text-left">
-        <p id="quote-text" class="mb-2">세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.</p>
-        <footer class="text-sm text-gray-500 text-right mt-2" id="quote-author">- 푸시킨</footer>
-      </blockquote>
-    </div>
+    <!-- 동적 테이블 로드 영역 -->
+    <section id="table-container" class="table-container" aria-live="polite"></section>
   </main>
 
-  <footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500">
-    <p>&copy; 2023-26 sohyunsoo | <a href="https://orcastudio.kr" target="_blank">Orca Studio</a></p>
+  <!-- 푸터: 명언 + 아카이브 링크 + 저작권 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-quote" id="quote-container">
+        <button type="button" class="footer-quote-body" id="quote-toggle" aria-expanded="false" title="클릭하여 전체 문장 보기">
+          <span id="quote-text" class="footer-quote-text">세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.</span>
+          <span id="quote-author" class="footer-quote-author">- 푸시킨</span>
+        </button>
+        <button type="button" class="footer-quote-refresh" id="quote-refresh" title="다음 명언 보기" aria-label="다음 명언 보기">↻</button>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2023-26 sohyunsoo | <a href="https://orcastudio.kr" target="_blank" rel="noopener noreferrer">Orca Studio</a></p>
+        <div class="footer-links">
+          <button type="button" class="footer-link-btn portal-link" data-url="GPTweb">AI 칼럼 ↗</button>
+          <button type="button" class="footer-link-btn portal-link" data-url="novel">미발표 소설 ↗</button>
+          <button type="button" class="footer-link-btn portal-link" data-url="aigallery.html">AI 갤러리 ↗</button>
+          <button type="button" class="footer-link-btn open-manifesto">선언문</button>
+        </div>
+      </div>
+    </div>
   </footer>
 
-  <script src="JS/scripts.js?v=0529" type="module"></script>
+  <script src="JS/scripts.js?v=202611" type="module"></script>
 </body>
 
 </html>

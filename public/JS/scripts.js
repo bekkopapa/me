@@ -11,14 +11,56 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const fallbackQuote = { text: "세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.", author: "- 푸시킨" };
+const fallbackQuote = {
+  text: "세상이 우리를 속일지라도 슬퍼하거나 노여워하지 말라.",
+  author: "- 푸시킨"
+};
 let quotes = [fallbackQuote];
+let currentQuoteText = "";
+
+// Subtle synthesized click sound
+let audioCtx = null;
+function ensureAudioContext() {
+  if (!audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (Ctx) audioCtx = new Ctx();
+  }
+  if (audioCtx && audioCtx.state === "suspended") {
+    audioCtx.resume().catch(() => {});
+  }
+}
+
+function playClickSound() {
+  if (!audioCtx || audioCtx.state !== "running") return;
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  const sounds = [
+    { freq: 1500, type: "sine", duration: 0.045 },
+    { freq: 1200, type: "sine", duration: 0.04 },
+    { freq: 1800, type: "sine", duration: 0.03 },
+    { freq: 1400, type: "triangle", duration: 0.045 },
+    { freq: 1600, type: "sine", duration: 0.05 }
+  ];
+  const sound = sounds[Math.floor(Math.random() * sounds.length)];
+
+  oscillator.type = sound.type;
+  oscillator.frequency.setValueAtTime(sound.freq, audioCtx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(sound.freq / 3, audioCtx.currentTime + sound.duration);
+
+  gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.004, audioCtx.currentTime + sound.duration);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + sound.duration);
+}
 
 // 명언 데이터 불러오기
 async function loadQuotes() {
   try {
     const querySnapshot = await getDocs(collection(db, "quotes"));
-    const loadedQuotes = querySnapshot.docs.map(doc => doc.data());
+    const loadedQuotes = querySnapshot.docs.map(doc => doc.data()).filter(q => q && q.text);
     quotes = loadedQuotes.length > 0 ? loadedQuotes : [fallbackQuote];
     updateQuote();
   } catch (err) {
@@ -29,131 +71,245 @@ async function loadQuotes() {
 }
 
 function updateQuote() {
-  const quoteText = document.getElementById('quote-text');
-  const quoteAuthor = document.getElementById('quote-author');
+  const quoteText = document.getElementById("quote-text");
+  const quoteAuthor = document.getElementById("quote-author");
+  const quoteContainer = document.getElementById("quote-container");
+  const quoteToggle = document.getElementById("quote-toggle");
   if (quoteText && quoteAuthor && quotes.length > 0) {
-    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    const pool = quotes.length > 1 && currentQuoteText
+      ? quotes.filter(q => q.text !== currentQuoteText)
+      : quotes;
+    const quote = pool[Math.floor(Math.random() * pool.length)];
+    currentQuoteText = quote.text;
     quoteText.textContent = quote.text;
-    quoteAuthor.textContent = quote.author;
+    quoteAuthor.textContent = quote.author || "";
+    quoteContainer?.classList.remove("expanded");
+    quoteToggle?.setAttribute("aria-expanded", "false");
   }
 }
 
-// 버튼 클릭 공통 로직
-function handleButtonClick(buttonId, nextPageUrl) {
-  const playButtonImg = document.getElementById(buttonId);
-  const blackOverlay = document.getElementById('blackOverlay');
-  if (playButtonImg) playButtonImg.src = 'icons/button_2.png';
+// 포털 페이지 전환
+function navigateWithTransition(nextPageUrl) {
+  const blackOverlay = document.getElementById("blackOverlay");
   if (blackOverlay) {
-    blackOverlay.classList.remove('invisible');
-    blackOverlay.style.opacity = '1';
-    blackOverlay.style.pointerEvents = 'auto';
-    setTimeout(() => { window.location.href = nextPageUrl; }, 1000);
+    blackOverlay.classList.add("active");
+    setTimeout(() => {
+      window.location.href = nextPageUrl;
+    }, 450);
+  } else {
+    window.location.href = nextPageUrl;
   }
 }
 
-// 오버레이 및 버튼 초기화 함수 (즉시 실행용)
 function resetTransitionState() {
-  const blackOverlay = document.getElementById('blackOverlay');
+  const blackOverlay = document.getElementById("blackOverlay");
   if (blackOverlay) {
-    blackOverlay.style.transition = 'none'; // 트랜지션 일시 중단
-    blackOverlay.classList.add('invisible');
-    blackOverlay.style.opacity = '0';
-    blackOverlay.style.pointerEvents = 'none';
-    
-    // 강제 리플로우 후 트랜지션 복구 (나중에 클릭 시 필요하므로)
-    void blackOverlay.offsetHeight;
-    blackOverlay.style.transition = '';
+    blackOverlay.classList.remove("active");
   }
-  // 버튼 이미지 초기화
-  ['button_1', 'button_2', 'button_3'].forEach(id => {
-    const img = document.getElementById(id);
-    if (img) {
-      if (id === 'button_1') img.src = 'icons/button_1.png';
-      if (id === 'button_2') img.src = 'icons/button_3.png';
-      if (id === 'button_3') img.src = 'icons/button_4.png';
-    }
-  });
 }
 
-// 페이지가 로드될 때와 뒤로가기로 다시 나타날 때 모두 즉시 초기화
-window.addEventListener('pageshow', resetTransitionState);
-window.addEventListener('load', resetTransitionState);
+window.addEventListener("pageshow", resetTransitionState);
+window.addEventListener("load", resetTransitionState);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   loadQuotes();
   resetTransitionState();
 
-  // 버튼 이벤트 바인딩
-  const btn1 = document.getElementById('button_1');
-  const btn2 = document.getElementById('button_2');
-  const btn3 = document.getElementById('button_3');
-  
-  if(btn1) btn1.parentElement.addEventListener('click', () => handleButtonClick('button_1', 'GPTweb'));
-  if(btn2) btn2.parentElement.addEventListener('click', () => handleButtonClick('button_2', 'novel'));
-  if(btn3) btn3.parentElement.addEventListener('click', () => handleButtonClick('button_3', 'aigallery.html'));
+  const unlockAudio = () => {
+    ensureAudioContext();
+    window.removeEventListener("pointerdown", unlockAudio);
+    window.removeEventListener("keydown", unlockAudio);
+  };
+  window.addEventListener("pointerdown", unlockAudio, { passive: true });
+  window.addEventListener("keydown", unlockAudio, { passive: true });
 
-  document.getElementById('quote-container')?.addEventListener('click', updateQuote);
+  // 상단 브랜드 클릭 시 상단 스크롤
+  document.getElementById("title")?.addEventListener("click", () => {
+    ensureAudioContext();
+    playClickSound();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-  // 모달 제어 로직 (개선)
-  const modal1 = document.getElementById('modal1');
-  const modal2 = document.getElementById('modal2');
+  // 상단 ARCHIVE 드롭다운 메뉴
+  const exploreDropdown = document.getElementById("exploreDropdown");
+  const exploreToggle = document.getElementById("exploreToggle");
+  const exploreMenu = document.getElementById("exploreMenu");
 
-  // 모든 닫기 버튼에 이벤트 연결
-  document.querySelectorAll('.close-modal').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  const setExploreOpen = isOpen => {
+    if (!exploreToggle || !exploreMenu) return;
+    exploreMenu.classList.toggle("open", isOpen);
+    exploreToggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  exploreToggle?.addEventListener("click", e => {
+    e.stopPropagation();
+    ensureAudioContext();
+    playClickSound();
+    const isOpen = exploreMenu?.classList.contains("open");
+    setExploreOpen(!isOpen);
+  });
+
+  document.addEventListener("click", e => {
+    if (exploreDropdown && !exploreDropdown.contains(e.target)) {
+      setExploreOpen(false);
+    }
+  });
+
+  // 포털 링크 클릭 (상단 드롭다운 + 푸터)
+  document.querySelectorAll(".portal-link").forEach(link => {
+    link.addEventListener("click", e => {
       e.preventDefault();
-      modal1?.classList.remove('active');
-      modal2?.classList.remove('active');
-      localStorage.setItem('modalClosed', Date.now());
+      ensureAudioContext();
+      playClickSound();
+      setExploreOpen(false);
+      const url = link.getAttribute("data-url");
+      if (url) navigateWithTransition(url);
     });
   });
 
-  // 언어 전환 버튼
-  document.getElementById('enButton')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal1?.classList.remove('active');
-    modal2?.classList.add('active');
+  // 푸터 명언: 문장 클릭 시 펼치기/접기, ↻ 클릭 시 다음 문장
+  const quoteContainer = document.getElementById("quote-container");
+  const quoteToggle = document.getElementById("quote-toggle");
+  const quoteRefresh = document.getElementById("quote-refresh");
+
+  quoteToggle?.addEventListener("click", () => {
+    ensureAudioContext();
+    playClickSound();
+    const isExpanded = quoteContainer?.classList.toggle("expanded");
+    quoteToggle.setAttribute("aria-expanded", String(Boolean(isExpanded)));
   });
 
-  document.getElementById('krButton')?.addEventListener('click', (e) => {
+  quoteRefresh?.addEventListener("click", e => {
+    e.stopPropagation();
+    ensureAudioContext();
+    playClickSound();
+    updateQuote();
+  });
+
+  // 선언문 모달 제어
+  const modal1 = document.getElementById("modal1");
+  const modal2 = document.getElementById("modal2");
+
+  const openModal = targetModal => {
+    if (!targetModal) return;
+    setExploreOpen(false);
+    modal1?.classList.remove("active");
+    modal2?.classList.remove("active");
+    modal1?.setAttribute("aria-hidden", "true");
+    modal2?.setAttribute("aria-hidden", "true");
+    targetModal.classList.add("active");
+    targetModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeAllModals = () => {
+    modal1?.classList.remove("active");
+    modal2?.classList.remove("active");
+    modal1?.setAttribute("aria-hidden", "true");
+    modal2?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    localStorage.setItem("modalClosed", Date.now());
+  };
+
+  document.querySelectorAll(".open-manifesto").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      ensureAudioContext();
+      playClickSound();
+      openModal(modal1);
+    });
+  });
+
+  document.querySelectorAll(".close-modal").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      playClickSound();
+      closeAllModals();
+    });
+  });
+
+  [modal1, modal2].forEach(modal => {
+    modal?.addEventListener("click", e => {
+      if (e.target === modal) closeAllModals();
+    });
+  });
+
+  window.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      setExploreOpen(false);
+      closeAllModals();
+    }
+  });
+
+  document.getElementById("enButton")?.addEventListener("click", e => {
     e.preventDefault();
-    modal2?.classList.remove('active');
-    modal1?.classList.add('active');
+    playClickSound();
+    openModal(modal2);
+  });
+
+  document.getElementById("krButton")?.addEventListener("click", e => {
+    e.preventDefault();
+    playClickSound();
+    openModal(modal1);
   });
 
   // 유튜브 랜덤 링크
-  document.getElementById("randomYoutube")?.addEventListener("click", (e) => {
+  document.getElementById("randomYoutube")?.addEventListener("click", e => {
     e.preventDefault();
-    const links = ["https://youtu.be/IE_ifxLlicI?t=43", "https://youtu.be/J7ztey3AHFQ?si=D9dsD0-4wN73JDUO&t=53"];
-    window.open(links[Math.floor(Math.random() * links.length)], "_blank");
+    ensureAudioContext();
+    playClickSound();
+    const links = [
+      "https://youtu.be/IE_ifxLlicI?t=43",
+      "https://youtu.be/J7ztey3AHFQ?si=D9dsD0-4wN73JDUO&t=53"
+    ];
+    window.open(links[Math.floor(Math.random() * links.length)], "_blank", "noopener,noreferrer");
   });
 
-  // 테이블 로딩
-  document.getElementById('SOHYUNSOO')?.addEventListener('change', async function(e) {
-    const tableContainer = document.getElementById('table-container');
+  // WHO AM I? 테이블 로딩 (기존 select 방식 유지)
+  const pageMain = document.getElementById("pageMain");
+  document.getElementById("SOHYUNSOO")?.addEventListener("change", async function (e) {
+    ensureAudioContext();
+    playClickSound();
+
+    const tableContainer = document.getElementById("table-container");
     const tableMap = {
-      'novelist': 'tables/novelist_table.html',
-      'screenwriter': 'tables/screenwriter_table.html',
-      'stereographer': 'tables/stereographer_table.html',
-      'game_creator': 'tables/game_creator_table.html',
-      'app_creator': 'tables/app_creator_table.html'
+      novelist: "tables/novelist_table.html",
+      screenwriter: "tables/screenwriter_table.html",
+      stereographer: "tables/stereographer_table.html",
+      game_creator: "tables/game_creator_table.html",
+      app_creator: "tables/app_creator_table.html",
+      ai_professional: "tables/ai_professional_table.html"
     };
+
     const targetTable = tableMap[e.target.value];
-    if (targetTable) {
+    if (targetTable && tableContainer) {
+      pageMain?.classList.add("has-selection");
       try {
         const response = await fetch(targetTable);
+        if (!response.ok) throw new Error(`Failed to fetch ${targetTable}`);
         const html = await response.text();
-        tableContainer.innerHTML = `<div class="overflow-x-auto w-full"><div class="inline-block min-w-full align-middle">${html}</div></div>`;
-        const table = tableContainer.querySelector('table');
-        if (table) {
-          table.classList.add('w-full', 'text-left', 'border-collapse', 'text-sm', 'md:text-base');
-          table.querySelectorAll('th').forEach(th => th.classList.add('border-b', 'border-gray-700', 'p-2', 'md:p-3', 'text-white', 'whitespace-nowrap'));
-          table.querySelectorAll('td').forEach(td => td.classList.add('border-b', 'border-gray-800', 'p-2', 'md:p-3', 'break-words'));
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const parsedTable = doc.querySelector("table");
+
+        tableContainer.innerHTML = "";
+        if (parsedTable) {
+          parsedTable.querySelectorAll("a").forEach(a => {
+            a.setAttribute("target", "_blank");
+            a.setAttribute("rel", "noopener noreferrer");
+          });
+          const shell = document.createElement("div");
+          shell.className = "table-shell";
+          shell.appendChild(parsedTable);
+          tableContainer.appendChild(shell);
         }
-      } catch (err) { console.error(err); }
-    } else {
-      tableContainer.innerHTML = '';
+      } catch (err) {
+        console.error(err);
+      }
+    } else if (tableContainer) {
+      pageMain?.classList.remove("has-selection");
+      tableContainer.innerHTML = "";
     }
+
     updateQuote();
   });
 });
